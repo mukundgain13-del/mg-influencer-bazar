@@ -6,7 +6,7 @@
     <title>MG AI Updates - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* मोबाइल फुल स्क्रीन और बैकग्राउंड (Yellow to Cyan Gradient) */
+        /* मोबाइल के लिए फुल स्क्रीन और ग्रेडिएंट बैकग्राउंड */
         html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
         body { 
             display: flex; 
@@ -17,62 +17,62 @@
             color: #000;
         }
 
-        .wrapper { flex: 1; display: flex; flex-direction: column; padding: 10px; align-items: center; }
+        .main-wrapper { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-        /* लोगो सेक्शन - नए और चमकदार लोगो के साथ */
-        .logo-box { margin-top: 15px; }
-        
-        /* --- यहाँ आपका नया और सुंदर MG लोगो लिंक है --- */
+        /* --- यहाँ आपका नया और सुंदर MG लिखा लोगो है --- */
+        .logo-box { margin-top: 20px; }
         .logo-img { 
-            width: 100px; 
-            height: 100px; 
+            width: 120px; 
+            height: 120px; 
             border-radius: 50%; 
             border: 4px solid #333; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-            background-color: #fff; /* ताकि लोगो साफ़ दिखे */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+            background-color: #fff; /* लोगो को साफ़ दिखाने के लिए */
         }
 
-        /* बड़ा और रंगीन नाम */
-        h1 { font-size: 32px; margin: 15px 0; font-weight: 900; letter-spacing: 1px; }
+        /* बड़ा और बोल्ड नाम */
+        h1 { font-size: 34px; margin: 15px 0 10px; font-weight: 900; letter-spacing: 1px; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
 
-        /* तीनों बटन्स का ग्रिड - जो पूरी स्क्रीन में फैल जाएगा */
+        /* बड़े गोल बटन्स का ग्रिड (Grid) - जो मोबाइल पर और चौड़ा दिखेगा */
         .icon-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
-            gap: 5px; 
-            width: 100%; /* पूरी चौड़ाई */
-            max-width: 600px; 
-            margin: 25px auto; 
+            gap: 12px; 
+            width: 100%;
+            max-width: 550px; 
+            margin: 30px auto; 
             padding: 0 5px;
         }
 
         .icon-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
 
-        /* बटन्स का साइज (स्क्रीन के हिसाब से एकदम सही) */
+        /* --- बटन्स का नया, सुपर लार्ज साइज (115px) --- */
         .circle-btn { 
-            width: 100px; height: 100px; 
+            width: 110px; height: 110px; 
             border-radius: 50%; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            font-size: 45px; 
-            margin-bottom: 8px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-            border: 3px solid #fff;
+            font-size: 50px; /* आइकॉन का साइज भी बढ़ा दिया */
+            margin-bottom: 10px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
             transition: 0.2s;
         }
 
         /* बटन्स के रंग */
-        .bg-pink { background: #ff0066; color: #fff; } 
-        .bg-white { background: #fff; color: #ff0000; } 
-        .bg-blue { background: #3399ff; color: #fff; } 
+        .bg-pink { background: #ff0066; color: #fff; } /* Shopping */
+        .bg-white { background: #fff; color: #ff0000; } /* YouTube */
+        .bg-blue { background: #3399ff; color: #fff; } /* Telegram */
 
-        /* टेक्स्ट सेटिंग्स */
-        .btn-text { font-size: 14px; font-weight: bold; line-height: 1.2; }
-        .btn-sub { font-size: 11px; color: #111; font-weight: bold; }
+        /* टेक्स्ट और सब-टेक्स्ट - बड़े साइज के लिए सुधार */
+        .btn-text { font-size: 16px; font-weight: bold; line-height: 1.2; width: 115px; } /* टेक्स्ट थोड़ा बड़ा और चौड़ा */
+        .btn-sub { font-size: 12px; color: #111; font-weight: bold; margin-top: 3px; } /* सब-टेक्स्ट */
 
-        /* ताज़ा खबर बॉक्स */
+        .icon-item:hover .circle-btn { transform: scale(1.03); } /* क्लिक करने पर हल्का सा बड़ा होगा */
+
+        /* ताज़ा खबर सेक्शन - बड़ा साइज */
         .news-box { 
             background: rgba(255,255,255,0.4); 
             margin: 20px auto; 
@@ -80,34 +80,34 @@
             width: 90%; 
             border-radius: 12px; 
             border: 2px solid #fff; 
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
         }
 
         .spacer { flex: 1; }
 
-        /* विज़िटर काउंटर - जो हर बार रिफ्रेश करने पर बढ़ेगा */
-        .bottom-section { padding-bottom: 30px; width: 100%; }
+        /* फुटर और विज़िटर काउंटर एकदम नीचे */
+        .bottom-section { padding-bottom: 40px; width: 100%; }
         .visitor-box { 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
             background: rgba(0,0,0,0.1); 
-            padding: 8px 15px; 
+            padding: 10px 20px; 
             border-radius: 30px; 
             display: inline-block;
-            font-size: 18px; 
+            font-size: 20px; 
             font-weight: 900;
         }
         
-        .counter-img { height: 25px; vertical-align: middle; margin-left: 5px; }
+        .counter-img { height: 30px; vertical-align: middle; margin-left: 8px; }
         
-        footer { font-size: 14px; font-weight: bold; color: #000; }
+        footer { font-size: 15px; font-weight: bold; color: #000; }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
+    <div class="main-wrapper">
         <div class="logo-box">
-            <img src="https://i.ibb.co/30hFp2K/MGAILogo.png" class="logo-img" alt="MG AI Updates Logo">
+            <img src="https://i.ibb.co/5xbkC3M/MGAILogo.png" class="logo-img" alt="MG AI Updates Logo">
         </div>
 
         <h1><span class="m">M</span><span class="g">G</span> <span class="ai">AI</span> UPDATES</h1>
@@ -131,7 +131,7 @@
         </div>
 
         <div class="news-box">
-            <span style="color: #d00;">ताज़ा खबर:</span> <span>अब वेबसाइट पर असली "MG" लोगो लगा दिया गया है!</span>
+            <span style="color: #d00;">ताज़ा खबर:</span> <span>वेबसाइट अब सुपर बड़े बटन्स और लोगो के साथ तैयार है!</span>
         </div>
 
         <div class="spacer"></div>
@@ -139,7 +139,7 @@
         <div class="bottom-section">
             <div class="visitor-box">
                 🟢 VISITORS: 
-                <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_FINAL_LOGO_V1&style=0005&nbdigits=5&type=page&initCount=0" class="counter-img" alt="counter">
+                <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_SUPER_BIG_V1&style=0005&nbdigits=5&type=page&initCount=0" class="counter-img" alt="counter">
             </div>
 
             <footer>
