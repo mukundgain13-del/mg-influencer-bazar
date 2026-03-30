@@ -16,104 +16,114 @@
             text-align: center; 
         }
 
-        .container { flex: 1; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        .container { flex: 1; padding: 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
 
-        /* फोटो वाला MG लोगो */
-        .logo-img { 
-            width: 130px; height: 130px; 
-            border-radius: 50%; 
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        /* 1. MG लोगो - काला बैकग्राउंड, सफेद MG */
+        .logo-circle {
+            width: 100px; height: 100px;
+            background: #000;
+            border-radius: 50%;
+            border: 3px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+        .logo-text {
+            font-size: 45px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -2px;
         }
 
-        /* MG AI UPDATES share Website */
-        .title-sec { margin-top: 10px; }
-        h1 { font-size: 32px; margin: 0; font-weight: 900; }
-        .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
-        .share-web { color: #0066cc; font-size: 22px; font-weight: bold; margin-top: -5px; display: block; }
+        /* 2. टाइटल और शेयर वेबसाइट */
+        .header-text { margin-top: 10px; }
+        h1 { font-size: 28px; margin: 0; font-weight: 900; }
+        .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0080ff; }
+        .share-web { color: #3399ff; font-size: 20px; font-weight: bold; display: block; margin-top: -2px; }
 
-        /* बटन्स ग्रिड */
+        /* 3. बटन्स ग्रिड - फोटो जैसा अलाइनमेंट */
         .btn-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
-            gap: 5px; 
+            gap: 8px; 
             width: 100%; 
-            margin: 30px 0; 
+            max-width: 400px;
+            margin-top: 30px; 
         }
 
         .btn-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
 
-        /* ग्लोइंग बटन्स जैसा फोटो में है */
         .circle { 
-            width: 105px; height: 105px; 
+            width: 90px; height: 90px; 
             border-radius: 50%; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            font-size: 45px; 
+            font-size: 40px; 
             margin-bottom: 5px;
             border: 3px solid #fff;
-            box-shadow: 0 0 15px rgba(255,255,255,0.8);
         }
 
-        .pink-btn { background: #ff0066; color: #fff; box-shadow: 0 0 20px #ff0066; } 
-        .white-btn { background: #fff; color: #ff0000; box-shadow: 0 0 15px #fff; } 
-        .blue-btn { background: #3399ff; color: #fff; box-shadow: 0 0 20px #3399ff; } 
+        .pink-glow { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 15px #ff0066; } 
+        .white-glow { background: #fff; color: #ff0000; box-shadow: 0 0 15px #fff; } 
+        .blue-glow { background: #3399ff; color: #fff; box-shadow: 0 0 15px #3399ff; } 
 
-        /* टेक्स्ट जैसा आपने बताया */
-        .main-txt { font-size: 18px; font-weight: 900; margin-top: 5px; }
-        .sub-txt { font-size: 11px; font-weight: bold; color: #333; }
+        .main-txt { font-size: 15px; font-weight: 900; color: #000; margin-top: 3px; }
+        .red-sub { color: #d00; font-size: 11px; font-weight: bold; }
+        .white-sub { color: #fff; font-size: 11px; font-weight: bold; }
 
-        .spacer { flex: 1; }
+        /* 4. फुटर और विज़िटर काउंटर - फोटो के हिसाब से सेट */
+        .footer-sec { width: 100%; margin-top: auto; padding-bottom: 20px; }
+        .visitors-txt { color: #ff00ff; font-size: 24px; font-weight: 900; display: block; margin-bottom: 5px; }
+        .copy-txt { font-size: 13px; font-weight: bold; color: #d00; margin-bottom: 2px; }
+        .links-txt { font-size: 13px; font-weight: bold; color: #000; margin-bottom: 10px; }
+        .links-txt a { color: #000; text-decoration: none; }
 
-        /* विज़िटर और फुटर */
-        .footer-area { padding-bottom: 25px; width: 100%; }
-        .visitors { color: #ff00ff; font-size: 26px; font-weight: 900; margin-bottom: 10px; display: block; }
-        
-        .footer-info { font-size: 15px; font-weight: bold; color: #d00; line-height: 1.6; }
-        .footer-links a { color: #000; text-decoration: none; margin: 0 5px; }
+        /* नया वर्किंग काउंटर */
+        .counter-container { display: flex; justify-content: center; align-items: center; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://i.ibb.co/5xbkC3M/MGAILogo.png" class="logo-img" alt="MG Logo">
+        <div class="logo-circle">
+            <div class="logo-text">MG</div>
+        </div>
 
-        <div class="title-sec">
-            <h1><span class="m">M</span><span class="g">G</span> <span class="ai">AI</span> UPDATES</h1>
+        <div class="header-text">
+            <h1><span class="m">MG</span> <span class="g">AI</span> <span class="ai">UPDATES</span></h1>
             <span class="share-web">share Website</span>
         </div>
 
         <div class="btn-grid">
             <a href="https://topdeal.app.link/niDWGq6PV1b" class="btn-item">
-                <div class="circle pink-btn"><i class="fas fa-shopping-cart"></i></div>
+                <div class="circle pink-glow"><i class="fas fa-shopping-cart"></i></div>
                 <div class="main-txt">All in one</div>
-                <div class="sub-txt">Shoping Store</div>
+                <div class="red-sub">Shoping Store</div>
             </a>
             <a href="https://www.youtube.com/@INDO148MG0.2" class="btn-item">
-                <div class="circle white-btn"><i class="fab fa-youtube"></i></div>
+                <div class="circle white-glow"><i class="fab fa-youtube"></i></div>
                 <div class="main-txt">Visit Our Channel</div>
             </a>
             <a href="https://t.me/Indo148mg" class="btn-item">
-                <div class="circle blue-btn"><i class="fab fa-telegram-plane"></i></div>
-                <div class="main-txt">Join Telegram</div>
-                <div class="sub-txt">Best Deals</div>
+                <div class="circle blue-glow"><i class="fab fa-telegram-plane"></i></div>
+                <div class="white-sub">Join Telegram</div>
+                <div class="main-txt" style="font-size:11px">Best Deals</div>
             </a>
         </div>
 
-        <div class="spacer"></div>
-
-        <div class="footer-area">
-            <span class="visitors">visitors</span>
-            
-            <div class="footer-info">
-                © 2026 MG AI Updates | Managed by Mukund<br>
-                <div class="footer-links">
-                    <a href="#">privacy policy</a> | <a href="#">contact us</a>
-                </div>
+        <div class="footer-sec">
+            <span class="visitors-txt">visitors</span>
+            <div class="copy-txt">© 2026 MG AI Updates | Managed by Mukund</div>
+            <div class="links-txt">
+                <a href="#">privacy policy</a> | <a href="#">contact us</a>
             </div>
             
-            <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_PHOTO_FINAL&style=0005&nbdigits=5&type=page&initCount=0" style="height: 25px; margin-top: 10px;" alt="counter">
+            <div class="counter-container">
+                <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_WEB_MUKUND_FIX&style=0005&nbdigits=5&type=page&initCount=0" title="Free Counter" Alt="web counter" border="0" />
+            </div>
         </div>
     </div>
 
