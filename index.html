@@ -3,123 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Influencer Bazar - All in One</title>
+    <title>MG Influencer Bazar - Auto Dashboard</title>
     <style>
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; text-align: center; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f0f2f5; text-align: center; color: #333; }
+        .navbar { background: #1e3c72; color: white; padding: 15px; font-weight: bold; font-size: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         
-        /* नेविगेशन */
-        .navbar { background: #1e3c72; color: white; padding: 15px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .menu-icon { font-size: 24px; cursor: pointer; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; margin-right: 15px; }
-        .logo-text { font-size: 20px; font-weight: bold; flex-grow: 1; }
+        /* टैब स्टाइल */
+        .tabs { display: flex; justify-content: center; background: white; padding: 10px; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; background: #ddd; }
+        .tab-btn.active { background: #1e3c72; color: white; }
+        .yt-active { background: #FF0000 !important; color: white; }
 
-        /* साइड मेनू */
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; left: 0; background-color: #111; overflow-x: hidden; transition: 0.4s; padding-top: 60px; }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 18px; color: #bbb; display: block; border-bottom: 1px solid #222; text-align: left; }
-        .sidebar a:hover { color: white; background: #1e3c72; }
-        .sidebar .closebtn { position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer; }
+        /* क्रिएटर कार्ड */
+        .container { max-width: 500px; margin: auto; padding: 15px; }
+        .creator-card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 6px solid #FF0000; display: none; transition: 0.3s; }
+        .creator-card h3 { margin: 0; font-size: 18px; color: #1e3c72; }
+        .creator-card a { display: inline-block; margin-top: 10px; color: #FF0000; font-weight: bold; text-decoration: none; border: 1px solid #FF0000; padding: 5px 12px; border-radius: 5px; }
 
-        /* प्लेटफॉर्म्स के लिए बटन्स */
-        .social-buttons { margin: 40px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .btn { padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; color: white; display: flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .yt-btn { background: #FF0000; }
-        .insta-btn { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .fb-btn { background: #1877F2; }
-        .btn:hover { transform: scale(1.1); }
-
-        /* कंटेनर और फॉर्म */
-        .container { padding: 20px; max-width: 600px; margin: auto; }
-        .form-section { display: none; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: left; }
-        .rules-list { background: #fff5f5; border-left: 5px solid #e53e3e; padding: 15px; border-radius: 5px; list-style: none; }
-        .rules-list li { color: #c53030; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
-
-        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { background: #1e3c72; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        /* फॉर्म स्टाइल */
+        .reg-form { background: white; padding: 25px; border-radius: 15px; text-align: left; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 30px; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { background: #28a745; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
         
-        .whatsapp-link { color: #25D366; font-weight: bold; text-decoration: none; font-size: 1.2rem; }
+        #loading { font-weight: bold; color: #666; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <span class="menu-icon" onclick="openNav()">&#9776; Menu</span>
-        <div class="logo-text">MG Influencer Bazar</div>
-    </div>
+    <div class="navbar">MG Influencer Bazar</div>
 
-    <div id="mySidebar" class="sidebar">
-        <span class="closebtn" onclick="closeNav()">&times;</span>
-        <a href="#" onclick="showSection('home-buttons')">🏠 होम (प्लेटफॉर्म्स)</a>
-        <a href="#" onclick="showSection('sponsor')">💰 Sponsorship Reg.</a>
-        <a href="#" onclick="showSection('creator')">🎥 Creator Reg.</a>
-        <a href="#" onclick="showSection('terms')">📜 Terms & Conditions</a>
-        <a href="#" onclick="showSection('contact')">📞 Contact Us</a>
-    </div>
-
-    <div class="container" id="main-content">
-        <div id="home-buttons">
-            <h2>हमारे प्लेटफॉर्म्स</h2>
-            <div class="social-buttons">
-                <a href="https://youtube.com/@Indo148mg" target="_blank" class="btn yt-btn">YouTube</a>
-                <a href="#" target="_blank" class="btn insta-btn">Instagram</a>
-                <a href="#" target="_blank" class="btn fb-btn">Facebook</a>
-            </div>
-            <p style="color: #666;">रजिस्ट्रेशन करने के लिए ऊपर <b>Menu</b> बटन का उपयोग करें।</p>
+    <div class="container">
+        <h2>पंजीकृत क्रिएटर लिस्ट</h2>
+        
+        <div class="tabs">
+            <button class="tab-btn active yt-active" onclick="filter('YouTube', this)">YouTube</button>
+            <button class="tab-btn" onclick="filter('Instagram', this)">Instagram</button>
+            <button class="tab-btn" onclick="filter('Facebook', this)">Facebook</button>
         </div>
 
-        <div id="sponsor" class="form-section">
-            <h3>Brand Registration 💰</h3>
-            <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
-                <input type="text" name="Brand" placeholder="कंपनी का नाम" required>
-                <input type="number" name="Budget" placeholder="आपका बजट (₹)" required>
-                <button type="submit" class="submit-btn">स्पॉन्सरशिप सबमिट करें</button>
-            </form>
-        </div>
+        <div id="loading">डेटा लोड हो रहा है...</div>
+        <div id="creator-list"></div>
 
-        <div id="creator" class="form-section">
-            <h3>Creator Registration 🎥</h3>
-            <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
-                <input type="text" name="Name" placeholder="आपका नाम" required>
-                <input type="url" name="Link" placeholder="चैनल/प्रोफाइल लिंक" required>
+        <hr style="margin: 40px 0;">
+
+        <div class="reg-form">
+            <h3 style="text-align: center;">नया रजिस्ट्रेशन करें 🎥</h3>
+            <form id="regForm">
+                <input type="text" name="Name" placeholder="आपका नाम या चैनल का नाम" required>
                 <select name="Platform" required>
                     <option value="YouTube">YouTube</option>
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
                 </select>
-                <input type="text" name="UPI" placeholder="UPI ID (पेमेंट के लिए)" required>
-                <button type="submit" class="submit-btn">रजिस्टर करें ✅</button>
+                <input type="url" name="Link" placeholder="चैनल का लिंक (https://...)" required>
+                <button type="submit" class="submit-btn" id="subBtn">अभी सबमिट करें ✅</button>
             </form>
         </div>
-
-        <div id="terms" class="form-section">
-            <h3 style="color: #e53e3e;">📜 सख्त नियम और शर्तें</h3>
-            <ul class="rules-list">
-                <li>❌ गलत डेटा देने पर आईडी हमेशा के लिए बैन कर दी जाएगी।</li>
-                <li>💰 हर डील पर 10% कमीशन MG Bazar का होगा।</li>
-                <li>📞 स्पॉन्सर से सीधा संपर्क करना वर्जित है।</li>
-                <li>📽️ प्रमोटेड वीडियो को 6 महीने तक डिलीट नहीं कर सकते।</li>
-            </ul>
-        </div>
-
-        <div id="contact" class="form-section">
-            <h3>📞 संपर्क करें</h3>
-            <p>किसी भी सहायता के लिए हमें व्हाट्सएप करें:</p>
-            <a href="https://wa.me/919520466668" target="_blank" class="whatsapp-link">
-                💬 +91 9520466668
-            </a>
-            <p style="margin-top: 15px;">ईमेल: support@mgbazar.com</p>
-        </div>
+        
+        <p style="margin-top: 30px; color: #888; font-size: 12px;">संपर्क: 9520466668</p>
     </div>
 
     <script>
-        function openNav() { document.getElementById("mySidebar").style.width = "270px"; }
-        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+        const apiURL = "https://api.sheetbest.com/sheets/fea5a2f0-71da-4bff-9444-11186ae93ce8";
 
-        function showSection(id) {
-            closeNav();
-            var sections = document.getElementsByClassName('form-section');
-            for (var i = 0; i < sections.length; i++) { sections[i].style.display = 'none'; }
-            document.getElementById('home-buttons').style.display = 'none';
-            document.getElementById(id).style.display = 'block';
+        // डेटा लोड करना
+        async function loadCreators() {
+            try {
+                const res = await fetch(apiURL);
+                const data = await res.json();
+                const list = document.getElementById('creator-list');
+                document.getElementById('loading').style.display = 'none';
+                
+                list.innerHTML = ""; 
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'creator-card';
+                    card.setAttribute('data-platform', item.Platform);
+                    card.innerHTML = `<h3>${item.Name}</h3><p>प्लेटफार्म: ${item.Platform}</p><a href="${item.Link}" target="_blank">चैनल देखें</a>`;
+                    list.appendChild(card);
+                });
+                filter('YouTube', document.querySelector('.tab-btn')); 
+            } catch (e) { console.error("Error!"); }
         }
+
+        // फिल्टर फंक्शन
+        function filter(platform, btn) {
+            const cards = document.getElementsByClassName('creator-card');
+            const btns = document.getElementsByClassName('tab-btn');
+            
+            for(let b of btns) { b.classList.remove('active', 'yt-active'); }
+            btn.classList.add('active');
+            if(platform === 'YouTube') btn.classList.add('yt-active');
+
+            for(let card of cards) {
+                card.style.display = card.getAttribute('data-platform') === platform ? 'block' : 'none';
+            }
+        }
+
+        // फॉर्म सबमिट करना
+        document.getElementById('regForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('subBtn');
+            btn.innerText = "प्रोसेसिंग...";
+            btn.disabled = true;
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            await fetch(apiURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify([data])
+            });
+
+            alert("बधाई हो! आपका रजिस्ट्रेशन हो गया है।");
+            location.reload();
+        });
+
+        loadCreators();
     </script>
 </body>
 </html>
