@@ -6,7 +6,6 @@
     <title>MG AI Updates</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* मोबाइल फुल स्क्रीन सेटिंग्स */
         * { box-sizing: border-box; }
         html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
         body { 
@@ -17,114 +16,104 @@
             text-align: center; 
         }
 
-        .container { flex: 1; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .container { flex: 1; padding: 10px; display: flex; flex-direction: column; align-items: center; }
 
-        /* साफ़ MG लोगो */
-        .logo-box { margin-top: 10px; }
+        /* फोटो वाला MG लोगो */
         .logo-img { 
             width: 130px; height: 130px; 
-            border-radius: 50%; border: 5px solid #000; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            background: #fff;
+            border-radius: 50%; 
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* नाम स्टाइल जैसा फोटो में है */
-        h1 { font-size: 38px; margin: 15px 0; font-weight: 900; }
+        /* MG AI UPDATES share Website */
+        .title-sec { margin-top: 10px; }
+        h1 { font-size: 32px; margin: 0; font-weight: 900; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
+        .share-web { color: #0066cc; font-size: 22px; font-weight: bold; margin-top: -5px; display: block; }
 
-        /* --- सुपर लार्ज डिजिटल बटन्स --- */
+        /* बटन्स ग्रिड */
         .btn-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
-            gap: 10px; 
+            gap: 5px; 
             width: 100%; 
-            max-width: 600px; 
-            margin: 25px 0; 
+            margin: 30px 0; 
         }
 
-        .nav-link { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
+        .btn-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
 
-        /* बटन का साइज 120px कर दिया गया है */
+        /* ग्लोइंग बटन्स जैसा फोटो में है */
         .circle { 
-            width: 115px; height: 115px; 
+            width: 105px; height: 105px; 
             border-radius: 50%; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            font-size: 55px; 
-            margin-bottom: 10px;
-            border: 4px solid #fff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: 0.2s;
+            font-size: 45px; 
+            margin-bottom: 5px;
+            border: 3px solid #fff;
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
         }
 
-        .pink { background: #ff0066; color: #fff; } 
-        .white { background: #fff; color: #ff0000; } 
-        .blue { background: #3399ff; color: #fff; } 
+        .pink-btn { background: #ff0066; color: #fff; box-shadow: 0 0 20px #ff0066; } 
+        .white-btn { background: #fff; color: #ff0000; box-shadow: 0 0 15px #fff; } 
+        .blue-btn { background: #3399ff; color: #fff; box-shadow: 0 0 20px #3399ff; } 
 
-        .label { font-size: 16px; font-weight: bold; line-height: 1.2; }
-
-        /* खबर पट्टी */
-        .news-bar { 
-            background: rgba(255,255,255,0.5); 
-            margin: 20px 0; padding: 15px; 
-            width: 95%; border-radius: 15px; 
-            border: 2px solid #fff; 
-            font-size: 18px; font-weight: bold;
-        }
+        /* टेक्स्ट जैसा आपने बताया */
+        .main-txt { font-size: 18px; font-weight: 900; margin-top: 5px; }
+        .sub-txt { font-size: 11px; font-weight: bold; color: #333; }
 
         .spacer { flex: 1; }
 
-        /* --- डिजिटल विज़िटर काउंटर --- */
-        .footer-sec { padding-bottom: 40px; width: 100%; }
-        .counter-box { 
-            background: rgba(0,0,0,0.1); 
-            padding: 10px 20px; 
-            border-radius: 35px; 
-            display: inline-block;
-            font-size: 20px; font-weight: bold;
-            margin-bottom: 10px;
-        }
+        /* विज़िटर और फुटर */
+        .footer-area { padding-bottom: 25px; width: 100%; }
+        .visitors { color: #ff00ff; font-size: 26px; font-weight: 900; margin-bottom: 10px; display: block; }
         
-        footer { font-size: 14px; font-weight: bold; color: #000; }
+        .footer-info { font-size: 15px; font-weight: bold; color: #d00; line-height: 1.6; }
+        .footer-links a { color: #000; text-decoration: none; margin: 0 5px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="logo-box">
-            <img src="https://ui-avatars.com/api/?name=MG&background=000&color=fff&rounded=true&size=150" class="logo-img" alt="MG Logo">
-        </div>
+        <img src="https://i.ibb.co/5xbkC3M/MGAILogo.png" class="logo-img" alt="MG Logo">
 
-        <h1><span class="m">M</span><span class="g">G</span> <span class="ai">AI</span> UPDATES</h1>
+        <div class="title-sec">
+            <h1><span class="m">M</span><span class="g">G</span> <span class="ai">AI</span> UPDATES</h1>
+            <span class="share-web">share Website</span>
+        </div>
 
         <div class="btn-grid">
-            <a href="https://topdeal.app.link/niDWGq6PV1b" class="nav-link" target="_blank">
-                <div class="circle pink"><i class="fas fa-shopping-cart"></i></div>
-                <div class="btn-label">All in one</div>
+            <a href="https://topdeal.app.link/niDWGq6PV1b" class="btn-item">
+                <div class="circle pink-btn"><i class="fas fa-shopping-cart"></i></div>
+                <div class="main-txt">All in one</div>
+                <div class="sub-txt">Shoping Store</div>
             </a>
-            <a href="https://www.youtube.com/@INDO148MG0.2" class="nav-link" target="_blank">
-                <div class="circle white"><i class="fab fa-youtube"></i></div>
-                <div class="btn-label">Visit Our Channel</div>
+            <a href="https://www.youtube.com/@INDO148MG0.2" class="btn-item">
+                <div class="circle white-btn"><i class="fab fa-youtube"></i></div>
+                <div class="main-txt">Visit Our Channel</div>
             </a>
-            <a href="https://t.me/Indo148mg" class="nav-link" target="_blank">
-                <div class="circle blue"><i class="fab fa-telegram-plane"></i></div>
-                <div class="btn-label">Join Telegram</div>
+            <a href="https://t.me/Indo148mg" class="btn-item">
+                <div class="circle blue-btn"><i class="fab fa-telegram-plane"></i></div>
+                <div class="main-txt">Join Telegram</div>
+                <div class="sub-txt">Best Deals</div>
             </a>
-        </div>
-
-        <div class="news-bar">
-            <span style="color: #d00;">ताज़ा खबर:</span> <span>वेबसाइट अब बड़े बटन्स और वर्किंग लोगो के साथ लाइव है!</span>
         </div>
 
         <div class="spacer"></div>
 
-        <div class="footer-sec">
-            <div class="counter-box">
-                🟢 VISITORS: 
-                <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_RELOAD_FINAL_NEW&style=0005&nbdigits=5&type=page&initCount=0" style="height: 30px; vertical-align: middle;" alt="counter">
+        <div class="footer-area">
+            <span class="visitors">visitors</span>
+            
+            <div class="footer-info">
+                © 2026 MG AI Updates | Managed by Mukund<br>
+                <div class="footer-links">
+                    <a href="#">privacy policy</a> | <a href="#">contact us</a>
+                </div>
             </div>
-            <footer>© 2026 MG AI Updates | Managed by Mukund</footer>
+            
+            <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_PHOTO_FINAL&style=0005&nbdigits=5&type=page&initCount=0" style="height: 25px; margin-top: 10px;" alt="counter">
         </div>
     </div>
 
