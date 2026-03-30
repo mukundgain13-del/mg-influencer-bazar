@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
         body { 
             display: flex; 
             flex-direction: column; 
@@ -16,64 +16,52 @@
             text-align: center; 
         }
 
-        .container { flex: 1; padding: 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        .container { flex: 1; padding: 10px; display: flex; flex-direction: column; align-items: center; }
 
-        /* 1. MG लोगो - फोटो जैसा काला और सफेद */
+        /* MG लोगो */
         .logo-circle {
-            width: 110px; height: 110px;
-            background: #000;
-            border-radius: 50%;
-            border: 3px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            width: 100px; height: 100px; background: #000; border-radius: 50%;
+            border: 3px solid #333; display: flex; justify-content: center;
+            align-items: center; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
-        .logo-text { font-size: 48px; font-weight: 900; color: #fff; letter-spacing: -2px; }
+        .logo-text { font-size: 45px; font-weight: 900; color: #fff; letter-spacing: -2px; }
 
-        /* 2. टाइटल और असली शेयर वेबसाइट बटन */
+        /* टाइटल और शेयर बटन */
         .header-text { margin-top: 10px; }
-        h1 { font-size: 32px; margin: 0; font-weight: 900; }
+        h1 { font-size: 28px; margin: 0; font-weight: 900; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0080ff; }
-        
-        /* शेयर बटन जो अब काम करेगा */
-        .share-btn { 
-            background: none; border: none; color: #3399ff; 
-            font-size: 22px; font-weight: bold; cursor: pointer;
-            text-decoration: underline; padding: 5px; margin-top: -5px;
-        }
+        .share-link { color: #3399ff; font-size: 18px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; }
 
-        /* 3. बटन्स ग्रिड अलाइनमेंट */
+        /* बटन्स ग्रिड */
         .btn-grid { 
             display: grid; grid-template-columns: repeat(3, 1fr); 
-            gap: 10px; width: 100%; max-width: 420px; margin-top: 40px; 
+            gap: 10px; width: 100%; max-width: 400px; margin-top: 20px; 
         }
-
         .btn-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
-
-        .circle { 
-            width: 95px; height: 95px; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; 
-            font-size: 42px; border: 4px solid #fff; transition: 0.3s;
-        }
-
+        .circle { width: 85px; height: 85px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 35px; border: 3px solid #fff; }
         .pink-glow { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 15px #ff0066; } 
         .white-glow { background: #fff; color: #ff0000; box-shadow: 0 0 15px #fff; } 
         .blue-glow { background: #3399ff; color: #fff; box-shadow: 0 0 15px #3399ff; } 
 
-        .main-txt { font-size: 16px; font-weight: 900; margin-top: 5px; }
-        .red-sub { color: #d00; font-size: 12px; font-weight: bold; }
-        .white-sub { color: #fff; font-size: 11px; font-weight: bold; }
+        /* नया टेक्स्ट बॉक्स (जो आपने माँगा था) */
+        .news-section {
+            width: 90%; max-width: 380px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 25px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .news-title { color: #ff0000; font-weight: 900; font-size: 18px; margin-bottom: 5px; display: block; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .news-content { color: #333; font-size: 14px; font-weight: bold; line-height: 1.5; }
 
-        /* 4. फुटर और वर्किंग काउंटर */
-        .footer-area { margin-top: auto; padding-bottom: 25px; width: 100%; }
-        .visitors-txt { color: #ff00ff; font-size: 24px; font-weight: 900; display: block; margin-bottom: 5px; }
-        .copy-line { font-size: 14px; font-weight: bold; color: #d00; }
-        .footer-links { font-size: 14px; font-weight: bold; color: #000; margin-top: 5px; }
-        .footer-links a { color: #000; text-decoration: none; }
-
-        .counter-img { height: 26px; margin-top: 10px; border-radius: 5px; }
+        /* फुटर और काउंटर */
+        .footer-sec { margin-top: auto; padding-bottom: 15px; width: 100%; }
+        .visitors-txt { color: #ff00ff; font-size: 22px; font-weight: 900; display: block; }
+        .copy-txt { font-size: 12px; font-weight: bold; color: #d00; }
+        .counter-img { height: 24px; margin-top: 8px; }
     </style>
 </head>
 <body>
@@ -83,50 +71,49 @@
 
         <div class="header-text">
             <h1><span class="m">MG</span> <span class="g">AI</span> <span class="ai">UPDATES</span></h1>
-            <button class="share-btn" onclick="shareSite()">share Website</button>
+            <button class="share-link" onclick="shareMe()">share Website</button>
         </div>
 
         <div class="btn-grid">
-            <a href="https://topdeal.app.link/niDWGq6PV1b" class="btn-item" target="_blank">
+            <a href="https://topdeal.app.link/niDWGq6PV1b" class="btn-item">
                 <div class="circle pink-glow"><i class="fas fa-shopping-cart"></i></div>
-                <div class="main-txt">All in one</div>
-                <div class="red-sub">Shoping Store</div>
+                <div class="red-sub" style="font-size:11px; font-weight:bold; color:#d00;">Shoping Store</div>
             </a>
-            <a href="https://www.youtube.com/@INDO148MG0.2" class="btn-item" target="_blank">
+            <a href="https://www.youtube.com/@INDO148MG0.2" class="btn-item">
                 <div class="circle white-glow"><i class="fab fa-youtube"></i></div>
-                <div class="main-txt" style="font-size:14px">Visit Our Channel</div>
+                <div class="red-sub" style="font-size:11px; font-weight:bold; color:#d00;">Visit Channel</div>
             </a>
-            <a href="https://t.me/Indo148mg" class="btn-item" target="_blank">
+            <a href="https://t.me/Indo148mg" class="btn-item">
                 <div class="circle blue-glow"><i class="fab fa-telegram-plane"></i></div>
-                <div class="white-sub">Join Telegram</div>
-                <div class="main-txt" style="font-size:12px">Best Deals</div>
+                <div class="white-sub" style="font-size:11px; font-weight:bold; color:#fff;">Best Deals</div>
             </a>
         </div>
 
-        <div class="footer-area">
-            <span class="visitors-txt">visitors</span>
-            <div class="copy-line">© 2026 MG AI Updates | Managed by Mukund</div>
-            <div class="footer-links">
-                <a href="#">privacy policy</a> | <a href="#">contact us</a>
+        <div class="news-section">
+            <span class="news-title"><i class="fas fa-bullhorn"></i> ताज़ा अपडेट:</span>
+            <div class="news-content">
+                यहाँ आप अपनी कोई भी जानकारी लिख सकते हैं। जैसे: <br>
+                1. Amazon पर आज सेल चल रही है! <br>
+                2. YouTube चैनल पर नई वीडियो आ गई है। <br>
+                3. बेस्ट डील्स के लिए टेलीग्राम ज्वाइन करें।
             </div>
-            
-            <img src="https://hitwebcounter.com/counter/counter.php?page=MGAI_FINAL_WORK_V1&style=0005&nbdigits=5&type=page&initCount=0" class="counter-img" alt="visitor counter">
+        </div>
+
+        <div class="footer-sec">
+            <span class="visitors-txt">visitors</span>
+            <div class="copy-txt">© 2026 MG AI Updates | Managed by Mukund</div>
+            <img src="https://hitwebcounter.com/counter/counter.php?page=MG_MUKUND_NEW_ID_V2&style=0005&nbdigits=5&type=page&initCount=0" class="counter-img" alt="counter">
         </div>
     </div>
 
     <script>
-        function shareSite() {
+        function shareMe() {
             if (navigator.share) {
-                navigator.share({
-                    title: 'MG AI Updates',
-                    text: 'मुकुंद की इस वेबसाइट को देखें!',
-                    url: window.location.href
-                }).catch(console.error);
+                navigator.share({ title: 'MG AI Updates', url: window.location.href });
             } else {
-                alert("URL कॉपी करें: " + window.location.href);
+                alert("Link: " + window.location.href);
             }
         }
     </script>
-
 </body>
 </html>
