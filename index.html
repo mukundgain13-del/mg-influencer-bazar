@@ -3,87 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Influencer Bazar</title>
+    <title>MG Influencer Bazar - Clean View</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <style>
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #0f172a; color: white; text-align: center; }
-        .navbar { background: #1e3c72; color: white; padding: 15px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 1000; }
-        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px 15px; background: rgba(255,255,255,0.1); border-radius: 5px; margin-right: 15px; }
+        /* एकदम साफ़ सफेद बैकग्राउंड */
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #ffffff; color: #333; text-align: center; }
         
+        /* प्रोफेशनल डार्क ब्लू नॅविगेशन */
+        .navbar { background-color: #1a2a4b; color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+        .menu-icon { font-size: 26px; cursor: pointer; color: white; }
+        .brand-name { font-weight: 600; font-size: 18px; position: absolute; left: 50%; transform: translateX(-50%); }
+
         /* साइड मेनू (पुराना स्टाइल) */
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1100; top: 0; left: 0; background-color: #111; overflow-x: hidden; transition: 0.4s; padding-top: 60px; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 16px; color: #bbb; display: block; text-align: left; border-bottom: 1px solid #222; }
-        .sidebar a:hover { color: white; background: #1e3c72; }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1100; top: 0; left: 0; background-color: #111; overflow-x: hidden; transition: 0.4s; padding-top: 60px; box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
+        .sidebar a { padding: 12px 25px; text-decoration: none; font-size: 15px; color: #bbb; display: flex; align-items: center; border-bottom: 1px solid #222; text-align: left; }
+        .sidebar a ion-icon { margin-right: 15px; font-size: 18px; }
+        .sidebar a:hover { color: white; background-color: #1a2a4b; }
+        .closebtn { position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; text-decoration: none; }
 
         .container { padding: 20px; max-width: 600px; margin: auto; }
         
-        /* प्लेटफॉर्म बटन */
-        .plat-btns { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
-        .p-btn { padding: 10px 20px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .yt { background: #FF0000; }
-        .ins { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .fb { background: #1877F2; }
+        /* हेडिंग और टेक्स्ट - जैसा स्क्रीनशॉट में है */
+        h2.title { font-weight: 600; font-size: 20px; color: #000; margin-bottom: 25px; }
+        p.desc { font-size: 13px; color: #666; line-height: 1.6; max-width: 90%; margin: 0 auto 30px; }
 
-        /* क्रिएटर कार्ड (ऑटोमैटिक डेटा यहाँ दिखेगा) */
-        .creator-card { background: #1e293b; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left; border-left: 5px solid #1e3c72; display: none; animation: fadeIn 0.5s; }
-        .creator-card strong { font-size: 18px; color: #38bdf8; }
-        .creator-card a { color: #f87171; text-decoration: none; display: block; margin-top: 8px; font-weight: bold; }
+        /* प्लेटफॉर्म बटन्स - साफ़ और असली लोगो के साथ */
+        .plat-btns { display: flex; justify-content: center; gap: 10px; margin: 20px 0 30px; flex-wrap: wrap; }
+        .p-btn { padding: 8px 18px; border: 1px solid #ddd; border-radius: 50px; cursor: pointer; font-weight: 500; color: #333; background-color: white; transition: 0.2s; font-size: 13px; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .p-btn ion-icon { font-size: 16px; }
+        /* एक्टिव कलर जैसा स्क्रीनशॉट में है */
+        .yt-btn.active { background-color: #FF0000; color: white; border-color: #FF0000; }
+        .yt-btn ion-icon { color: #FF0000; }
+        .yt-btn.active ion-icon { color: white; }
 
-        /* रजिस्ट्रेशन फॉर्म (जो मेनू से खुलेगा) */
-        .page-section { display: none; background: white; color: #333; padding: 25px; border-radius: 15px; margin-top: 20px; text-align: left; }
+        .ins-btn.active { background-color: #E1306C; color: white; border-color: #E1306C; }
+        .ins-btn ion-icon { color: #E1306C; }
+        .ins-btn.active ion-icon { color: white; }
+
+        .fb-btn.active { background-color: #1877F2; color: white; border-color: #1877F2; }
+        .fb-btn ion-icon { color: #1877F2; }
+        .fb-btn.active ion-icon { color: white; }
+
+        /* क्रिएटर कार्ड्स - साफ़ डिज़ाइन */
+        .creator-card { background-color: #fafafa; border: 1px solid #eee; padding: 15px; border-radius: 10px; margin-bottom: 12px; text-align: left; display: none; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+        .creator-card strong { font-size: 16px; color: #1a2a4b; font-weight: 600; }
+        .creator-card .view-link { color: #16a34a; text-decoration: none; font-weight: 500; font-size: 13px; margin-top: 6px; display: inline-block; }
+
+        /* पेज सेक्शन्स - साफ़ सफेद */
+        .page-section { display: none; background-color: white; border: 1px solid #eee; padding: 25px; border-radius: 12px; margin-top: 20px; text-align: left; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
         .active-page { display: block; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { background: #16a34a; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        /* फॉर्म्स - साफ़ डिज़ाइन */
+        label { font-size: 14px; font-weight: 500; color: #555; display: block; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 0 0 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 14px; }
+        .submit-btn { background-color: #1a2a4b; color: white; padding: 12px; border: none; width: 100%; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 15px; }
+        .submit-btn:hover { background-color: #111; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* UPI बॉक्स */
+        .upi-box { background-color: #f1f5f9; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px; }
+        .upi-box p { margin: 5px 0; font-size: 14px; color: #1a2a4b; }
+        .upi-id { font-size: 18px; font-weight: 600; color: #16a34a; margin: 10px 0; letter-spacing: 1px; }
+
+        /* पादलेख (Footer) */
+        .footer-logo { font-size: 10px; color: #aaa; margin-top: 50px; }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <span class="menu-icon" onclick="openNav()">&#9776; Menu</span>
-        <div style="flex-grow:1;">MG Influencer Bazar</div>
+        <div class="brand-name">MG Influencer Bazar</div>
+        <span class="menu-icon" onclick="openNav()">&#9776;</span>
     </div>
 
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" onclick="closeNav()" style="font-size:30px; text-align:right;">&times;</a>
-        <a href="#" onclick="showPage('home')">🏠 होम (प्लेटफॉर्म्स)</a>
-        <a href="#" onclick="showPage('creator-reg')">📑 Creator Reg.</a>
-        <a href="#" onclick="showPage('sponsor-reg')">💰 Sponsorship Reg.</a>
-        <a href="#" onclick="showPage('terms')">📜 Terms & Conditions</a>
-        <a href="#" onclick="showPage('contact')">📞 Contact Us</a>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#" onclick="showPage('home')"><ion-icon name="home-outline"></ion-icon>होम (प्लेटफॉर्म्स)</a>
+        <a href="#" onclick="showPage('creator-reg')"><ion-icon name="duplicate-outline"></ion-icon>Creator Reg.</a>
+        <a href="#" onclick="showPage('sponsor-reg')"><ion-icon name="cash-outline"></ion-icon>Sponsorship Reg.</a>
+        <a href="#" onclick="showPage('payment')"><ion-icon name="wallet-outline"></ion-icon>Sponsorship Payment</a>
+        <a href="#" onclick="showPage('terms')"><ion-icon name="document-text-outline"></ion-icon>Terms & Conditions</a>
+        <a href="#" onclick="showPage('contact')"><ion-icon name="call-outline"></ion-icon>Contact Us</a>
     </div>
 
     <div class="container">
         
-        <div id="home" class="page-section active-page" style="background:transparent; color:white; padding:0;">
-            <h3 style="margin-top:20px;">हमारे प्लेटफॉर्म्स</h3>
+        <div id="home" class="page-section active-page" style="background:transparent; color:#333; padding:0; border:none; box-shadow:none;">
+            <h2 class="title">हमारे प्लेटफॉर्म्स</h2>
+            <p class="desc">MG इंफ्लुएंसर बाज़ार में पंजीकृत क्रिएटर्स की लिस्ट देखने के लिए नीचे दिए गए प्लेटफॉर्म्स पर क्लिक करें। रजिस्ट्रेशन के लिए मेनू का उपयोग करें।</p>
+            
             <div class="plat-btns">
-                <button class="p-btn yt" onclick="filterData('YouTube')">YouTube</button>
-                <button class="p-btn ins" onclick="filterData('Instagram')">Instagram</button>
-                <button class="p-btn fb" onclick="filterData('Facebook')">Facebook</button>
+                <button class="p-btn yt-btn active" id="ytBtn" onclick="filterData('YouTube', this)"><ion-icon name="logo-youtube"></ion-icon>YouTube</button>
+                <button class="p-btn ins-btn" id="insBtn" onclick="filterData('Instagram', this)"><ion-icon name="logo-instagram"></ion-icon>Instagram</button>
+                <button class="p-btn fb-btn" id="fbBtn" onclick="filterData('Facebook', this)"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
             </div>
-            <div id="loading" style="color:#888;">डेटा लोड हो रहा है...</div>
+            <div id="loading" style="color:#aaa; font-size:12px;">डेटा लोड हो रहा है...</div>
             <div id="creator-list"></div>
         </div>
 
         <div id="creator-reg" class="page-section">
-            <h3 style="text-align:center;">🎥 क्रिएटर रजिस्ट्रेशन</h3>
+            <h3 style="text-align:center;">🎥 नया क्रिएटर रजिस्ट्रेशन</h3>
             <form id="regForm">
-                <input type="text" name="Name" placeholder="आपका नाम / चैनल का नाम" required>
+                <label>आपका नाम / चैनल का नाम</label>
+                <input type="text" name="Name" required placeholder="जैसे: अमित शर्मा / TechGuru">
+                
+                <label>प्लेटफॉर्म</label>
                 <select name="Platform" required>
                     <option value="YouTube">YouTube</option>
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
                 </select>
-                <input type="url" name="Link" placeholder="चैनल लिंक (https://...)" required>
-                <button type="submit" class="submit-btn" id="subBtn">रजिस्टर करें ✅</button>
+                
+                <label>चैनल / प्रोफाइल लिंक</label>
+                <input type="url" name="Link" required placeholder="https://...">
+                
+                <button type="submit" class="submit-btn" id="subBtn">अभी सबमिट करें ✅</button>
             </form>
         </div>
 
-        <div id="sponsor-reg" class="page-section"><h3>Sponsorship</h3><p>ब्रांड्स संपर्क करें: 9520466668</p></div>
-        <div id="terms" class="page-section"><h3>नियम और शर्तें</h3><p>सभी क्रिएटर्स को ओरिजिनल कंटेंट डालना अनिवार्य है।</p></div>
-        <div id="contact" class="page-section"><h3>Contact</h3><p>WhatsApp: 9520466668</p></div>
+        <div id="sponsor-reg" class="page-section">
+            <h3 style="text-align:center;">💰 स्पॉन्सरशिप रजिस्ट्रेशन</h3>
+            <p style="font-size:12px; color:#666; text-align:center;">ब्रांड्स यहाँ अपनी जानकारी भरें। हमारी टीम आपसे व्हाट्सएप पर संपर्क करेगी।</p>
+            <form action="https://formspree.io/f/आपका_ID" method="POST"> <label>कंपनी / ब्रांड का नाम</label>
+                <input type="text" name="BrandName" required>
+                <label>आपका व्हाट्सएप नंबर</label>
+                <input type="tel" name="Whatsapp" required pattern="[0-9]{10}">
+                <label>आपकी रिक्वायरमेंट</label>
+                <textarea name="Message" rows="3"></textarea>
+                <button type="submit" class="submit-btn">रिक्वेस्ट भेजें 📩</button>
+            </form>
+        </div>
 
+        <div id="payment" class="page-section">
+            <h3 style="text-align:center;">💳 Sponsorship Payment</h3>
+            <div class="upi-box">
+                <p style="font-weight:600;">हमारी UPI ID:</p>
+                <p class="upi-id">9520466668@paytm</p>
+            </div>
+            <p style="font-size:12px; margin-top:15px; color:#555; text-align:center;">पेमेंट करने के बाद कृपया ट्रांजेक्शन का स्क्रीनशॉट व्हाट्सएप पर भेजें: <strong>9520466668</strong></p>
+        </div>
+
+        <div id="terms" class="page-section">
+            <h3>📜 नियम और शर्तें</h3>
+            <p>1. सभी क्रिएटर्स को अपने चैनल पर ओरिजिनल कंटेंट डालना अनिवार्य है।</p>
+            <p>2. रजिस्ट्रेशन के बाद हमारी टीम आपके चैनल का रिव्यू करेगी।</p>
+            <p>3. गलत जानकारी देने पर आपका रजिस्ट्रेशन रद्द कर दिया जाएगा।</p>
+            <p>4. कोई भी पेमेंट रिफंडेबल नहीं है।</p>
+        </div>
+
+        <div id="contact" class="page-section">
+            <h3>📞 Contact Us</h3>
+            <p>WhatsApp Support: <strong>9520466668</strong></p>
+            <p>RUDRA PUJA CHOUWAK JAWALA JI DHAM, Uttarakhand</p>
+        </div>
+
+        <div class="footer-logo">BazarMG</div>
     </div>
 
     <script>
@@ -97,45 +172,75 @@
             let pages = document.getElementsByClassName('page-section');
             for(let p of pages) { p.classList.remove('active-page'); }
             document.getElementById(id).classList.add('active-page');
+            
+            // अगर होम पेज खुल रहा है, तो YouTube डेटा दिखाएं
+            if(id === 'home') { loadData(); }
         }
 
         async function loadData() {
             try {
-                const res = await fetch(apiURL);
+                // डेटा को ताज़ा (Fresh) लोड करने के लिए टाइमस्टैम्प का उपयोग
+                const res = await fetch(apiURL + "?_t=" + new Date().getTime());
                 const data = await res.json();
                 const list = document.getElementById('creator-list');
                 document.getElementById('loading').style.display = 'none';
+                
                 list.innerHTML = "";
-                data.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'creator-card';
-                    card.setAttribute('data-platform', item.Platform);
-                    card.innerHTML = `<strong>${item.Name}</strong><br><a href="${item.Link}" target="_blank">चैनल देखें 🔗</a>`;
-                    list.appendChild(card);
+                // नया डेटा सबसे ऊपर दिखाने के लिए .reverse()
+                data.reverse().forEach(item => {
+                    if(item.Name && item.Platform && item.Link) {
+                        const card = document.createElement('div');
+                        card.className = 'creator-card';
+                        card.setAttribute('data-platform', item.Platform);
+                        card.innerHTML = `<strong>${item.Name}</strong><br><a href="${item.Link}" target="_blank" class="view-link">चैनल देखें🔗</a>`;
+                        list.appendChild(card);
+                    }
                 });
-                filterData('YouTube'); 
-            } catch (e) { console.log("Load Error"); }
+                filterData('YouTube', document.getElementById('ytBtn')); // डिफ़ॉल्ट YouTube दिखाएं
+            } catch (e) { document.getElementById('loading').innerText = "डेटा लोड करने में समस्या।"; }
         }
 
-        function filterData(plat) {
+        function filterData(plat, btn) {
+            // पुराने एक्टिव बटन को नार्मल करें
+            let btns = document.getElementsByClassName('p-btn');
+            for(let b of btns) b.classList.remove('active');
+            
+            // नए बटन को एक्टिव करें
+            btn.classList.add('active');
+            
+            // डेटा फिल्टर करें
             let cards = document.getElementsByClassName('creator-card');
-            for(let c of cards) { c.style.display = (c.getAttribute('data-platform') === plat) ? 'block' : 'none'; }
+            let hasData = false;
+            for(let c of cards) { 
+                if(c.getAttribute('data-platform') === plat) {
+                    c.style.display = 'block';
+                    hasData = true;
+                } else {
+                    c.style.display = 'none';
+                }
+            }
+            document.getElementById('loading').style.display = hasData ? 'none' : 'block';
+            if(!hasData) document.getElementById('loading').innerText = "इस लिस्ट में अभी कोई नहीं है।";
         }
 
+        // क्रिएटर रजिस्ट्रेशन फॉर्म सबमिशन
         document.getElementById('regForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('subBtn');
             btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
             const data = Object.fromEntries(new FormData(e.target).entries());
+            
             await fetch(apiURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify([data])
             });
-            alert("सफलतापूर्वक रजिस्टर्ड!");
+            
+            alert("सफलतापूर्वक रजिस्टर्ड! धन्यवाद।");
             location.reload();
         });
 
+        // सबसे पहले डेटा लोड करें
         loadData();
     </script>
 </body>
