@@ -3,124 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Influencer Bazar - Auto Dashboard</title>
+    <title>MG Influencer Bazar</title>
     <style>
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f0f2f5; text-align: center; color: #333; }
-        .navbar { background: #1e3c72; color: white; padding: 15px; font-weight: bold; font-size: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #0f172a; color: white; text-align: center; }
+        .navbar { background: #1e3c72; color: white; padding: 15px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 1000; }
+        .menu-icon { font-size: 24px; cursor: pointer; padding: 5px 15px; background: rgba(255,255,255,0.1); border-radius: 5px; margin-right: 15px; }
         
-        /* टैब स्टाइल */
-        .tabs { display: flex; justify-content: center; background: white; padding: 10px; gap: 10px; margin-bottom: 20px; }
-        .tab-btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; background: #ddd; }
-        .tab-btn.active { background: #1e3c72; color: white; }
-        .yt-active { background: #FF0000 !important; color: white; }
+        /* साइड मेनू (पुराना स्टाइल) */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1100; top: 0; left: 0; background-color: #111; overflow-x: hidden; transition: 0.4s; padding-top: 60px; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 16px; color: #bbb; display: block; text-align: left; border-bottom: 1px solid #222; }
+        .sidebar a:hover { color: white; background: #1e3c72; }
 
-        /* क्रिएटर कार्ड */
-        .container { max-width: 500px; margin: auto; padding: 15px; }
-        .creator-card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 6px solid #FF0000; display: none; transition: 0.3s; }
-        .creator-card h3 { margin: 0; font-size: 18px; color: #1e3c72; }
-        .creator-card a { display: inline-block; margin-top: 10px; color: #FF0000; font-weight: bold; text-decoration: none; border: 1px solid #FF0000; padding: 5px 12px; border-radius: 5px; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        
+        /* प्लेटफॉर्म बटन */
+        .plat-btns { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .p-btn { padding: 10px 20px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .yt { background: #FF0000; }
+        .ins { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .fb { background: #1877F2; }
 
-        /* फॉर्म स्टाइल */
-        .reg-form { background: white; padding: 25px; border-radius: 15px; text-align: left; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 30px; }
+        /* क्रिएटर कार्ड (ऑटोमैटिक डेटा यहाँ दिखेगा) */
+        .creator-card { background: #1e293b; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left; border-left: 5px solid #1e3c72; display: none; animation: fadeIn 0.5s; }
+        .creator-card strong { font-size: 18px; color: #38bdf8; }
+        .creator-card a { color: #f87171; text-decoration: none; display: block; margin-top: 8px; font-weight: bold; }
+
+        /* रजिस्ट्रेशन फॉर्म (जो मेनू से खुलेगा) */
+        .page-section { display: none; background: white; color: #333; padding: 25px; border-radius: 15px; margin-top: 20px; text-align: left; }
+        .active-page { display: block; }
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { background: #28a745; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
-        
-        #loading { font-weight: bold; color: #666; margin-top: 20px; }
+        .submit-btn { background: #16a34a; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="navbar">MG Influencer Bazar</div>
+    <div class="navbar">
+        <span class="menu-icon" onclick="openNav()">&#9776; Menu</span>
+        <div style="flex-grow:1;">MG Influencer Bazar</div>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" onclick="closeNav()" style="font-size:30px; text-align:right;">&times;</a>
+        <a href="#" onclick="showPage('home')">🏠 होम (प्लेटफॉर्म्स)</a>
+        <a href="#" onclick="showPage('creator-reg')">📑 Creator Reg.</a>
+        <a href="#" onclick="showPage('sponsor-reg')">💰 Sponsorship Reg.</a>
+        <a href="#" onclick="showPage('terms')">📜 Terms & Conditions</a>
+        <a href="#" onclick="showPage('contact')">📞 Contact Us</a>
+    </div>
 
     <div class="container">
-        <h2>पंजीकृत क्रिएटर लिस्ट</h2>
         
-        <div class="tabs">
-            <button class="tab-btn active yt-active" onclick="filter('YouTube', this)">YouTube</button>
-            <button class="tab-btn" onclick="filter('Instagram', this)">Instagram</button>
-            <button class="tab-btn" onclick="filter('Facebook', this)">Facebook</button>
+        <div id="home" class="page-section active-page" style="background:transparent; color:white; padding:0;">
+            <h3 style="margin-top:20px;">हमारे प्लेटफॉर्म्स</h3>
+            <div class="plat-btns">
+                <button class="p-btn yt" onclick="filterData('YouTube')">YouTube</button>
+                <button class="p-btn ins" onclick="filterData('Instagram')">Instagram</button>
+                <button class="p-btn fb" onclick="filterData('Facebook')">Facebook</button>
+            </div>
+            <div id="loading" style="color:#888;">डेटा लोड हो रहा है...</div>
+            <div id="creator-list"></div>
         </div>
 
-        <div id="loading">डेटा लोड हो रहा है...</div>
-        <div id="creator-list"></div>
-
-        <hr style="margin: 40px 0;">
-
-        <div class="reg-form">
-            <h3 style="text-align: center;">नया रजिस्ट्रेशन करें 🎥</h3>
+        <div id="creator-reg" class="page-section">
+            <h3 style="text-align:center;">🎥 क्रिएटर रजिस्ट्रेशन</h3>
             <form id="regForm">
-                <input type="text" name="Name" placeholder="आपका नाम या चैनल का नाम" required>
+                <input type="text" name="Name" placeholder="आपका नाम / चैनल का नाम" required>
                 <select name="Platform" required>
                     <option value="YouTube">YouTube</option>
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
                 </select>
-                <input type="url" name="Link" placeholder="चैनल का लिंक (https://...)" required>
-                <button type="submit" class="submit-btn" id="subBtn">अभी सबमिट करें ✅</button>
+                <input type="url" name="Link" placeholder="चैनल लिंक (https://...)" required>
+                <button type="submit" class="submit-btn" id="subBtn">रजिस्टर करें ✅</button>
             </form>
         </div>
-        
-        <p style="margin-top: 30px; color: #888; font-size: 12px;">संपर्क: 9520466668</p>
+
+        <div id="sponsor-reg" class="page-section"><h3>Sponsorship</h3><p>ब्रांड्स संपर्क करें: 9520466668</p></div>
+        <div id="terms" class="page-section"><h3>नियम और शर्तें</h3><p>सभी क्रिएटर्स को ओरिजिनल कंटेंट डालना अनिवार्य है।</p></div>
+        <div id="contact" class="page-section"><h3>Contact</h3><p>WhatsApp: 9520466668</p></div>
+
     </div>
 
     <script>
         const apiURL = "https://api.sheetbest.com/sheets/fea5a2f0-71da-4bff-9444-11186ae93ce8";
 
-        // डेटा लोड करना
-        async function loadCreators() {
+        function openNav() { document.getElementById("mySidebar").style.width = "270px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+
+        function showPage(id) {
+            closeNav();
+            let pages = document.getElementsByClassName('page-section');
+            for(let p of pages) { p.classList.remove('active-page'); }
+            document.getElementById(id).classList.add('active-page');
+        }
+
+        async function loadData() {
             try {
                 const res = await fetch(apiURL);
                 const data = await res.json();
                 const list = document.getElementById('creator-list');
                 document.getElementById('loading').style.display = 'none';
-                
-                list.innerHTML = ""; 
+                list.innerHTML = "";
                 data.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'creator-card';
                     card.setAttribute('data-platform', item.Platform);
-                    card.innerHTML = `<h3>${item.Name}</h3><p>प्लेटफार्म: ${item.Platform}</p><a href="${item.Link}" target="_blank">चैनल देखें</a>`;
+                    card.innerHTML = `<strong>${item.Name}</strong><br><a href="${item.Link}" target="_blank">चैनल देखें 🔗</a>`;
                     list.appendChild(card);
                 });
-                filter('YouTube', document.querySelector('.tab-btn')); 
-            } catch (e) { console.error("Error!"); }
+                filterData('YouTube'); 
+            } catch (e) { console.log("Load Error"); }
         }
 
-        // फिल्टर फंक्शन
-        function filter(platform, btn) {
-            const cards = document.getElementsByClassName('creator-card');
-            const btns = document.getElementsByClassName('tab-btn');
-            
-            for(let b of btns) { b.classList.remove('active', 'yt-active'); }
-            btn.classList.add('active');
-            if(platform === 'YouTube') btn.classList.add('yt-active');
-
-            for(let card of cards) {
-                card.style.display = card.getAttribute('data-platform') === platform ? 'block' : 'none';
-            }
+        function filterData(plat) {
+            let cards = document.getElementsByClassName('creator-card');
+            for(let c of cards) { c.style.display = (c.getAttribute('data-platform') === plat) ? 'block' : 'none'; }
         }
 
-        // फॉर्म सबमिट करना
         document.getElementById('regForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('subBtn');
-            btn.innerText = "प्रोसेसिंग...";
-            btn.disabled = true;
-
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-
+            btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
+            const data = Object.fromEntries(new FormData(e.target).entries());
             await fetch(apiURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify([data])
             });
-
-            alert("बधाई हो! आपका रजिस्ट्रेशन हो गया है।");
+            alert("सफलतापूर्वक रजिस्टर्ड!");
             location.reload();
         });
 
-        loadCreators();
+        loadData();
     </script>
 </body>
 </html>
