@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MG AI Updates</title>
+    <title>MG AI Updates - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; }
@@ -15,97 +15,114 @@
             text-align: center; color: #000;
         }
 
-        .container { flex: 1; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .main-container { flex: 1; padding: 15px; display: flex; flex-direction: column; align-items: center; position: relative; }
 
-        /* लोगो सेक्शन */
+        /* एमजी लोगो */
+        .logo-box { margin-top: 15px; }
         .logo-circle {
             width: 100px; height: 100px; background: #000; border-radius: 50%;
             border: 3px solid #333; display: flex; justify-content: center;
-            align-items: center; margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .logo-text { font-size: 45px; font-weight: 900; color: #fff; letter-spacing: -2px; }
+        .logo-img-main { width: 85px; height: 85px; border-radius: 50%; object-fit: contain; }
 
-        /* हेडर और शेयर */
-        .header-section h1 { font-size: 32px; margin: 10px 0 0 0; font-weight: 900; }
+        .header-section h1 { font-size: 32px; margin: 15px 0 0 0; font-weight: 900; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
-        .share-btn { 
-            color: #0066cc; font-size: 20px; font-weight: bold; 
-            text-decoration: underline; background: none; border: none; cursor: pointer;
-        }
+        .share-btn { color: #0066cc; font-size: 20px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; display: block; margin: -5px auto 0; }
 
-        /* बटन्स ग्रिड - फोटो के टेक्स्ट के साथ */
-        .grid { 
-            display: grid; grid-template-columns: repeat(3, 1fr); 
-            gap: 10px; width: 100%; max-width: 450px; margin-top: 30px; 
-        }
-        .item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
-        .circle { 
-            width: 90px; height: 90px; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; 
-            font-size: 40px; border: 4px solid #fff; 
-        }
-        .pink-bg { background: #ff0066; color: #fff; box-shadow: 0 0 12px #ff0066; } 
-        .white-bg { background: #fff; color: #ff0000; box-shadow: 0 0 12px rgba(255,255,255,0.8); } 
-        .blue-bg { background: #3399ff; color: #fff; box-shadow: 0 0 12px #3399ff; } 
-        
-        .label-main { font-size: 13px; font-weight: 900; margin-top: 8px; line-height: 1; }
-        .label-sub { font-size: 11px; font-weight: bold; color: #d00; }
+        /* बटन्स ग्रिड */
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 450px; margin-top: 25px; }
+        .grid-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
+        .btn-round { width: 85px; height: 85px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.25); }
+        .pink-bg { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 15px #ff0066; } 
+        .white-bg { background: #fff; color: #ff0000; box-shadow: 0 0 15px rgba(255,255,255,0.8); } 
+        .blue-bg { background: #3399ff; color: #fff; box-shadow: 0 0 15px #3399ff; } 
+        .lbl-main { font-size: 12px; font-weight: 900; margin-top: 8px; }
+        .lbl-sub { font-size: 10px; font-weight: bold; color: #d00; }
 
-        /* ताज़ा खबर बॉक्स */
-        .news-card {
-            width: 90%; max-width: 380px; background: rgba(255, 255, 255, 0.7);
-            border-radius: 12px; padding: 12px; margin-top: 30px;
-            border: 2px solid #fff; text-align: left;
+        /* बड़ा प्रोमो बॉक्स */
+        .promo-box {
+            width: 100%; max-width: 480px; background: #fff; border-radius: 20px;
+            padding: 20px; margin-top: 35px; border: 5px solid #fff; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; align-items: center; text-align: left;
         }
-        .news-card h3 { color: #ff0000; margin: 0 0 5px 0; font-size: 16px; }
-        .news-card p { font-size: 13px; font-weight: bold; margin: 0; color: #333; }
+        .promo-img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; margin-right: 20px; }
+        .earn-btn { background: #28a745; color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; padding: 10px; display: block; width: 100%; margin-bottom: 12px; text-align: center; }
+        .earn-list { font-size: 13px; font-weight: bold; color: #333; margin: 0; padding-left: 18px; line-height: 1.5; }
 
-        /* फुटर - विज़िटर हटा दिया गया है */
-        .footer { margin-top: auto; padding: 25px 0; width: 100%; }
-        .copy { font-size: 14px; font-weight: bold; color: #000; margin-bottom: 8px; }
-        .footer-links { font-size: 12px; font-weight: bold; }
-        .footer-links a { color: #000; text-decoration: none; margin: 0 5px; }
+        /* फुटर */
+        .footer-area { margin-top: auto; padding: 25px 0; width: 100%; }
+        .managed-line { font-size: 14px; font-weight: bold; color: #000; margin-bottom: 5px; }
+        .footer-links { font-size: 13px; font-weight: bold; }
+        .footer-links button { background: none; border: none; color: #000; font-weight: bold; cursor: pointer; text-decoration: underline; margin: 0 5px; font-size: 13px; }
+
+        /* पॉप-अप (Modal) स्टाइल */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
+        .modal-content { background: #fff; margin: 15% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 500px; text-align: left; position: relative; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; font-weight: bold; }
+        .modal-content h2 { color: #33cccc; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .modal-content p { font-size: 14px; line-height: 1.6; color: #333; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo-circle"><div class="logo-text">MG</div></div>
+    <div class="main-container">
+        <div class="logo-box">
+            <div class="logo-circle">
+                <img src="https://i.ibb.co/hFkfggqQ/1000015967.png" class="logo-img-main" alt="MG Logo">
+            </div>
+        </div>
 
         <div class="header-section">
-            <h1><span class="m">MG</span> <span class="g">AI</span> <span class="ai">UPDATES</span></h1>
+            <h1><span class="m">M</span><span class="g">G</span> <span class="ai">AI</span> UPDATES</h1>
             <button class="share-btn" onclick="webShare()">share Website</button>
         </div>
 
-        <div class="grid">
-            <a href="https://topdeal.app.link/niDWGq6PV1b" class="item">
-                <div class="circle pink-bg"><i class="fas fa-shopping-cart"></i></div>
-                <div class="label-main">All in one</div>
-                <div class="label-sub">Shoping Store</div>
+        <div class="btn-grid">
+            <a href="https://topdeal.app.link/niDWGq6PV1b" class="grid-item">
+                <div class="btn-round pink-bg"><i class="fas fa-shopping-cart"></i></div>
+                <div class="lbl-main">All in one</div>
+                <div class="lbl-sub">Shoping Store</div>
             </a>
-            <a href="https://www.youtube.com/@INDO148MG0.2" class="item">
-                <div class="circle white-bg"><i class="fab fa-youtube"></i></div>
-                <div class="label-main">Visit Our Channel</div>
+            <a href="https://www.youtube.com/@INDO148MG0.2" class="grid-item">
+                <div class="btn-round white-bg"><i class="fab fa-youtube"></i></div>
+                <div class="lbl-main">Visit Our Channel</div>
             </a>
-            <a href="https://t.me/Indo148mg" class="item">
-                <div class="circle blue-bg"><i class="fab fa-telegram-plane"></i></div>
-                <div class="label-main">Join Telegram</div>
-                <div class="label-sub" style="color:#fff">Best Deals</div>
+            <a href="https://t.me/Indo148mg" class="grid-item">
+                <div class="btn-round blue-bg"><i class="fab fa-telegram-plane"></i></div>
+                <div class="lbl-main">Join Telegram</div>
+                <div class="lbl-sub" style="color:#fff">Best Deals</div>
             </a>
         </div>
 
-        <div class="news-card">
-            <h3><i class="fas fa-bullhorn"></i> ताज़ा अपडेट:</h3>
-            <p>• वेबसाइट अब और भी प्रोफेशनल हो गई है!</p>
-        </div>
-
-        <div class="footer">
-            <div class="copy">© 2026 MG AI Updates | Managed by Mukund</div>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a> | 
-                <a href="#">Terms & Conditions</a> | 
-                <a href="#">Contact Us</a>
+        <div class="promo-box">
+            <img src="https://i.ibb.co/LdM500Gj/1774937203833.png" class="promo-img" alt="Mukund Earn Part Time">
+            <div class="promo-text">
+                <div class="earn-btn">SHOP TO EARN PART-TIME!</div>
+                <ul class="earn-list">
+                    <li>Create Your Account</li>
+                    <li>Refer Products</li>
+                    <li>Earn commission from every purchase!</li>
+                    <li>Flexible Hours - Work from Home!</li>
+                </ul>
             </div>
+        </div>
+
+        <div class="footer-area">
+            <div class="managed-line">© 2026 MG AI Updates | Managed by Mukund</div>
+            <div class="footer-links">
+                <button onclick="openModal('privacy')">Privacy Policy</button> | 
+                <button onclick="openModal('terms')">Terms & Conditions</button> | 
+                <button onclick="openModal('contact')">Contact Us</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalBody"></div>
         </div>
     </div>
 
@@ -115,6 +132,37 @@
                 navigator.share({ title: 'MG AI Updates', url: window.location.href });
             } else {
                 alert("Link: " + window.location.href);
+            }
+        }
+
+        const data = {
+            privacy: {
+                title: "Privacy Policy",
+                body: "<p>आपका डेटा हमारे लिए सुरक्षित है। हम आपकी कोई भी निजी जानकारी बिना अनुमति के शेयर नहीं करते। यह वेबसाइट केवल आपको बेहतरीन शॉपिंग डील्स और यूट्यूब अपडेट्स देने के लिए बनाई गई है।</p>"
+            },
+            terms: {
+                title: "Terms & Conditions",
+                body: "<p>1. हमारी वेबसाइट पर दी गई शॉपिंग डील्स बाहरी प्लेटफॉर्म्स की हैं।<br>2. किसी भी प्रोडक्ट की वारंटी या डिलीवरी के लिए संबंधित स्टोर ज़िम्मेदार होगा।<br>3. 'Shop to Earn' प्रोग्राम के तहत आप हमारे साथ जुड़कर कमीशन कमा सकते हैं।</p>"
+            },
+            contact: {
+                title: "Contact Us",
+                body: "<p>मुकुंद गैन (Mukund Gain)<br>लोकेशन: रुद्रपुर, उत्तराखंड<br>संपर्क करें: आप हमें टेलीग्राम या यूट्यूब चैनल के जरिए मैसेज भेज सकते हैं। हम जल्द ही आपसे संपर्क करेंगे!</p>"
+            }
+        };
+
+        function openModal(type) {
+            document.getElementById('modalTitle').innerText = data[type].title;
+            document.getElementById('modalBody').innerHTML = data[type].body;
+            document.getElementById('infoModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('infoModal')) {
+                closeModal();
             }
         }
     </script>
