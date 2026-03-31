@@ -6,95 +6,70 @@
     <title>MG AI Updates - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* मोबाइल और डेस्कटॉप दोनों के लिए सुरक्षित सेटिंग्स */
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; /* मोबाइल पर क्लिक करते वक्त जो नीला रंग आता है उसे हटाने के लिए */
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         html, body { 
-            height: 100%; 
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden; /* मोबाइल पर साइड में स्क्रॉल न आए */
-            display: flex;
-            flex-direction: column;
+            height: 100%; margin: 0; padding: 0; overflow-x: hidden;
+            display: flex; flex-direction: column;
             background: linear-gradient(to bottom, #ffcc33 0%, #33cccc 100%); 
-            font-family: 'Arial', sans-serif; 
-            text-align: center; 
-            color: #000;
+            font-family: 'Arial', sans-serif; text-align: center; color: #000;
         }
 
-        /* मुख्य कंटेनर - यही डेस्कटॉप पर इसे बिखेरने से रोकेगा और मोबाइल पर कटने से बचाएगा */
+        /* डेस्कटॉप मोड में इसे छोटा होने से बचाने के लिए चौड़ाई बढ़ाई गई है */
         .main-container { 
-            flex: 1; 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; /* मोबाइल पर पूरा दिखेगा */
-            max-width: 600px; /* डेस्कटॉप पर इसे बिखेरने से रोकेगा - थोड़ा और चौड़ा */
-            margin: 0 auto; /* डेस्कटॉप पर बीच में रखने के लिए */
-            position: relative;
+            flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; 
+            width: 100%; max-width: 850px; 
+            margin: 0 auto; 
         }
 
-        /* लोगो - MG */
-        .logo-box { margin-top: 15px; }
+        .logo-box { margin-top: 20px; }
         .logo-circle {
-            width: 105px; height: 105px; background: #000; border-radius: 50%;
-            border: 4px solid #777; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            width: 125px; height: 125px; background: #000; border-radius: 50%;
+            border: 5px solid #777; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
-        .logo-text { color: #fff; font-size: 45px; font-weight: 900; letter-spacing: -2px; }
+        .logo-text { color: #fff; font-size: 55px; font-weight: 900; letter-spacing: -2px; }
 
-        /* हेडर */
-        .header-section h1 { font-size: 34px; margin: 15px 0 0 0; font-weight: 900; }
+        .header-section h1 { font-size: 42px; margin: 20px 0 0 0; font-weight: 900; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
-        .share-btn { color: #0066cc; font-size: 22px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; margin-top: -5px; }
+        .share-btn { color: #0066cc; font-size: 24px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; }
 
-        /* बटन्स ग्रिड - Responsive */
         .btn-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 12px; 
-            width: 100%; /* मोबाइल पर पूरा */
-            margin-top: 30px; 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; 
+            width: 100%; max-width: 580px; margin-top: 40px; 
         }
         .grid-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
-        .btn-round { width: 95px; height: 95px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 45px; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .btn-round { width: 115px; height: 115px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 55px; border: 4px solid #fff; box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
         
-        .pink-bg { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 15px #ff0066; } 
+        .pink-bg { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 20px #ff0066; } 
         .white-bg { background: #fff; color: #ff0000; } 
         .blue-bg { background: #3399ff; color: #fff; } 
         
-        .lbl-main { font-size: 15px; font-weight: 900; margin-top: 10px; line-height: 1.1; }
-        .lbl-sub { font-size: 11px; font-weight: bold; color: #333; }
+        .lbl-main { font-size: 19px; font-weight: 900; margin-top: 12px; line-height: 1.1; }
+        .lbl-sub { font-size: 14px; font-weight: bold; color: #333; }
 
-        /* प्रोमो बॉक्स - Responsive */
         .promo-box {
-            width: 95%; /* मोबाइल पर थोड़ा गैप देगा */
-            background: #fff; border-radius: 25px;
-            padding: 10px; margin-top: 35px; border: 5px solid #eee; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            width: 95%; max-width: 650px; background: #fff; border-radius: 30px;
+            padding: 12px; margin-top: 45px; border: 6px solid #eee; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
-        .promo-img-full { width: 100%; border-radius: 20px; display: block; }
+        .promo-img-full { width: 100%; border-radius: 25px; display: block; }
 
-        /* फुटर और पॉप-अप */
-        .footer-area { margin-top: auto; padding: 25px 0; width: 100%; }
-        .managed-line { font-size: 14px; font-weight: bold; color: #000; margin-bottom: 5px; }
-        .footer-links button { background: none; border: none; font-weight: bold; color: #000; cursor: pointer; text-decoration: underline; font-size: 14px; margin: 0 5px; }
+        .footer-area { margin-top: auto; padding: 30px 0; width: 100%; }
+        .managed-line { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+        .footer-links button { background: none; border: none; font-weight: bold; color: #000; cursor: pointer; text-decoration: underline; font-size: 16px; margin: 0 8px; }
 
+        /* पॉप-अप डिज़ाइन */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: #fff; margin: 15% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 450px; text-align: left; position: relative; }
+        .modal-content { background: #fff; margin: 10% auto; padding: 25px; border-radius: 20px; width: 90%; max-width: 500px; text-align: left; position: relative; max-height: 80vh; overflow-y: auto; }
 
-        /* --- मोबाइल के लिए स्पेशल सेटिंग्स --- */
+        /* मोबाइल के लिए ऑटो-बैलेंस */
         @media (max-width: 600px) {
-            .main-container { padding: 10px; } /* मोबाइल पर कम पैडिंग */
-            .logo-circle { width: 95px; height: 95px; }
-            .logo-text { font-size: 40px; }
-            .header-section h1 { font-size: 30px; }
-            .btn-round { width: 85px; height: 85px; font-size: 40px; }
-            .promo-box { width: 98%; } /* मोबाइल पर पूरा दिखेगा - इमेज 1 जैसा */
+            .logo-circle { width: 100px; height: 100px; }
+            .btn-round { width: 90px; height: 90px; font-size: 45px; }
+            .header-section h1 { font-size: 32px; }
+            .promo-box { width: 98%; }
+            .lbl-main { font-size: 16px; }
         }
     </style>
 </head>
@@ -159,15 +134,26 @@
         const data = {
             privacy: { 
                 title: "Privacy Policy", 
-                body: "हम आपकी प्राइवेसी का पूरा ध्यान रखते हैं। आपकी कोई भी जानकारी बिना अनुमति के कहीं भी शेयर नहीं की जाती।" 
+                body: `<b>1. सूचना संग्रह:</b> हम अपने उपयोगकर्ताओं की किसी भी व्यक्तिगत जानकारी को बिना अनुमति के इकट्ठा नहीं करते हैं।<br>
+                       <b>2. कुकीज़ का उपयोग:</b> हमारी वेबसाइट बेहतर अनुभव के लिए कुकीज़ का उपयोग कर सकती है ताकि आपको सही डील्स दिखाई दें।<br>
+                       <b>3. डेटा सुरक्षा:</b> आपकी गोपनीयता हमारे लिए सर्वोपरि है। हम आपके ब्राउज़िंग डेटा को किसी तीसरे पक्ष को नहीं बेचते हैं।<br>
+                       <b>4. बाहरी लिंक्स:</b> हमारी वेबसाइट में Amazon, Meesho या अन्य शॉपिंग साइट्स के लिंक हो सकते हैं। उन वेबसाइटों की अपनी नीतियां होती हैं जिसके लिए हम जिम्मेदार नहीं हैं।<br><br>
+                       <i>अपडेट तिथि: मार्च 2026</i>` 
             },
             terms: { 
                 title: "Terms & Conditions", 
-                body: "1. सभी डील्स बाहरी स्टोर्स की हैं। 2. अर्निंग प्रोग्राम के नियम कंपनी के अनुसार होंगे। 3. किसी भी विवाद की स्थिति में हमारा निर्णय अंतिम होगा।" 
+                body: `<b>1. सेवा का उपयोग:</b> MG AI Updates केवल जानकारी और एफिलिएट मार्केटिंग के उद्देश्य से बनाया गया है।<br>
+                       <b>2. अर्निंग प्रोग्राम:</b> अर्निंग या कमीशन के नियम संबंधित कंपनी द्वारा निर्धारित किए जाते हैं। हम सीधे भुगतान के लिए उत्तरदायी नहीं हैं।<br>
+                       <b>3. सामग्री का अधिकार:</b> इस वेबसाइट पर मौजूद लोगो और डिज़ाइन मुकुंद गैन (MG) की संपत्ति है। इसका बिना अनुमति उपयोग वर्जित है।<br>
+                       <b>4. जिम्मेदारी की सीमा:</b> हम उत्पादों की गुणवत्ता या डिलीवरी के लिए जिम्मेदार नहीं हैं। कृपया खरीदारी से पहले उत्पाद की जांच स्वयं करें।<br>
+                       <b>5. बदलाव:</b> हम किसी भी समय इन शर्तों को बदलने का अधिकार सुरक्षित रखते हैं।` 
             },
             contact: { 
                 title: "Contact Us", 
-                body: "<b>नाम:</b> मुकुंद गैन<br><b>लोकेशन:</b> रुद्रपुर, उत्तराखंड<br><b>ईमेल:</b> Mgaiupdates@gmail.com<br><br>आप हमें टेलीग्राम चैनल के माध्यम से भी मैसेज भेज सकते हैं।" 
+                body: `<b>संचालक:</b> मुकुंद गैन (Mukund Gain)<br>
+                       <b>ईमेल:</b> Mgaiupdates@gmail.com<br>
+                       <b>स्थान:</b> रुद्रपुर, उत्तराखंड, भारत<br><br>
+                       किसी भी सहायता या विज्ञापन के लिए आप हमें ईमेल या टेलीग्राम पर संपर्क कर सकते हैं।` 
             }
         };
 
