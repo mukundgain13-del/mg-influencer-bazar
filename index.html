@@ -6,18 +6,39 @@
     <title>MG AI Updates - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
-        body { 
-            display: flex; flex-direction: column; 
-            font-family: 'Arial', sans-serif; 
+        /* मोबाइल और डेस्कटॉप दोनों के लिए सुरक्षित सेटिंग्स */
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; /* मोबाइल पर क्लिक करते वक्त जो नीला रंग आता है उसे हटाने के लिए */
+        }
+        
+        html, body { 
+            height: 100%; 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden; /* मोबाइल पर साइड में स्क्रॉल न आए */
+            display: flex;
+            flex-direction: column;
             background: linear-gradient(to bottom, #ffcc33 0%, #33cccc 100%); 
-            text-align: center; color: #000;
+            font-family: 'Arial', sans-serif; 
+            text-align: center; 
+            color: #000;
         }
 
-        .main-container { flex: 1; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        /* मुख्य कंटेनर - यही डेस्कटॉप पर इसे बिखेरने से रोकेगा और मोबाइल पर कटने से बचाएगा */
+        .main-container { 
+            flex: 1; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; /* मोबाइल पर पूरा दिखेगा */
+            max-width: 600px; /* डेस्कटॉप पर इसे बिखेरने से रोकेगा - थोड़ा और चौड़ा */
+            margin: 0 auto; /* डेस्कटॉप पर बीच में रखने के लिए */
+            position: relative;
+        }
 
-        /* टॉप लोगो - MG */
+        /* लोगो - MG */
         .logo-box { margin-top: 15px; }
         .logo-circle {
             width: 105px; height: 105px; background: #000; border-radius: 50%;
@@ -26,12 +47,19 @@
         }
         .logo-text { color: #fff; font-size: 45px; font-weight: 900; letter-spacing: -2px; }
 
+        /* हेडर */
         .header-section h1 { font-size: 34px; margin: 15px 0 0 0; font-weight: 900; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
-        .share-btn { color: #0066cc; font-size: 22px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; }
+        .share-btn { color: #0066cc; font-size: 22px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; margin-top: -5px; }
 
-        /* बटन्स ग्रिड */
-        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 460px; margin-top: 30px; }
+        /* बटन्स ग्रिड - Responsive */
+        .btn-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px; 
+            width: 100%; /* मोबाइल पर पूरा */
+            margin-top: 30px; 
+        }
         .grid-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
         .btn-round { width: 95px; height: 95px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 45px; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         
@@ -42,32 +70,32 @@
         .lbl-main { font-size: 15px; font-weight: 900; margin-top: 10px; line-height: 1.1; }
         .lbl-sub { font-size: 11px; font-weight: bold; color: #333; }
 
-        /* बड़ा प्रोमो बॉक्स */
+        /* प्रोमो बॉक्स - Responsive */
         .promo-box {
-            width: 95%; max-width: 480px; background: #fff; border-radius: 25px;
+            width: 95%; /* मोबाइल पर थोड़ा गैप देगा */
+            background: #fff; border-radius: 25px;
             padding: 10px; margin-top: 35px; border: 5px solid #eee; 
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         .promo-img-full { width: 100%; border-radius: 20px; display: block; }
 
-        /* ग्रीन विजिट बटन */
-        .visit-btn-container { width: 90%; max-width: 420px; margin-top: 25px; }
-        .visit-link {
-            display: block; background: #28a745; color: #fff; text-decoration: none;
-            padding: 15px; border-radius: 50px; border: 3px solid #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-weight: bold;
-        }
-        .visit-text-top { font-size: 18px; display: block; margin-bottom: 2px; }
-        .visit-url { font-size: 14px; display: block; opacity: 0.9; }
-
-        /* फुटर */
+        /* फुटर और पॉप-अप */
         .footer-area { margin-top: auto; padding: 25px 0; width: 100%; }
         .managed-line { font-size: 14px; font-weight: bold; color: #000; margin-bottom: 5px; }
-        .footer-links button { background: none; border: none; font-weight: bold; cursor: pointer; text-decoration: underline; font-size: 14px; }
+        .footer-links button { background: none; border: none; font-weight: bold; color: #000; cursor: pointer; text-decoration: underline; font-size: 14px; margin: 0 5px; }
 
-        /* पॉप-अप बॉक्स */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
         .modal-content { background: #fff; margin: 15% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 450px; text-align: left; position: relative; }
+
+        /* --- मोबाइल के लिए स्पेशल सेटिंग्स --- */
+        @media (max-width: 600px) {
+            .main-container { padding: 10px; } /* मोबाइल पर कम पैडिंग */
+            .logo-circle { width: 95px; height: 95px; }
+            .logo-text { font-size: 40px; }
+            .header-section h1 { font-size: 30px; }
+            .btn-round { width: 85px; height: 85px; font-size: 40px; }
+            .promo-box { width: 98%; } /* मोबाइल पर पूरा दिखेगा - इमेज 1 जैसा */
+        }
     </style>
 </head>
 <body>
@@ -104,7 +132,6 @@
             <img src="https://i.ibb.co/LdM500Gj/1774937203833.png" class="promo-img-full" alt="Shop to Earn">
         </div>
 
-
         <div class="footer-area">
             <div class="managed-line">© 2026 MG AI Updates | Managed by Mukund</div>
             <div class="footer-links">
@@ -140,7 +167,7 @@
             },
             contact: { 
                 title: "Contact Us", 
-                body: "<b>नाम:</b> मुकुंद गाईन<br><b>लोकेशन:</b> रुद्रपुर, उत्तराखंड<br><b>ईमेल:</b> Mgaiupdates@gmail.com<br><br>आप हमें टेलीग्राम चैनल के माध्यम से भी मैसेज भेज सकते हैं।" 
+                body: "<b>नाम:</b> मुकुंद गैन<br><b>लोकेशन:</b> रुद्रपुर, उत्तराखंड<br><b>ईमेल:</b> Mgaiupdates@gmail.com<br><br>आप हमें टेलीग्राम चैनल के माध्यम से भी मैसेज भेज सकते हैं।" 
             }
         };
 
