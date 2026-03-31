@@ -17,61 +17,64 @@
 
         .main-container { flex: 1; padding: 15px; display: flex; flex-direction: column; align-items: center; }
 
-        /* लोगो */
+        /* टॉप लोगो - MG */
         .logo-box { margin-top: 15px; }
         .logo-circle {
-            width: 100px; height: 100px; background: #000; border-radius: 50%;
-            border: 3px solid #333; display: flex; justify-content: center; align-items: center;
+            width: 105px; height: 105px; background: #000; border-radius: 50%;
+            border: 4px solid #777; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
-        .logo-img-main { width: 85px; height: 85px; border-radius: 50%; object-fit: contain; }
+        .logo-text { color: #fff; font-size: 45px; font-weight: 900; letter-spacing: -2px; }
 
-        .header-section h1 { font-size: 32px; margin: 15px 0 0 0; font-weight: 900; }
+        .header-section h1 { font-size: 34px; margin: 15px 0 0 0; font-weight: 900; }
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
-        .share-btn { color: #0066cc; font-size: 20px; font-weight: bold; text-decoration: underline; background: none; border: none; }
+        .share-btn { color: #0066cc; font-size: 22px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; }
 
-        /* बटन्स */
-        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 450px; margin-top: 25px; }
+        /* बटन्स ग्रिड */
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 460px; margin-top: 30px; }
         .grid-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
-        .btn-round { width: 85px; height: 85px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; border: 3px solid #fff; }
-        .pink-bg { background: #000; color: #ff0066; border-color: #ff0066; } 
+        .btn-round { width: 95px; height: 95px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 45px; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        
+        .pink-bg { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 15px #ff0066; } 
         .white-bg { background: #fff; color: #ff0000; } 
         .blue-bg { background: #3399ff; color: #fff; } 
-        .lbl-main { font-size: 12px; font-weight: 900; margin-top: 8px; }
-
-        /* प्रोमो बॉक्स - फिक्स्ड डिजाइन */
-        .promo-box {
-            width: 100%; max-width: 480px; background: #fff; border-radius: 20px;
-            padding: 20px; margin-top: 35px; border: 5px solid #fff; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; align-items: flex-start; text-align: left;
-        }
-        .promo-img-container { width: 40%; }
-        /* यहाँ केवल आपकी फोटो आएगी, पूरा बैनर नहीं */
-        .promo-img { width: 100%; border-radius: 12px; object-fit: cover; }
         
-        .promo-text { width: 60%; padding-left: 15px; }
-        .earn-btn-label { 
-            background: #28a745; color: #fff; border-radius: 6px; 
-            font-size: 14px; font-weight: bold; padding: 10px; 
-            margin-bottom: 10px; text-align: center; box-shadow: 0 4px 0 #1e7e34;
+        .lbl-main { font-size: 15px; font-weight: 900; margin-top: 10px; line-height: 1.1; }
+        .lbl-sub { font-size: 11px; font-weight: bold; color: #333; }
+
+        /* बड़ा प्रोमो बॉक्स */
+        .promo-box {
+            width: 95%; max-width: 480px; background: #fff; border-radius: 25px;
+            padding: 10px; margin-top: 35px; border: 5px solid #eee; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
-        .earn-list { font-size: 12px; font-weight: bold; color: #333; margin: 0; padding-left: 15px; line-height: 1.4; }
+        .promo-img-full { width: 100%; border-radius: 20px; display: block; }
+
+        /* ग्रीन विजिट बटन */
+        .visit-btn-container { width: 90%; max-width: 420px; margin-top: 25px; }
+        .visit-link {
+            display: block; background: #28a745; color: #fff; text-decoration: none;
+            padding: 15px; border-radius: 50px; border: 3px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-weight: bold;
+        }
+        .visit-text-top { font-size: 18px; display: block; margin-bottom: 2px; }
+        .visit-url { font-size: 14px; display: block; opacity: 0.9; }
 
         /* फुटर */
         .footer-area { margin-top: auto; padding: 25px 0; width: 100%; }
-        .footer-links button { background: none; border: none; font-weight: bold; cursor: pointer; text-decoration: underline; }
+        .managed-line { font-size: 14px; font-weight: bold; color: #000; margin-bottom: 5px; }
+        .footer-links button { background: none; border: none; font-weight: bold; cursor: pointer; text-decoration: underline; font-size: 14px; }
 
-        /* मॉडल्स */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
-        .modal-content { background: #fff; margin: 20% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 400px; position: relative; }
+        /* पॉप-अप बॉक्स */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+        .modal-content { background: #fff; margin: 15% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 450px; text-align: left; position: relative; }
     </style>
 </head>
 <body>
 
     <div class="main-container">
         <div class="logo-box">
-            <div class="logo-circle">
-                <img src="https://i.ibb.co/LdM500Gj/1774937203833.png" class="logo-img-main" alt="MG Logo">
-            </div>
+            <div class="logo-circle"><div class="logo-text">MG</div></div>
         </div>
 
         <div class="header-section">
@@ -83,30 +86,30 @@
             <a href="https://topdeal.app.link/niDWGq6PV1b" class="grid-item">
                 <div class="btn-round pink-bg"><i class="fas fa-shopping-cart"></i></div>
                 <div class="lbl-main">All in one</div>
+                <div class="lbl-sub">Shoping Store</div>
             </a>
             <a href="https://www.youtube.com/@INDO148MG0.2" class="grid-item">
                 <div class="btn-round white-bg"><i class="fab fa-youtube"></i></div>
                 <div class="lbl-main">Visit Our Channel</div>
+                <div class="lbl-sub">YouTube</div>
             </a>
             <a href="https://t.me/Indo148mg" class="grid-item">
                 <div class="btn-round blue-bg"><i class="fab fa-telegram-plane"></i></div>
                 <div class="lbl-main">Join Telegram</div>
+                <div class="lbl-sub">Best Deals</div>
             </a>
         </div>
 
         <div class="promo-box">
-            <div class="promo-img-container">
-                <img src="https://i.ibb.co/LdM500Gj/1774937203833.png" class="promo-img" alt="Mukund">
-            </div>
-            <div class="promo-text">
-                <div class="earn-btn-label">SHOP TO EARN PART-TIME!</div>
-                <ul class="earn-list">
-                    <li>Create Your Account</li>
-                    <li>Refer Products</li>
-                    <li>Earn commission!</li>
-                    <li>Work from Home!</li>
-                </ul>
-            </div>
+            <img src="https://i.ibb.co/LdM500Gj/1774937203833.png" class="promo-img-full" alt="Shop to Earn">
+        </div>
+
+        <div class="visit-btn-container">
+            <a href="https://mg-influencer-bazar.vercel.app" class="visit-link">
+                <span class="visit-text-top">VISIT</span>
+                <span class="visit-url">mg-influencer-bazar.vercel.app</span>
+                <span class="visit-text-top">TO START EARNING</span>
+            </a>
         </div>
 
         <div class="footer-area">
@@ -121,9 +124,9 @@
 
     <div id="infoModal" class="modal">
         <div class="modal-content">
-            <span onclick="closeModal()" style="float:right; cursor:pointer;">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <div id="modalBody"></div>
+            <span onclick="closeModal()" style="float:right; cursor:pointer; font-size:24px;">&times;</span>
+            <h2 id="modalTitle" style="color:#28a745; margin-top:0;"></h2>
+            <div id="modalBody" style="line-height:1.6; color:#333;"></div>
         </div>
     </div>
 
@@ -134,9 +137,18 @@
         }
 
         const data = {
-            privacy: { title: "Privacy Policy", body: "आपका डेटा सुरक्षित है।" },
-            terms: { title: "Terms & Conditions", body: "वेबसाइट के नियम यहाँ दिए गए हैं।" },
-            contact: { title: "Contact Us", body: "Mukund Gain - Rudrapur, Uttarakhand" }
+            privacy: { 
+                title: "Privacy Policy", 
+                body: "हम आपकी प्राइवेसी का पूरा ध्यान रखते हैं। आपकी कोई भी जानकारी बिना अनुमति के कहीं भी शेयर नहीं की जाती।" 
+            },
+            terms: { 
+                title: "Terms & Conditions", 
+                body: "1. सभी डील्स बाहरी स्टोर्स की हैं। 2. अर्निंग प्रोग्राम के नियम कंपनी के अनुसार होंगे। 3. किसी भी विवाद की स्थिति में हमारा निर्णय अंतिम होगा।" 
+            },
+            contact: { 
+                title: "Contact Us", 
+                body: "<b>नाम:</b> मुकुंद गाईन<br><b>लोकेशन:</b> रुद्रपुर, उत्तराखंड<br><b>ईमेल:</b> Mgaiupdates@gmail.com<br><br>आप हमें टेलीग्राम चैनल के माध्यम से भी मैसेज भेज सकते हैं।" 
+            }
         };
 
         function openModal(type) {
@@ -144,8 +156,8 @@
             document.getElementById('modalBody').innerHTML = data[type].body;
             document.getElementById('infoModal').style.display = "block";
         }
-
         function closeModal() { document.getElementById('infoModal').style.display = "none"; }
+        window.onclick = function(event) { if (event.target == document.getElementById('infoModal')) { closeModal(); } }
     </script>
 </body>
 </html>
