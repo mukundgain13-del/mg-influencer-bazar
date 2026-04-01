@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MG AI Updates - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
@@ -19,11 +15,9 @@
             font-family: 'Arial', sans-serif; text-align: center; color: #000;
         }
 
-        /* डेस्कटॉप मोड में इसे छोटा होने से बचाने के लिए चौड़ाई बढ़ाई गई है */
         .main-container { 
             flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; 
-            width: 100%; max-width: 850px; 
-            margin: 0 auto; 
+            width: 100%; max-width: 850px; margin: 0 auto; 
         }
 
         .logo-box { margin-top: 20px; }
@@ -38,19 +32,31 @@
         .m { color: #ff0000; } .g { color: #008000; } .ai { color: #0000ff; }
         .share-btn { color: #0066cc; font-size: 24px; font-weight: bold; text-decoration: underline; background: none; border: none; cursor: pointer; }
 
+        /* 4 बटनों की ग्रिड */
         .btn-grid { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; 
-            width: 100%; max-width: 580px; margin-top: 40px; 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; 
+            width: 100%; max-width: 650px; margin-top: 40px; 
         }
-        .grid-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; }
-        .btn-round { width: 115px; height: 115px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 55px; border: 4px solid #fff; box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+        .grid-item { text-decoration: none; color: #000; display: flex; flex-direction: column; align-items: center; cursor: pointer; border: none; background: none; }
+        .btn-round { width: 85px; height: 85px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; border: 4px solid #fff; box-shadow: 0 6px 15px rgba(0,0,0,0.3); transition: 0.3s; }
         
         .pink-bg { background: #000; color: #ff0066; border-color: #ff0066; box-shadow: 0 0 20px #ff0066; } 
+        .orange-bg { background: #fff; color: #ff9800; border-color: #ff9800; } /* Refer & Earn के लिए */
         .white-bg { background: #fff; color: #ff0000; } 
         .blue-bg { background: #3399ff; color: #fff; } 
         
-        .lbl-main { font-size: 19px; font-weight: 900; margin-top: 12px; line-height: 1.1; }
-        .lbl-sub { font-size: 14px; font-weight: bold; color: #333; }
+        .lbl-main { font-size: 14px; font-weight: 900; margin-top: 12px; line-height: 1.1; }
+        .lbl-sub { font-size: 11px; font-weight: bold; color: #333; }
+
+        /* फोल्डर और अंदर के पिल-शेप बटन */
+        .folder-container { display: none; width: 95%; max-width: 500px; margin-top: 20px; background: rgba(255,255,255,0.3); border-radius: 20px; padding: 15px; }
+        .pill-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 55px; background: #fff; border: 2px solid #e0e0e0;
+            border-radius: 50px; margin-bottom: 12px; text-decoration: none;
+            color: #333; font-weight: bold; font-size: 18px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .code-text { font-size: 10px; color: #28a745; display: block; }
 
         .promo-box {
             width: 95%; max-width: 650px; background: #fff; border-radius: 30px;
@@ -63,17 +69,13 @@
         .managed-line { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
         .footer-links button { background: none; border: none; font-weight: bold; color: #000; cursor: pointer; text-decoration: underline; font-size: 16px; margin: 0 8px; }
 
-        /* पॉप-अप डिज़ाइन */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
         .modal-content { background: #fff; margin: 10% auto; padding: 25px; border-radius: 20px; width: 90%; max-width: 500px; text-align: left; position: relative; max-height: 80vh; overflow-y: auto; }
 
-        /* मोबाइल के लिए ऑटो-बैलेंस */
         @media (max-width: 600px) {
-            .logo-circle { width: 100px; height: 100px; }
-            .btn-round { width: 90px; height: 90px; font-size: 45px; }
-            .header-section h1 { font-size: 32px; }
-            .promo-box { width: 98%; }
-            .lbl-main { font-size: 16px; }
+            .btn-round { width: 75px; height: 75px; font-size: 35px; }
+            .lbl-main { font-size: 12px; }
+            .btn-grid { gap: 5px; }
         }
     </style>
 </head>
@@ -90,20 +92,43 @@
         </div>
 
         <div class="btn-grid">
-            <a href="https://topdeal.app.link/niDWGq6PV1b" class="grid-item">
+            <div class="grid-item" onclick="toggleFolder('shopFolder')">
                 <div class="btn-round pink-bg"><i class="fas fa-shopping-cart"></i></div>
                 <div class="lbl-main">All in one</div>
                 <div class="lbl-sub">Shoping Store</div>
-            </a>
+            </div>
+
+            <div class="grid-item" onclick="toggleFolder('earnFolder')">
+                <div class="btn-round orange-bg"><i class="fas fa-bullhorn"></i></div>
+                <div class="lbl-main">Refer &</div>
+                <div class="lbl-sub">Earn</div>
+            </div>
+
             <a href="https://www.youtube.com/@INDO148MG0.2" class="grid-item">
                 <div class="btn-round white-bg"><i class="fab fa-youtube"></i></div>
-                <div class="lbl-main">Visit Our Channel</div>
+                <div class="lbl-main">Visit Our</div>
                 <div class="lbl-sub">YouTube</div>
             </a>
+
             <a href="https://t.me/Indo148mg" class="grid-item">
                 <div class="btn-round blue-bg"><i class="fab fa-telegram-plane"></i></div>
-                <div class="lbl-main">Join Telegram</div>
-                <div class="lbl-sub">Best Deals</div>
+                <div class="lbl-main">Join</div>
+                <div class="lbl-sub">Telegram</div>
+            </a>
+        </div>
+
+        <div id="shopFolder" class="folder-container">
+            <a href="https://fktr.in/8obn5pq" target="_blank" class="pill-btn">Flipkart</a>
+            <a href="https://fktr.in/8obn5pq" target="_blank" class="pill-btn">Amazon.in</a>
+            <a href="https://myntr.it/Dsj3Mb7" target="_blank" class="pill-btn">Myntra</a>
+            <a href="https://ajiio.in/9mZJ8qW" target="_blank" class="pill-btn">AJIO</a>
+        </div>
+
+        <div id="earnFolder" class="folder-container">
+            <p style="font-weight:bold; margin-bottom:10px;">घर बैठे पैसे कमाए</p>
+            <a href="https://topdeal.app.link/niDWGq6PV1b" target="_blank" class="pill-btn">EarnKaro</a>
+            <a href="https://app.gromo.co.in/PWPJODViY1b" target="_blank" class="pill-btn">
+                <div>GroMo <span class="code-text">Use Code: 21X46668</span></div>
             </a>
         </div>
 
@@ -130,6 +155,19 @@
     </div>
 
     <script>
+        function toggleFolder(id) {
+            const shop = document.getElementById('shopFolder');
+            const earn = document.getElementById('earnFolder');
+            
+            if(id === 'shopFolder') {
+                shop.style.display = (shop.style.display === 'block') ? 'none' : 'block';
+                earn.style.display = 'none';
+            } else {
+                earn.style.display = (earn.style.display === 'block') ? 'none' : 'block';
+                shop.style.display = 'none';
+            }
+        }
+
         function webShare() {
             if (navigator.share) { navigator.share({ title: 'MG AI Updates', url: window.location.href }); }
             else { alert("Link: " + window.location.href); }
@@ -140,7 +178,7 @@
                 title: "Privacy Policy", 
                 body: `<b>1. सूचना संग्रह:</b> हम अपने उपयोगकर्ताओं की किसी भी व्यक्तिगत जानकारी को बिना अनुमति के इकट्ठा नहीं करते हैं।<br>
                        <b>2. कुकीज़ का उपयोग:</b> हमारी वेबसाइट बेहतर अनुभव के लिए कुकीज़ का उपयोग कर सकती है ताकि आपको सही डील्स दिखाई दें।<br>
-                       <b>3. डेटा सुरक्षा:</b> आपकी गोपन���यता हमारे लिए सर्वोपरि है। हम आपके ब्राउज़िंग डेटा को किसी तीसरे पक्ष को नहीं बेचते हैं।<br>
+                       <b>3. डेटा सुरक्षा:</b> आपकी गोपनीयता हमारे लिए सर्वोपरि है। हम आपके ब्राउज़िंग डेटा को किसी तीसरे पक्ष को नहीं बेचते हैं।<br>
                        <b>4. बाहरी लिंक्स:</b> हमारी वेबसाइट में Amazon, Meesho या अन्य शॉपिंग साइट्स के लिंक हो सकते हैं। उन वेबसाइटों की अपनी नीतियां होती हैं जिसके लिए हम जिम्मेदार नहीं हैं।<br><br>
                        <i>अपडेट तिथि: मार्च 2026</i>` 
             },
