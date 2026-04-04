@@ -3,104 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG AI - Channel Promotion</title>
+    <title>MG AI - Free Promotion</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --primary: #1a73e8; --yt: #ff0000; --green: #28a745; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 15px; text-align: center; }
-        .container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); max-width: 450px; margin: auto; }
+        :root { --primary: #1a73e8; --green: #28a745; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 15px; }
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; width: 100%; text-align: center; }
         
-        /* Progress Bar */
-        .progress-box { width: 100%; background: #eee; border-radius: 10px; height: 25px; margin: 20px 0; overflow: hidden; display: none; border: 1px solid #ccc; }
-        .bar { height: 100%; width: 0%; background: var(--primary); transition: 0.5s; color: white; font-size: 13px; line-height: 25px; font-weight: bold; }
+        #final-form { display: none; margin-top: 20px; text-align: left; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Task Area */
-        #task-area { display: none; margin-top: 10px; }
-        .channel-card { display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1px solid #eee; padding: 12px; margin-bottom: 8px; border-radius: 10px; transition: 0.4s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .sub-btn { background: var(--yt); color: white; padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; }
-        
-        /* Unlocked Form */
-        #final-form { display: none; margin-top: 25px; border-top: 3px solid var(--green); padding-top: 20px; animation: slideUp 0.5s; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        input { width: 92%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         .submit-btn { background: var(--green); color: white; padding: 15px; border: none; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        .welcome-msg { color: var(--primary); font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2 style="color:var(--primary);">MG AI Studio</h2>
-    <p id="msg">प्रमोशन के लिए लॉगिन करें</p>
+    <div id="login-box">
+        <p>प्रमोशन शुरू करने के लिए लॉगिन करें</p>
+        <div id="g_id_onload" data-client_id="450172090515-rb0rdcqvatbjl3glt8g1g8spm9307c41.apps.googleusercontent.com" data-callback="onLogin"></div>
+        <div class="g_id_signin" data-type="standard"></div>
+    </div>
 
-    <div id="g_id_onload" data-client_id="450172090515-rb0rdcqvatbjl3glt8g1g8spm9307c41.apps.googleusercontent.com" data-callback="onLogin"></div>
-    <div class="g_id_signin" data-type="standard"></div>
-
-    <div id="main-content" style="display:none;">
-        <div class="progress-box" id="p-box"><div class="bar" id="p-bar">0/5 टास्क पूरे हुए</div></div>
-
-        <div id="task-area">
-            <p style="font-weight:bold; color:var(--yt);">आगे बढ़ने के लिए 5 चैनल सब्सक्राइब करें:</p>
-            <div id="queue">
-                <div class="channel-card" id="t1"><span>1. Indo148mg</span><a href="https://youtube.com/@Indo148mg" target="_blank" class="sub-btn" onclick="taskDone('t1')">Subscribe</a></div>
-                <div class="channel-card" id="t2"><span>2. Indo148mg0.2</span><a href="https://youtube.com/@Indo148mg0.2" target="_blank" class="sub-btn" onclick="taskDone('t2')">Subscribe</a></div>
-                <div class="channel-card" id="t3"><span>3. Vishnu Samvad</span><a href="https://youtube.com/@VishnuSamvad" target="_blank" class="small sub-btn" onclick="taskDone('t3')">Subscribe</a></div>
-                <div class="channel-card" id="t4"><span>4. MG AI Tech</span><a href="#" target="_blank" class="sub-btn" onclick="taskDone('t4')">Subscribe</a></div>
-                <div class="channel-card" id="t5"><span>5. MG AI Studio Updates</span><a href="#" target="_blank" class="sub-btn" onclick="taskDone('t5')">Subscribe</a></div>
-            </div>
-        </div>
-
-        <div id="final-form">
-            <h3 style="color:var(--green)">बधाई हो! फॉर्म अनलॉक हो गया ✅</h3>
-            <input type="text" id="chName" placeholder="आपके चैनल का नाम">
-            <input type="url" id="chLink" placeholder="चैनल की लिंक (https://...)">
-            <button class="submit-btn" onclick="sendData()">सबमिट करें</button>
-        </div>
+    <div id="final-form">
+        <p class="welcome-msg" id="user-mail"></p>
+        <h3 style="color:var(--green)">फ्री चैनल प्रमोशन फॉर्म</h3>
+        <label>आपका चैनल नाम:</label>
+        <input type="text" id="chName" placeholder="जैसे: Indo148mg">
+        <label>चैनल की लिंक:</label>
+        <input type="url" id="chLink" placeholder="https://youtube.com/@...">
+        <button class="submit-btn" onclick="sendData()">सबमिट करें</button>
     </div>
 </div>
 
 <script>
     let email = "";
-    let done = 0;
-    const goal = 5;
 
     function onLogin(res) {
         const d = JSON.parse(atob(res.credential.split('.')[1]));
         email = d.email;
-        document.getElementById("msg").innerText = "स्वागत है: " + email;
-        document.querySelector(".g_id_signin").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-        document.getElementById("p-box").style.display = "block";
-        document.getElementById("task-area").style.display = "block";
-    }
-
-    function taskDone(id) {
-        const item = document.getElementById(id);
-        const queue = document.getElementById("queue");
-        
-        item.style.opacity = "0.5";
-        setTimeout(() => {
-            queue.appendChild(item); // चैनल को नीचे भेजें
-            item.style.opacity = "1";
-            item.querySelector('.sub-btn').innerText = "✅ Done";
-            item.querySelector('.sub-btn').style.background = "#aaa";
-            item.querySelector('.sub-btn').onclick = null;
-        }, 300);
-
-        done++;
-        updateProgress();
-    }
-
-    function updateProgress() {
-        let p = (done / goal) * 100;
-        const bar = document.getElementById("p-bar");
-        bar.style.width = p + "%";
-        bar.innerText = done + "/" + goal + " टास्क पूरे हुए";
-
-        if(done >= goal) {
-            document.getElementById("task-area").style.display = "none";
-            document.getElementById("final-form").style.display = "block";
-        }
+        document.getElementById("login-box").style.display = "none";
+        document.getElementById("user-mail").innerText = "लॉगिन सफल: " + email;
+        document.getElementById("final-form").style.display = "block";
     }
 
     function sendData() {
@@ -115,15 +62,14 @@
                 email: email,
                 channelName: n,
                 channelLink: l,
-                plan: "Free (Intro Offer)",
+                plan: "Early Bird Free",
                 transactionId: "N/A"
             })
         }).then(() => {
-            alert("आपका चैनल सफलतापूर्वक रजिस्टर हो गया है!");
+            alert("बधाई हो! आपका चैनल फ्री प्रमोशन के लिए रजिस्टर हो गया है।");
             location.reload();
         });
     }
 </script>
 </body>
 </html>
-
