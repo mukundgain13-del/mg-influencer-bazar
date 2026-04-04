@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG AI Studio - Premium Dashboard</title>
+    <title>MG AI Studio - Community Support</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --primary: #1a73e8; --gold: #ff9800; --green: #28a745; --light: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-        .container { background: white; padding: 20px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 450px; width: 100%; text-align: center; }
-        .section-box { background: var(--light); border-radius: 15px; padding: 15px; margin-top: 15px; text-align: left; border: 1px solid #e0e0e0; }
-        .premium-btn { background: linear-gradient(135deg, #6200ea, #d500f9); color: white; padding: 15px; border-radius: 12px; cursor: pointer; border: none; width: 100%; font-weight: bold; margin-top:10px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .channel-card { display: flex; align-items: center; justify-content: space-between; background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .visit-btn { background: var(--primary); color: white; text-decoration: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; }
+        :root { --primary: #1a73e8; --red: #ff0000; --gold: #ff9800; --green: #28a745; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); max-width: 600px; width: 100%; text-align: center; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .col { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 10px; min-height: 250px; }
+        .col-header { font-size: 13px; font-weight: bold; margin-bottom: 10px; padding: 6px; border-radius: 6px; color: white; display: block; }
+        .channel-row { display: flex; flex-direction: column; align-items: center; padding: 10px; border-bottom: 1px solid #eee; margin-bottom: 5px; }
+        .ch-name { font-size: 12px; font-weight: bold; margin-bottom: 5px; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
+        .sub-btn { background: var(--red); color: white; text-decoration: none; font-size: 11px; padding: 6px 12px; border-radius: 4px; font-weight: bold; width: 100%; display: inline-block; }
+        .premium-box { background: #fff3e0; border: 2px solid var(--gold); border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: left; }
+        input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn-main { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="color:var(--primary); margin: 0;">MG AI Studio 🚀</h2>
+    <h2 style="color:var(--primary); margin: 0 0 10px 0;">MG AI Studio 🚀</h2>
     
     <div id="login-box">
         <div id="g_id_onload" data-client_id="450172090515-rb0rdcqvatbjl3glt8g1g8spm9307c41.apps.googleusercontent.com" data-callback="onLogin"></div>
@@ -27,69 +31,73 @@
     </div>
 
     <div id="main-ui" style="display:none;">
-        <p style="text-align: left;">नमस्ते, <span id="user-name" style="font-weight:bold; color:var(--primary);">User</span> 👋</p>
-
-        <div class="section-box" style="border-left: 5px solid var(--green);">
-            <span style="font-size: 12px;">आपका स्टेटस:</span>
-            <div id="my-channel-display" style="font-weight:bold; font-size:16px;">लोड हो रहा है...</div>
-            <p style="font-size:11px; margin:0;">प्लान: <span id="current-plan">Free Trial</span></p>
+        <div class="premium-box">
+            <p style="font-weight:bold; color:#e65100; margin:0;">👑 प्रीमियम पद (₹199 / 30 दिन)</p>
+            <p style="font-size: 11px; color: #555; margin: 5px 0;">UPI: <strong>9897414148@ptaxis</strong></p>
+            <input type="text" id="txnId" placeholder="Transaction ID यहाँ भरें">
+            <button onclick="requestPremium()" style="background:#6200ea; color:white; border:none; padding:10px; width:100%; border-radius:8px; font-weight:bold; cursor:pointer;">पेमेंट कर दिया, पद (Paid) में जाएँ</button>
         </div>
 
-        <div class="section-box" style="background:#fff3e0; border:1px solid var(--gold);">
-            <p style="font-weight:bold; color:#e65100; margin:0 0 10px 0;">👑 प्रीमियम (₹199 / 30 दिन)</p>
-            <div style="background:white; padding:10px; border-radius:10px; text-align:center;">
-                <p style="font-size:11px; margin:0;">UPI ID: <strong>9897414148@ptaxis</strong></p>
-                <button onclick="navigator.clipboard.writeText('9897414148@ptaxis');alert('UPI कॉपी हुआ!')" style="font-size:10px; margin-top:5px;">Copy UPI</button>
+        <div class="dashboard-grid">
+            <div class="col" style="border-top: 4px solid var(--primary);">
+                <span class="col-header" style="background:var(--primary);">🆓 फ्री प्रमोशन</span>
+                <div id="free-list">लोड हो रहा है...</div>
             </div>
-            
-            <input type="text" id="txnId" placeholder="Transaction ID (पेमेंट के बाद यहाँ भरें)">
-            <button class="premium-btn" onclick="activatePremium()">पेमेंट कर दिया, एक्टिवेट करें</button>
-        </div>
 
-        <div class="section-box">
-            <span style="font-weight:bold; display:block; margin-bottom:10px;">🤝 दूसरों को सपोर्ट करें:</span>
-            <div class="channel-card"><span>Indo148mg</span><a href="https://youtube.com/@Indo148mg" target="_blank" class="visit-btn">Visit</a></div>
-            <div class="channel-card"><span>Vishnu Samvad</span><a href="https://youtube.com/@VishnuSamvad" target="_blank" class="visit-btn">Visit</a></div>
+            <div class="col" style="border-top: 4px solid var(--gold); background: #fffdf5;">
+                <span class="col-header" style="background:var(--gold);">⭐ प्रीमियम पद</span>
+                <div id="paid-list">प्रीमियम मेंबर यहाँ दिखेंगे</div>
+            </div>
         </div>
         
-        <button onclick="showRegForm()" style="background:none; border:none; color:var(--primary); cursor:pointer; margin-top:15px;">+ नया चैनल जोड़ें</button>
+        <button onclick="showRegForm()" class="btn-main">+ अपना चैनल जोड़ें (Free)</button>
     </div>
 
     <div id="registration-form" style="display:none;">
-        <h3>नया रजिस्ट्रेशन</h3>
+        <h3>चैनल रजिस्टर करें</h3>
         <input type="text" id="chName" placeholder="चैनल का नाम">
-        <input type="url" id="chLink" placeholder="चैनल लिंक">
-        <button onclick="sendData()" style="background:var(--green); color:white; width:100%; padding:15px; border:none; border-radius:10px; font-weight:bold;">सबमिट करें</button>
+        <input type="url" id="chLink" placeholder="यूट्यूब चैनल लिंक">
+        <button onclick="sendData()" class="btn-main" style="background:var(--green);">सबमिट करें</button>
+        <p onclick="location.reload()" style="cursor:pointer; color:blue; font-size:12px; margin-top:15px;">← वापस</p>
     </div>
 </div>
 
 <script>
-    let email = "", userName = "";
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxQ51D08ELGfKaqy6fDtcc5Aj3TLd2hEqWpZfn29H0GQbjG1ITMlmHAMfYSn54rWhVRLA/exec";
+    let email = "";
+    // आपकी नई लिंक यहाँ अपडेट कर दी गई है
+    const scriptURL = "https://script.google.com/macros/s/AKfycby5JLCZtHwwbEwYU2UO2fOAuFlUO3joOZJwL3nF4AIL3TlCkuSmzDlNBe8cXQyNU0TinQ/exec";
 
     function onLogin(res) {
         const d = JSON.parse(atob(res.credential.split('.')[1]));
-        email = d.email; userName = d.given_name;
-        document.getElementById("user-name").innerText = userName;
+        email = d.email;
         document.getElementById("login-box").style.display = "none";
         document.getElementById("main-ui").style.display = "block";
-        document.getElementById("my-channel-display").innerText = localStorage.getItem("lastRegistered") || "कोई नहीं";
+        loadData(); // डेटा लोड करना
     }
 
-    function activatePremium() {
-        const tx = document.getElementById("txnId").value;
-        const ch = document.getElementById("my-channel-display").innerText;
-        if(!tx || tx.length < 5) { alert("कृपया सही Transaction ID डालें!"); return; }
+    function loadData() {
+        fetch(scriptURL)
+        .then(res => res.json())
+        .then(data => {
+            const freeList = document.getElementById('free-list');
+            const paidList = document.getElementById('paid-list');
+            freeList.innerHTML = ""; paidList.innerHTML = "";
 
-        // व्हाट्सएप अलर्ट लिंक
-        const msg = `Hi मुकुंद सर, मैंने ₹199 पे कर दिए हैं।\nEmail: ${email}\nChannel: ${ch}\nTxn ID: ${tx}\nकृपया एक्टिवेट करें।`;
-        const waLink = `https://wa.me/919897414148?text=${encodeURIComponent(msg)}`;
-        
-        // डेटा शीट में भेजें
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, channelName: ch, txnId: tx, plan: "Upgrade Request" }) });
-        
-        alert("Verification के लिए व्हाट्सएप पर मैसेज भेजें।");
-        window.open(waLink, '_blank');
+            data.forEach(item => {
+                let html = `<div class="channel-row"><span class="ch-name">${item.channelName}</span><a href="${item.channelLink}?sub_confirmation=1" target="_blank" class="sub-btn">SUBSCRIBE</a></div>`;
+                if(item.plan === "Paid" || item.plan === "Active") {
+                    paidList.innerHTML += html;
+                } else {
+                    freeList.innerHTML += html;
+                }
+            });
+        }).catch(err => { console.log("Error loading data"); });
+    }
+
+    function requestPremium() {
+        const tx = document.getElementById("txnId").value;
+        if(!tx) { alert("Transaction ID भरें"); return; }
+        window.open(`https://wa.me/919897414148?text=Hi मुकुंद सर, मैंने ₹199 पे कर दिए हैं। Txn ID: ${tx}`, '_blank');
     }
 
     function showRegForm() {
@@ -100,9 +108,8 @@
     function sendData() {
         const n = document.getElementById("chName").value, l = document.getElementById("chLink").value;
         if(!n || !l) return;
-        localStorage.setItem("lastRegistered", n);
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, channelName: n, channelLink: l, plan: "Free Trial" }) });
-        alert("रजिस्टर हुआ!"); location.reload();
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, channelName: n, channelLink: l, plan: "Free" }) })
+        .then(() => { alert("रजिस्टर हुआ!"); location.reload(); });
     }
 </script>
 </body>
