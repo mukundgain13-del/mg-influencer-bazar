@@ -3,72 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG AI - Free Promotion</title>
+    <title>MG AI Studio - Premium Dashboard</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --primary: #1a73e8; --green: #28a745; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 15px; }
-        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; width: 100%; text-align: center; }
-        
-        #final-form { display: none; margin-top: 20px; text-align: left; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { background: var(--green); color: white; padding: 15px; border: none; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        .welcome-msg { color: var(--primary); font-weight: bold; margin-bottom: 20px; }
+        :root { --primary: #1a73e8; --gold: #ff9800; --green: #28a745; --light: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; padding: 20px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 450px; width: 100%; text-align: center; }
+        .section-box { background: var(--light); border-radius: 15px; padding: 15px; margin-top: 15px; text-align: left; border: 1px solid #e0e0e0; }
+        .premium-btn { background: linear-gradient(135deg, #6200ea, #d500f9); color: white; padding: 15px; border-radius: 12px; cursor: pointer; border: none; width: 100%; font-weight: bold; margin-top:10px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .channel-card { display: flex; align-items: center; justify-content: space-between; background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .visit-btn { background: var(--primary); color: white; text-decoration: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="color:var(--primary);">MG AI Studio</h2>
+    <h2 style="color:var(--primary); margin: 0;">MG AI Studio 🚀</h2>
+    
     <div id="login-box">
-        <p>प्रमोशन शुरू करने के लिए लॉगिन करें</p>
         <div id="g_id_onload" data-client_id="450172090515-rb0rdcqvatbjl3glt8g1g8spm9307c41.apps.googleusercontent.com" data-callback="onLogin"></div>
         <div class="g_id_signin" data-type="standard"></div>
     </div>
 
-    <div id="final-form">
-        <p class="welcome-msg" id="user-mail"></p>
-        <h3 style="color:var(--green)">फ्री चैनल प्रमोशन फॉर्म</h3>
-        <label>आपका चैनल नाम:</label>
-        <input type="text" id="chName" placeholder="जैसे: Indo148mg">
-        <label>चैनल की लिंक:</label>
-        <input type="url" id="chLink" placeholder="https://youtube.com/@...">
-        <button class="submit-btn" onclick="sendData()">सबमिट करें</button>
+    <div id="main-ui" style="display:none;">
+        <p style="text-align: left;">नमस्ते, <span id="user-name" style="font-weight:bold; color:var(--primary);">User</span> 👋</p>
+
+        <div class="section-box" style="border-left: 5px solid var(--green);">
+            <span style="font-size: 12px;">आपका स्टेटस:</span>
+            <div id="my-channel-display" style="font-weight:bold; font-size:16px;">लोड हो रहा है...</div>
+            <p style="font-size:11px; margin:0;">प्लान: <span id="current-plan">Free Trial</span></p>
+        </div>
+
+        <div class="section-box" style="background:#fff3e0; border:1px solid var(--gold);">
+            <p style="font-weight:bold; color:#e65100; margin:0 0 10px 0;">👑 प्रीमियम (₹199 / 30 दिन)</p>
+            <div style="background:white; padding:10px; border-radius:10px; text-align:center;">
+                <p style="font-size:11px; margin:0;">UPI ID: <strong>9897414148@ptaxis</strong></p>
+                <button onclick="navigator.clipboard.writeText('9897414148@ptaxis');alert('UPI कॉपी हुआ!')" style="font-size:10px; margin-top:5px;">Copy UPI</button>
+            </div>
+            
+            <input type="text" id="txnId" placeholder="Transaction ID (पेमेंट के बाद यहाँ भरें)">
+            <button class="premium-btn" onclick="activatePremium()">पेमेंट कर दिया, एक्टिवेट करें</button>
+        </div>
+
+        <div class="section-box">
+            <span style="font-weight:bold; display:block; margin-bottom:10px;">🤝 दूसरों को सपोर्ट करें:</span>
+            <div class="channel-card"><span>Indo148mg</span><a href="https://youtube.com/@Indo148mg" target="_blank" class="visit-btn">Visit</a></div>
+            <div class="channel-card"><span>Vishnu Samvad</span><a href="https://youtube.com/@VishnuSamvad" target="_blank" class="visit-btn">Visit</a></div>
+        </div>
+        
+        <button onclick="showRegForm()" style="background:none; border:none; color:var(--primary); cursor:pointer; margin-top:15px;">+ नया चैनल जोड़ें</button>
+    </div>
+
+    <div id="registration-form" style="display:none;">
+        <h3>नया रजिस्ट्रेशन</h3>
+        <input type="text" id="chName" placeholder="चैनल का नाम">
+        <input type="url" id="chLink" placeholder="चैनल लिंक">
+        <button onclick="sendData()" style="background:var(--green); color:white; width:100%; padding:15px; border:none; border-radius:10px; font-weight:bold;">सबमिट करें</button>
     </div>
 </div>
 
 <script>
-    let email = "";
+    let email = "", userName = "";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxQ51D08ELGfKaqy6fDtcc5Aj3TLd2hEqWpZfn29H0GQbjG1ITMlmHAMfYSn54rWhVRLA/exec";
 
     function onLogin(res) {
         const d = JSON.parse(atob(res.credential.split('.')[1]));
-        email = d.email;
+        email = d.email; userName = d.given_name;
+        document.getElementById("user-name").innerText = userName;
         document.getElementById("login-box").style.display = "none";
-        document.getElementById("user-mail").innerText = "लॉगिन सफल: " + email;
-        document.getElementById("final-form").style.display = "block";
+        document.getElementById("main-ui").style.display = "block";
+        document.getElementById("my-channel-display").innerText = localStorage.getItem("lastRegistered") || "कोई नहीं";
+    }
+
+    function activatePremium() {
+        const tx = document.getElementById("txnId").value;
+        const ch = document.getElementById("my-channel-display").innerText;
+        if(!tx || tx.length < 5) { alert("कृपया सही Transaction ID डालें!"); return; }
+
+        // व्हाट्सएप अलर्ट लिंक
+        const msg = `Hi मुकुंद सर, मैंने ₹199 पे कर दिए हैं।\nEmail: ${email}\nChannel: ${ch}\nTxn ID: ${tx}\nकृपया एक्टिवेट करें।`;
+        const waLink = `https://wa.me/919897414148?text=${encodeURIComponent(msg)}`;
+        
+        // डेटा शीट में भेजें
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, channelName: ch, txnId: tx, plan: "Upgrade Request" }) });
+        
+        alert("Verification के लिए व्हाट्सएप पर मैसेज भेजें।");
+        window.open(waLink, '_blank');
+    }
+
+    function showRegForm() {
+        document.getElementById("main-ui").style.display = "none";
+        document.getElementById("registration-form").style.display = "block";
     }
 
     function sendData() {
-        const n = document.getElementById("chName").value;
-        const l = document.getElementById("chLink").value;
-        if(!n || !l) { alert("विवरण भरें!"); return; }
-
-        fetch("https://script.google.com/macros/s/AKfycbwW4nfOvVDRDetUb4ecqAqt-Io2v8n9UKUmvZ5BNU38c4IkIgKgtbaT_ckm70wrdaNHMA/exec", {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({
-                email: email,
-                channelName: n,
-                channelLink: l,
-                plan: "Early Bird Free",
-                transactionId: "N/A"
-            })
-        }).then(() => {
-            alert("बधाई हो! आपका चैनल फ्री प्रमोशन के लिए रजिस्टर हो गया है।");
-            location.reload();
-        });
+        const n = document.getElementById("chName").value, l = document.getElementById("chLink").value;
+        if(!n || !l) return;
+        localStorage.setItem("lastRegistered", n);
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, channelName: n, channelLink: l, plan: "Free Trial" }) });
+        alert("रजिस्टर हुआ!"); location.reload();
     }
 </script>
 </body>
