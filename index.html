@@ -129,6 +129,32 @@
         <div class="lbl-sub">चैनल प्रमोट करें</div>
     </a>
 </div>
+        
+<div class="grid-item" onclick="toggleGamingMenu()" style="cursor: pointer;">
+    <div class="btn-round" style="background: #00bfff; color: #fff; border: 5px solid #e0faff; box-shadow: 0 5px 20px rgba(0, 191, 255, 0.3);">
+        <i class="fas fa-gamepad"></i>
+    </div>
+    <div class="lbl-main">Gaming Zone</div>
+    <div class="lbl-sub">खेलें और जीतें</div>
+</div>
+
+<div id="gaming-menu" style="display:none; grid-column: span 2; background: #f0faff; border: 1px dashed #00bfff; margin: 10px 10px; border-radius: 15px; padding: 10px; width: 90%;">
+    <p style="font-size: 11px; color: #555; margin-bottom: 8px;">एक गेम चुनें (Ad के साथ):</p>
+    <a href="gaming.html" style="display:block; padding:8px; margin:5px; background:white; border-radius:8px; text-decoration:none; color:black; font-weight:bold; font-size:14px; border:1px solid #ddd;">🏃‍♂️ Subway Surfers</a>
+    <a href="gaming.html" style="display:block; padding:8px; margin:5px; background:white; border-radius:8px; text-decoration:none; color:black; font-weight:bold; font-size:14px; border:1px solid #ddd;">🗿 Temple Run 2</a>
+    <a href="gaming.html" style="display:block; padding:8px; margin:5px; background:white; border-radius:8px; text-decoration:none; color:black; font-weight:bold; font-size:14px; border:1px solid #ddd;">🎲 Ludo Dash</a>
+</div>
+
+<script>
+function toggleGamingMenu() {
+    var menu = document.getElementById("gaming-menu");
+    if (menu.style.display === "none") {
+        menu.style.display = "block";
+    } else {
+        menu.style.display = "none";
+    }
+}
+</script>
 
 
         <div id="shopFolder" class="folder-container">
