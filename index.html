@@ -96,17 +96,17 @@
         </div>
 
         <div class="btn-grid">
-            <div class="grid-item" onclick="toggleFolder('shopFolder')">
+            <a href="shopping.html" class="grid-item" style="text-decoration: none;">
                 <div class="btn-round pink-bg"><i class="fas fa-shopping-cart"></i></div>
                 <div class="lbl-main">All in one</div>
                 <div class="lbl-sub">Shoping Store</div>
-            </div>
+            </a>
 
-            <div class="grid-item" onclick="toggleFolder('earnFolder')">
+            <a href="earn.html" class="grid-item" style="text-decoration: none;">
                 <div class="btn-round orange-bg"><i class="fas fa-bullhorn"></i></div>
                 <div class="lbl-main">Refer & Earn</div>
                 <div class="lbl-sub">घर बैठे पैसे कमाए</div>
-            </div>
+            </a>
 
             <a href="https://www.youtube.com/@INDO148MG0.2" class="grid-item">
                 <div class="btn-round white-bg"><i class="fab fa-youtube"></i></div>
@@ -137,27 +137,7 @@
 </a>
 
 </div>
-        <div id="shopFolder" class="folder-container">
-            <a href="https://fktr.in/8obn5pq" target="_blank" class="pill-btn">Flipkart</a>
-            <a href="https://www.amazon.in/?&tag=mukund148-21" target="_blank" rel="noopener noreferrer" class="pill-btn">Amazon.in</a>
-            <a href="https://myntr.it/Dsj3Mb7" target="_blank" class="pill-btn">Myntra</a>
-            <a href="https://ajiio.in/9mZJ8qW" target="_blank" class="pill-btn">AJIO</a>
-        </div>
 
-        <div id="earnFolder" class="folder-container">
-            <a href="https://topdeal.app.link/niDw6qSPVlb" target="_blank" class="pill-btn">EarnKaro</a>
-    <a href="https://app.gromo.co.in/PWPJ0DVlY1b" target="_blank" class="pill-btn">GroMo <span class="code-text">Use Code: 2IX46868</span></a>
-
-    <a href="https://r.navi.com/KpkeZB" class="pill-btn" target="_blank" style="text-decoration: none; display: flex; align-items: center; width: 100%; height: 55px; background: #fff; border: 2px solid #e0e0e0; border-radius: 50px; margin-top: 10px; padding: 0 15px; box-sizing: border-box;">
-        <div style="width: 35px; height: 35px; background: #007bff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;">
-            <i class="fas fa-hand-holding-usd" style="font-size: 18px;"></i>
-        </div>
-        <div style="margin-left: 15px; text-align: left;">
-            <span style="display: block; font-size: 15px; font-weight: bold; color: #333; line-height: 1.2;">Navi App</span>
-            <span style="display: block; font-size: 11px; color: #28a745; font-weight: bold;">Code: JpvDLY</span>
-        </div>
-    </a>
-</div>
         <div class="promo-box">
             <img src="https://i.ibb.co/LdM500Gj/1774937203833.png" class="promo-img-full" alt="Shop to Earn">
         </div>
@@ -181,19 +161,7 @@
     </div>
 
     <script>
-        function toggleFolder(id) {
-            const shop = document.getElementById('shopFolder');
-            const earn = document.getElementById('earnFolder');
-            
-            if(id === 'shopFolder') {
-                shop.style.display = (shop.style.display === 'block') ? 'none' : 'block';
-                earn.style.display = 'none';
-            } else {
-                earn.style.display = (earn.style.display === 'block') ? 'none' : 'block';
-                shop.style.display = 'none';
-            }
-        }
-
+        // अब इसमें शॉपिंग या अर्निंग फोल्डर खोलने की जरूरत नहीं है
         function webShare() {
             if (navigator.share) { navigator.share({ title: 'MG AI Updates', url: window.location.href }); }
             else { alert("Link: " + window.location.href); }
