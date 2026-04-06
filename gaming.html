@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG AI Studio - Gaming Zone</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #e0f2e9; text-align: center; margin: 0; padding: 20px; }
+        .container { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); max-width: 400px; margin: auto; border: 1px solid #ddd; }
+        h1 { color: #333; font-size: 24px; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 20px; }
+        
+        /* गेम बटन्स स्टाइल */
+        .game-btn { display: block; padding: 16px; margin: 12px 0; text-decoration: none; color: white; font-weight: bold; border-radius: 12px; font-size: 18px; cursor: pointer; border: none; width: 100%; transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .game-btn:active { transform: scale(0.98); }
+
+        /* विज्ञापन का छोटा डिब्बा (Popup) */
+        #ad-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center;
+        }
+        .ad-box {
+            background: white; width: 320px; padding: 20px; border-radius: 20px; position: relative; text-align: center; box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+        #timer-box { font-size: 40px; font-weight: bold; color: #ff4b2b; margin: 10px 0; }
+        .ad-frame { width: 100%; height: 200px; border: 1px solid #eee; border-radius: 10px; margin-top: 10px; overflow: hidden; }
+
+        .back-link { display: inline-block; margin-top: 20px; color: #888; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎮 MG गेमिंग जोन</h1>
+        <p>अपना गेम चुनें और खेलना शुरू करें!</p>
+
+        <button onclick="startAd('https://poki.com/en/g/subway-surfers')" class="game-btn" style="background: #FFD700; color: #000;">🏃‍♂️ Subway Surfers</button>
+        <button onclick="startAd('https://poki.com/en/g/temple-run-2')" class="game-btn" style="background: #228B22;">🗿 Temple Run 2</button>
+        <button onclick="startAd('https://poki.com/en/g/ludo-dash')" class="game-btn" style="background: #FF4500;">🎲 Ludo Dash</button>
+        <button onclick="startAd('https://poki.com/en/g/moto-x3m')" class="game-btn" style="background: #333;">🏍️ Moto X3M (रेसिंग)</button>
+        <button onclick="startAd('https://poki.com/en/g/stickman-hook')" class="game-btn" style="background: #00BFFF;">🪝 Stickman Hook</button>
+
+        <a href="index.html" class="back-link">⬅ वापस होम पेज पर जाएँ</a>
+    </div>
+
+    <div id="ad-modal">
+        <div class="ad-box">
+            <h3 style="margin:0; color:#333;">विज्ञापन लोड हो रहा है...</h3>
+            <div id="timer-box">5</div>
+            <p style="font-size: 12px; color: #999;">गेम शुरू होने तक कृपया इंतज़ार करें</p>
+            
+            <div class="ad-frame">
+                <iframe id="ad-iframe" src="" style="width:100%; height:100%; border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startAd(gameUrl) {
+            const modal = document.getElementById('ad-modal');
+            const timerDisplay = document.getElementById('timer-box');
+            const adIframe = document.getElementById('ad-iframe');
+            
+            let timeLeft = 5;
+            
+            // आपका Monetag SmartLink (omg10 वाला)
+            const monetagLink = "https://omg10.com/4/10825065";
+
+            // विज्ञापन लोड करें और पॉपअप दिखाएँ
+            adIframe.src = monetagLink;
+            modal.style.display = 'flex';
+
+            // टाइमर शुरू करें
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerDisplay.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    modal.style.display = 'none'; // पॉपअप बंद करें
+                    window.location.href = gameUrl; // गेम पेज पर भेजें
+                }
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
