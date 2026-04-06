@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Refer & Earn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #fff8f0; text-align: center; padding: 20px; margin: 0; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { color: #333; font-size: 22px; margin-bottom: 20px; }
+        .pill-btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 60px; background: #fff; border: 2px solid #e0e0e0; border-radius: 50px; margin-bottom: 12px; text-decoration: none; color: #333; font-weight: bold; font-size: 18px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); cursor: pointer; }
+        .code-text { font-size: 11px; color: #28a745; display: block; margin-top: 2px; }
+        .back-btn { margin-top: 20px; display: inline-block; color: #666; text-decoration: none; font-size: 14px; }
+        
+        /* Ad Overlay */
+        #adOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        .loader { border: 5px solid #f3f3f3; border-top: 5px solid #ff9800; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="adOverlay">
+        <div class="loader"></div>
+        <h2 id="timerText">AD LOADING... 5s</h2>
+        <p>पैसे कमाने का रास्ता खुल रहा है...</p>
+    </div>
+
+    <div class="container">
+        <div style="font-size: 40px; color: #ff9800; margin-bottom: 10px;"><i class="fas fa-hand-holding-usd"></i></div>
+        <h1>MG अर्निंग प्रोग्राम</h1>
+
+        <div class="pill-btn" onclick="startAd('https://topdeal.app.link/niDw6qSPVlb')">EarnKaro</div>
+        
+        <div class="pill-btn" onclick="startAd('https://app.gromo.co.in/PWPJ0DVlY1b')">
+            <div>GroMo <span class="code-text">Use Code: 2IX46868</span></div>
+        </div>
+
+        <div class="pill-btn" onclick="startAd('https://r.navi.com/KpkeZB')">
+            <div>Navi App <span class="code-text">Code: JpvDLY</span></div>
+        </div>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> होम पेज पर जाएँ</a>
+    </div>
+
+    <script>
+        function startAd(url) {
+            const overlay = document.getElementById('adOverlay');
+            const timerText = document.getElementById('timerText');
+            let timeLeft = 5;
+
+            overlay.style.display = 'flex';
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerText.innerText = "AD LOADING... " + timeLeft + "s";
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = url;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+
