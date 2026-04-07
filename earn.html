@@ -9,8 +9,23 @@
         body { font-family: 'Arial', sans-serif; background: #fff8f0; text-align: center; padding: 20px; margin: 0; }
         .container { max-width: 450px; margin: auto; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         h1 { color: #333; font-size: 22px; margin-bottom: 20px; }
-        .pill-btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 60px; background: #fff; border: 2px solid #e0e0e0; border-radius: 50px; margin-bottom: 12px; text-decoration: none; color: #333; font-weight: bold; font-size: 18px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); cursor: pointer; }
-        .code-text { font-size: 11px; color: #28a745; display: block; margin-top: 2px; }
+        
+        /* कलरफुल बटन स्टाइल */
+        .pill-btn { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 100%; height: 60px; border: none; border-radius: 50px; 
+            margin-bottom: 12px; text-decoration: none; color: white; 
+            font-weight: bold; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            cursor: pointer; transition: 0.3s; 
+        }
+        .pill-btn:active { transform: scale(0.95); }
+
+        /* अर्निंग ऐप्स के प्रोफेशनल कलर्स */
+        .ek-btn { background: #e91e63; } /* EarnKaro Pink */
+        .gm-btn { background: #007bff; } /* GroMo Blue */
+        .nv-btn { background: #00c853; } /* Navi Green */
+
+        .code-text { font-size: 11px; color: #ffffff; display: block; margin-top: 2px; opacity: 0.9; }
         .back-btn { margin-top: 20px; display: inline-block; color: #666; text-decoration: none; font-size: 14px; }
         
         /* Ad Overlay */
@@ -31,13 +46,13 @@
         <div style="font-size: 40px; color: #ff9800; margin-bottom: 10px;"><i class="fas fa-hand-holding-usd"></i></div>
         <h1>MG अर्निंग प्रोग्राम</h1>
 
-        <div class="pill-btn" onclick="startAd('https://topdeal.app.link/niDw6qSPVlb')">EarnKaro</div>
+        <div class="pill-btn ek-btn" onclick="startAd('https://topdeal.app.link/niDw6qSPVlb')">EarnKaro</div>
         
-        <div class="pill-btn" onclick="startAd('https://app.gromo.co.in/PWPJ0DVlY1b')">
+        <div class="pill-btn gm-btn" onclick="startAd('https://app.gromo.co.in/PWPJ0DVlY1b')">
             <div>GroMo <span class="code-text">Use Code: 2IX46868</span></div>
         </div>
 
-        <div class="pill-btn" onclick="startAd('https://r.navi.com/KpkeZB')">
+        <div class="pill-btn nv-btn" onclick="startAd('https://r.navi.com/KpkeZB')">
             <div>Navi App <span class="code-text">Code: JpvDLY</span></div>
         </div>
 
@@ -64,4 +79,3 @@
     </script>
 </body>
 </html>
-
