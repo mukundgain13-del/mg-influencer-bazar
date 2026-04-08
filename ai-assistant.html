@@ -5,73 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MG AI Assistant</title>
     <style>
+        /* मोबाइल फुल स्क्रीन और प्रोफेशनल लुक */
         body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        #ad-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .ad-box { background: white; padding: 25px; border-radius: 20px; color: #333; width: 80%; max-width: 320px; box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 15px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        header { background: #1e293b; padding: 15px; text-align: center; border-bottom: 2px solid #3b82f6; display: flex; align-items: center; justify-content: space-between; }
-        #chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
-        .msg { padding: 12px 16px; border-radius: 18px; max-width: 80%; line-height: 1.4; }
-        .user { background: #3b82f6; align-self: flex-end; }
-        .ai { background: #334155; align-self: flex-start; white-space: pre-wrap; }
-        .input-area { background: #1e293b; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #334155; }
-        input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #3b82f6; background: #0f172a; color: white; outline: none; }
-        .btn-icon { background: #3b82f6; color: white; border: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
+        header { background: #1e293b; padding: 15px; text-align: center; border-bottom: 2px solid #3b82f6; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .back-btn { color: white; text-decoration: none; font-size: 24px; padding-left: 10px; cursor: pointer; }
+        
+        #chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; background: #0f172a; }
+        
+        /* मैसेज बबल्स */
+        .msg { padding: 12px 16px; border-radius: 18px; max-width: 80%; line-height: 1.4; font-size: 16px; word-wrap: break-word; }
+        .user { background: #3b82f6; align-self: flex-end; border-bottom-right-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .ai { background: #334155; align-self: flex-start; border-bottom-left-radius: 2px; white-space: pre-wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        
+        /* इनपुट एरिया */
+        .input-area { background: #1e293b; padding: 12px; display: flex; gap: 10px; align-items: center; border-top: 1px solid #334155; }
+        input { flex: 1; padding: 12px 18px; border-radius: 30px; border: 1px solid #3b82f6; background: #0f172a; color: white; outline: none; font-size: 16px; }
+        
+        .action-btn { background: #3b82f6; color: white; border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: 0.3s; }
+        .action-btn:active { transform: scale(0.9); background: #2563eb; }
     </style>
 </head>
-<body onload="startAdTimer()">
-
-<div id="ad-loader">
-    <div class="ad-box">
-        <h3 style="margin:0;">MG AI UPDATES</h3>
-        <div class="spinner"></div>
-        <p>सिस्टम लोड हो रहा है... <span id="count">5</span>s</p>
-        <a id="ad-click" href="https://omg10.com/4/10825065" target="_blank" rel="noopener noreferrer" style="display:none;">Click</a>
-    </div>
-</div>
+<body>
 
 <header>
-    <a href="index.html" style="color:white; text-decoration:none; font-size:24px;">⬅</a>
+    <a href="index.html" class="back-btn">⬅</a>
     <h3 style="margin:0;">🤖 MG AI असिस्टेंट</h3>
-    <div style="width: 40px;"></div>
-</header>
+    <div style="width: 44px;"></div> </header>
 
 <div id="chat-box">
-    <div class="msg ai">नमस्ते! अब आप मुझसे बात कर सकते हैं।</div>
+    <div class="msg ai">नमस्ते मुकुंद! मैं आपका AI असिस्टेंट हूँ। मैं आपकी क्या मदद कर सकता हूँ?</div>
 </div>
 
 <div class="input-area">
-    <button class="btn-icon" onclick="startVoice()">🎤</button>
-    <input type="text" id="userInput" placeholder="यहाँ बोलें या लिखें...">
-    <button class="btn-icon" onclick="askAI()">🚀</button>
+    <button class="action-btn" onclick="startVoice()">🎤</button>
+    <input type="text" id="userInput" placeholder="यहाँ लिखें या बोलें...">
+    <button class="action-btn" onclick="askAI()">🚀</button>
 </div>
 
 <script>
-    const API_KEY = "AIzaSyA2EWy9ujEN8z-YNtYwDcUl1qvgkAZ845w";
+    // आपकी Gemini API Key
+    const API_KEY = "AIzaSyA2EWy9ujEN8z-YNtYwDcUl1qvgkAZ845w"; 
 
-    function startAdTimer() {
-        let timeLeft = 5;
-        const countElement = document.getElementById('count');
-        const adBtn = document.getElementById('ad-click');
-        
-        const timer = setInterval(() => {
-            timeLeft--;
-            countElement.innerText = timeLeft;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                
-                // विज्ञापन को शांति से नए टैब में ट्रिगर करना
-                adBtn.click(); 
-                
-                // लोडर हटाना (असिस्टेंट को सामने लाना)
-                document.getElementById('ad-loader').style.display = 'none';
-            }
-        }, 1000);
-    }
-
-    // वॉइस और एआई रिप्लाई लॉजिक
+    // AI का बोलकर जवाब देना
     function speak(text) {
         const synth = window.speechSynthesis;
         const utter = new SpeechSynthesisUtterance(text);
@@ -79,14 +55,21 @@
         synth.speak(utter);
     }
 
+    // वॉइस टाइपिंग फीचर
     function startVoice() {
-        const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।");
+            return;
+        }
         const recognition = new SpeechRecognition();
         recognition.lang = 'hi-IN';
         recognition.start();
-        recognition.onresult = (e) => {
-            document.getElementById('userInput').value = e.results[0][0].transcript;
-            askAI();
+
+        recognition.onresult = function(event) {
+            const speechToText = event.results[0][0].transcript;
+            document.getElementById('userInput').value = speechToText;
+            askAI(); // बोलने के बाद अपने आप भेज देगा
         };
     }
 
@@ -94,10 +77,14 @@
         const input = document.getElementById('userInput');
         const box = document.getElementById('chat-box');
         const text = input.value.trim();
+        
         if (!text) return;
+
+        // यूजर का मैसेज जोड़ें
         box.innerHTML += `<div class="msg user">${text}</div>`;
         input.value = "";
         box.scrollTop = box.scrollHeight;
+
         try {
             const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
                 method: "POST",
@@ -106,13 +93,23 @@
             });
             const data = await res.json();
             const aiReply = data.candidates[0].content.parts[0].text;
+
+            // AI का जवाब जोड़ें और बोलकर सुनाएँ
             box.innerHTML += `<div class="msg ai">${aiReply}</div>`;
             speak(aiReply);
         } catch (e) {
-            box.innerHTML += `<div class="msg ai">नेटवर्क एरर।</div>`;
+            box.innerHTML += `<div class="msg ai">माफ़ कीजिये, अभी मैं जवाब नहीं दे पा रहा हूँ।</div>`;
         }
         box.scrollTop = box.scrollHeight;
     }
+
+    // Enter बटन से मैसेज भेजें
+    document.getElementById('userInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            askAI();
+        }
+    });
 </script>
+
 </body>
 </html>
