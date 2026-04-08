@@ -19,7 +19,6 @@
         input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         .btn-main { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
-        /* विज्ञापन का डिब्बा (Ad Modal) */
         #ad-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center;
@@ -27,8 +26,8 @@
         .ad-box { background: white; padding: 20px; border-radius: 20px; width: 320px; text-align: center; }
         #ad-timer { font-size: 45px; font-weight: bold; color: #ff4b2b; margin: 10px 0; }
         
-        /* लॉगआउट बटन स्टाइल */
-        #logout-btn { display: none; background: #f1f1f1; border: 1px solid #ccc; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-top: 5px; }
+        /* लॉगआउट बटन यहाँ फिक्स किया गया है */
+        #logout-btn { display: none; background: #eee; border: 1px solid #ccc; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -47,12 +46,12 @@
 <div class="container">
     <h2 style="color:var(--primary); margin: 0 0 10px 0;">MG AI UPDATES 🚀</h2>
     
+    <button id="logout-btn" onclick="logout()">Log Out</button>
+
     <div id="login-box">
         <div id="g_id_onload" data-client_id="450172090515-avmfmats95bfbkgdp5baim9b3rjolgco.apps.googleusercontent.com" data-callback="onLogin"></div>
         <div class="g_id_signin" data-type="standard"></div>
     </div>
-    
-    <button id="logout-btn" onclick="logout()">Log Out</button>
 
     <div id="main-ui" style="display:none;">
         <div class="premium-box">
@@ -89,18 +88,15 @@
 
 <script>
     let email = "";
-    // आपकी नई Script URL यहाँ डाल दी गई है
     const scriptURL = "https://script.google.com/macros/s/AKfycbzcFoCywQy0EJNLiMVCij-79dPZAkmCWZGboIRTz3CWQFrvY42t1yxgggupQq5PdK9f-g/exec";
 
     function onLogin(res) {
         const d = JSON.parse(atob(res.credential.split('.')[1]));
         email = d.email;
         
-        // 1. लॉगिन बॉक्स छुपाएं और लॉगआउट दिखाएं
         document.getElementById("login-box").style.display = "none";
-        document.getElementById("logout-btn").style.display = "inline-block";
+        document.getElementById("logout-btn").style.display = "inline-block"; // अब यह काम करेगा
         
-        // 2. विज्ञापन दिखाएं और टाइमर शुरू करें
         showLoginAd();
     }
 
@@ -115,7 +111,6 @@
         const adFrame = document.getElementById('ad-frame');
         let timeLeft = 5;
 
-        // विज्ञापन लिंक लोड करें
         adFrame.src = "https://omg10.com/4/10825065";
         adOverlay.style.display = 'flex';
 
@@ -125,9 +120,9 @@
 
             if (timeLeft <= 0) {
                 clearInterval(countdown);
-                adOverlay.style.display = 'none'; // विज्ञापन हटाएं
-                document.getElementById("main-ui").style.display = "block"; // डैशबोर्ड दिखाएं
-                loadData(); // डेटा लोड करना
+                adOverlay.style.display = 'none';
+                document.getElementById("main-ui").style.display = "block";
+                loadData();
             }
         }, 1000);
     }
@@ -145,4 +140,43 @@
                 if(item.plan === "Paid" || item.plan === "Active") {
                     paidList.innerHTML += html;
                 } else {
-                    freeList.innerHTML +=
+                    freeList.innerHTML += html;
+                }
+            });
+        }).catch(err => { console.log("Error loading data"); });
+    }
+
+    function requestPremium() {
+        const tx = document.getElementById("txnId").value;
+        if(!tx) { alert("Transaction ID भरें"); return; }
+        window.open(`https://wa.me/919897414148?text=Hi मुकुंद सर, मैंने ₹199 पे कर दिए हैं। Txn ID: ${tx}`, '_blank');
+    }
+
+    function showRegForm() {
+        document.getElementById("main-ui").style.display = "none";
+        document.getElementById("registration-form").style.display = "block";
+    }
+
+    function sendData() {
+        const n = document.getElementById("chName").value;
+        const l = document.getElementById("chLink").value;
+        const w = document.getElementById("whatsapp").value;
+
+        if(!n || !l || !w) { alert("कृपया सभी जानकारी भरें"); return; }
+        
+        fetch(scriptURL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            body: JSON.stringify({ 
+                email: email, 
+                channelName: n, 
+                channelLink: l, 
+                whatsapp: w, 
+                plan: "Free" 
+            }) 
+        })
+        .then(() => { alert("रजिस्टर हुआ!"); location.reload(); });
+    }
+</script>
+</body>
+</html>
