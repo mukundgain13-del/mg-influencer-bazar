@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mg AI Updates</title>
+    <title>Mg AI Updates Assistant</title>
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         header { background: #fff; color: #3b82f6; padding: 15px; text-align: center; font-weight: bold; border-bottom: 2px solid #3b82f6; font-size: 20px; }
         #chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; padding-bottom: 80px; }
-        .msg { padding: 12px 16px; border-radius: 18px; max-width: 80%; font-size: 16px; line-height: 1.4; }
+        .msg { padding: 12px 16px; border-radius: 18px; max-width: 80%; font-size: 16px; line-height: 1.4; word-wrap: break-word; }
         .user { background: #3b82f6; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .ai { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #ddd; }
-        .footer { background: white; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; }
+        .ai { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .footer { background: white; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
         input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; font-size: 16px; }
-        .btn { background: #3b82f6; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .btn { background: #3b82f6; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .error { color: #d93025; background: #fce8e6; border: 1px solid #f5c2c7; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<header>🤖 Mg AI Updates</header>
+<header>🤖 Mg AI Updates Assistant</header>
 
 <div id="chat-box">
-    <div class="msg ai">नमस्ते मुकुंद! नई चाबी एक्टिवेट हो गई है। अब आप कुछ भी पूछ सकते हैं।</div>
+    <div class="msg ai">नमस्ते मुकुंद! मैं एक्टिवेट हो गया हूँ। अब आप मुझसे कुछ भी पूछ सकते हैं।</div>
 </div>
 
 <div class="footer">
@@ -32,11 +33,8 @@
 </div>
 
 <script>
-    // आपकी नई चाबी को सुरक्षित टुकड़ों में रखा गया है
-    const s1 = "AIzaSyCSsr_Vj"; 
-    const s2 = "HXkGQGCF3z4uyO";
-    const s3 = "ZrJrn8FI34bI";
-    const FINAL_KEY = s1 + s2 + s3;
+    // यह आपकी फाइनल API Key है
+    const API_KEY = "AIzaSyCSsr_VjHXkGQGCF3z4uyOZrJrn8FI34bI"; 
 
     function speak(text) {
         window.speechSynthesis.cancel();
@@ -46,7 +44,9 @@
     }
 
     function startVoice() {
-        const rec = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) return alert("Browser supports issue");
+        const rec = new SpeechRecognition();
         rec.lang = 'hi-IN';
         rec.onresult = (e) => {
             document.getElementById('userInput').value = e.results[0][0].transcript;
@@ -66,26 +66,27 @@
         box.scrollTop = box.scrollHeight;
 
         try {
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${FINAL_KEY}`, {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
             });
 
             const data = await res.json();
+            
             if (data.candidates && data.candidates[0].content) {
                 const reply = data.candidates[0].content.parts[0].text;
                 box.innerHTML += `<div class="msg ai">${reply}</div>`;
                 speak(reply);
             } else {
-                throw new Error();
+                // अगर API Key में दिक्कत है तो यहाँ पता चलेगा
+                box.innerHTML += `<div class="msg ai error">API Key Error: कृपया अपनी Google AI Studio की सेटिंग्स चेक करें।</div>`;
             }
         } catch (e) {
-            box.innerHTML += `<div class="msg ai" style="color:red;">मुकुंद, गूगल थोड़ा समय ले रहा है। कृपया 30 सेकंड बाद फिर से मैसेज भेजें।</div>`;
+            box.innerHTML += `<div class="msg ai error">सर्वर कनेक्ट नहीं हो पा रहा है।</div>`;
         }
         box.scrollTop = box.scrollHeight;
     }
 </script>
-
 </body>
 </html>
