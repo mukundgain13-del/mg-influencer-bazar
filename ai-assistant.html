@@ -6,23 +6,15 @@
     <title>MG AI Assistant</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        
-        /* विज्ञापन लोडिंग स्क्रीन */
-        #ad-loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #111827; z-index: 9999; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
-        }
+        #ad-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .ad-box { background: white; padding: 25px; border-radius: 20px; color: #333; width: 80%; max-width: 320px; box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 15px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #timer-text { font-size: 18px; color: #ef4444; font-weight: bold; }
-
         header { background: #1e293b; padding: 15px; text-align: center; border-bottom: 2px solid #3b82f6; display: flex; align-items: center; justify-content: space-between; }
         #chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
         .msg { padding: 12px 16px; border-radius: 18px; max-width: 80%; line-height: 1.4; }
-        .user { background: #3b82f6; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .ai { background: #334155; align-self: flex-start; border-bottom-left-radius: 2px; white-space: pre-wrap; }
+        .user { background: #3b82f6; align-self: flex-end; }
+        .ai { background: #334155; align-self: flex-start; white-space: pre-wrap; }
         .input-area { background: #1e293b; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #334155; }
         input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #3b82f6; background: #0f172a; color: white; outline: none; }
         .btn-icon { background: #3b82f6; color: white; border: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -34,8 +26,8 @@
     <div class="ad-box">
         <h3 style="margin:0;">MG AI UPDATES</h3>
         <div class="spinner"></div>
-        <p style="margin:5px 0;">विज्ञापन लोड हो रहा है...</p>
-        <div id="timer-text">प्रतीक्षा करें: <span id="count">5</span>s</div>
+        <p>सिस्टम लोड हो रहा है... <span id="count">5</span>s</p>
+        <a id="ad-click" href="https://omg10.com/4/10825065" target="_blank" rel="noopener noreferrer" style="display:none;">Click</a>
     </div>
 </div>
 
@@ -46,7 +38,7 @@
 </header>
 
 <div id="chat-box">
-    <div class="msg ai">नमस्ते मुकुंद! विज्ञापन पूरा हुआ। अब पूछिए, मैं आपकी क्या मदद करूँ?</div>
+    <div class="msg ai">नमस्ते! अब आप मुझसे बात कर सकते हैं।</div>
 </div>
 
 <div class="input-area">
@@ -57,11 +49,11 @@
 
 <script>
     const API_KEY = "AIzaSyA2EWy9ujEN8z-YNtYwDcUl1qvgkAZ845w";
-    const AD_LINK = "https://omg10.com/4/10825065"; 
 
     function startAdTimer() {
         let timeLeft = 5;
         const countElement = document.getElementById('count');
+        const adBtn = document.getElementById('ad-click');
         
         const timer = setInterval(() => {
             timeLeft--;
@@ -70,15 +62,16 @@
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 
-                // विज्ञापन को नए टैब में खोलने की कोशिश
-                window.open(AD_LINK, '_blank');
+                // विज्ञापन को शांति से नए टैब में ट्रिगर करना
+                adBtn.click(); 
                 
-                // लोडर स्क्रीन हटाएं ताकि यूजर असिस्टेंट इस्तेमाल कर सके
+                // लोडर हटाना (असिस्टेंट को सामने लाना)
                 document.getElementById('ad-loader').style.display = 'none';
             }
         }, 1000);
     }
 
+    // वॉइस और एआई रिप्लाई लॉजिक
     function speak(text) {
         const synth = window.speechSynthesis;
         const utter = new SpeechSynthesisUtterance(text);
@@ -87,7 +80,8 @@
     }
 
     function startVoice() {
-        const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
+        const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+        const recognition = new SpeechRecognition();
         recognition.lang = 'hi-IN';
         recognition.start();
         recognition.onresult = (e) => {
@@ -101,11 +95,9 @@
         const box = document.getElementById('chat-box');
         const text = input.value.trim();
         if (!text) return;
-
         box.innerHTML += `<div class="msg user">${text}</div>`;
         input.value = "";
         box.scrollTop = box.scrollHeight;
-
         try {
             const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
                 method: "POST",
