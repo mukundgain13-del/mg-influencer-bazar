@@ -1,78 +1,33 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mg AI Updates Assistant</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        header { background: #fff; color: #3b82f6; padding: 15px; text-align: center; font-weight: bold; border-bottom: 2px solid #3b82f6; font-size: 20px; }
-        #chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; padding-bottom: 80px; }
-        .msg { padding: 12px 16px; border-radius: 18px; max-width: 80%; font-size: 16px; line-height: 1.4; word-wrap: break-word; }
-        .user { background: #3b82f6; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .ai { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .footer { background: white; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
-        input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; font-size: 16px; }
-        .btn { background: #3b82f6; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    </style>
-</head>
-<body>
-
-<header>🤖 Mg AI Assistant</header>
-
-<div id="chat-box">
-    <div class="msg ai">नमस्ते मुकुंद! मैं एक्टिवेट हो गया हूँ। अब आप मुझसे कुछ भी पूछ सकते हैं।</div>
-</div>
-
-<div class="footer">
-    <button class="btn" onclick="startVoice()">🎤</button>
-    <input type="text" id="userInput" placeholder="यहाँ लिखें..." onkeypress="if(event.key==='Enter') askAI()">
-    <button class="btn" onclick="askAI()">🚀</button>
-</div>
-
 <script>
-    // आपकी एन्कोडेड चाबी जिसे आपने जेनरेट किया है
+    // आपकी ताज़ा नई चाबी का Base64 कोड
     const encodedKey = "QUl6YVN5QUZxa3VLQW8wMkVYQTVNSWE1Y2l0ODRJQkdJT3drSFIw"; 
 
-    // डिकोडिंग फंक्शन
-    const getSecretKey = () => atob(encodedKey);
-
-    function speak(text) {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'hi-IN';
-        window.speechSynthesis.speak(utter);
-    }
-
-    function startVoice() {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-            alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।");
-            return;
+    const getSecretKey = () => {
+        try {
+            return atob(encodedKey.trim());
+        } catch(e) {
+            return "ERROR";
         }
-        const rec = new SpeechRecognition();
-        rec.lang = 'hi-IN';
-        rec.onresult = (e) => {
-            document.getElementById('userInput').value = e.results[0][0].transcript;
-            askAI();
-        };
-        rec.start();
-    }
+    };
 
     async function askAI() {
         const input = document.getElementById('userInput');
         const box = document.getElementById('chat-box');
         const text = input.value.trim();
-        
         if (!text) return;
 
         box.innerHTML += `<div class="msg user">${text}</div>`;
         input.value = "";
         box.scrollTop = box.scrollHeight;
 
+        const apiKey = getSecretKey();
+        if(apiKey === "ERROR") {
+            box.innerHTML += `<div class="msg ai" style="color:red;">Error: Base64 कोड सही नहीं है।</div>`;
+            return;
+        }
+
         try {
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${getSecretKey()}`, {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
@@ -80,19 +35,26 @@
 
             const data = await res.json();
             
-            if (data.candidates && data.candidates[0].content) {
+            if (data.error) {
+                // यह बताएगा कि असली दिक्कत क्या है (जैसे: API Key Invalid या Blocked)
+                box.innerHTML += `<div class="msg ai" style="color:red;">Google Error: ${data.error.message}</div>`;
+            } else if (data.candidates && data.candidates[0].content) {
                 const reply = data.candidates[0].content.parts[0].text;
                 box.innerHTML += `<div class="msg ai">${reply}</div>`;
                 speak(reply);
             } else {
-                box.innerHTML += `<div class="msg ai" style="color:red;">मुकुंद, गूगल की तरफ से कोई जवाब नहीं मिला।</div>`;
+                box.innerHTML += `<div class="msg ai" style="color:red;">कोई जवाब नहीं मिला।</div>`;
             }
         } catch (e) {
-            box.innerHTML += `<div class="msg ai" style="color:red;">कनेक्शन फेल। कृपया इंटरनेट चेक करें।</div>`;
+            box.innerHTML += `<div class="msg ai" style="color:red;">कनेक्शन फेल। इंटरनेट चेक करें।</div>`;
         }
         box.scrollTop = box.scrollHeight;
     }
+    
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'hi-IN';
+        window.speechSynthesis.speak(utter);
+    }
 </script>
-
-</body>
-</html>
