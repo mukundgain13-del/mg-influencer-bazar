@@ -81,6 +81,7 @@
         <h3>चैनल रजिस्टर करें</h3>
         <input type="text" id="chName" placeholder="चैनल का नाम">
         <input type="url" id="chLink" placeholder="यूट्यूब चैनल लिंक">
+        <input type="tel" id="whatsapp" placeholder="व्हाट्सएप नंबर (संपर्क के लिए)">
         <button onclick="sendData()" class="btn-main" style="background:var(--green);">सबमिट करें</button>
         <p onclick="location.reload()" style="cursor:pointer; color:blue; font-size:12px; margin-top:15px;">← वापस</p>
     </div>
@@ -88,7 +89,8 @@
 
 <script>
     let email = "";
-    const scriptURL = "https://script.google.com/macros/s/AKfycby5JLCZtHwwbEwYU2UO2fOAuFlUO3joOZJwL3nF4AIL3TlCkuSmzDlNBe8cXQyNU0TinQ/exec";
+    // आपकी नई Script URL यहाँ डाल दी गई है
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzcFoCywQy0EJNLiMVCij-79dPZAkmCWZGboIRTz3CWQFrvY42t1yxgggupQq5PdK9f-g/exec";
 
     function onLogin(res) {
         const d = JSON.parse(atob(res.credential.split('.')[1]));
@@ -143,30 +145,4 @@
                 if(item.plan === "Paid" || item.plan === "Active") {
                     paidList.innerHTML += html;
                 } else {
-                    freeList.innerHTML += html;
-                }
-            });
-        }).catch(err => { console.log("Error loading data"); });
-    }
-
-    function requestPremium() {
-        const tx = document.getElementById("txnId").value;
-        if(!tx) { alert("Transaction ID भरें"); return; }
-        window.open(`https://wa.me/919897414148?text=Hi मुकुंद सर, मैंने ₹199 पे कर दिए हैं। Txn ID: ${tx}`, '_blank');
-    }
-
-    function showRegForm() {
-        document.getElementById("main-ui").style.display = "none";
-        document.getElementById("registration-form").style.display = "block";
-    }
-
-    function sendData() {
-        const n = document.getElementById("chName").value, l = document.getElementById("chLink").value;
-        if(!n || !l) return;
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, channelName: n, channelLink: l, plan: "Free" }) })
-        .then(() => { alert("रजिस्टर हुआ!"); location.reload(); });
-    }
-</script>
-</body>
-</html>
-
+                    freeList.innerHTML +=
