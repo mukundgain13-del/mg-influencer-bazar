@@ -26,6 +26,9 @@
         }
         .ad-box { background: white; padding: 20px; border-radius: 20px; width: 320px; text-align: center; }
         #ad-timer { font-size: 45px; font-weight: bold; color: #ff4b2b; margin: 10px 0; }
+        
+        /* लॉगआउट बटन स्टाइल */
+        #logout-btn { display: none; background: #f1f1f1; border: 1px solid #ccc; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -45,9 +48,11 @@
     <h2 style="color:var(--primary); margin: 0 0 10px 0;">MG AI UPDATES 🚀</h2>
     
     <div id="login-box">
-        <div id="g_id_onload" data-client_id="450172090515-rb0rdcqvatbjl3glt8g1g8spm9307c41.apps.googleusercontent.com" data-callback="onLogin"></div>
+        <div id="g_id_onload" data-client_id="450172090515-avmfmats95bfbkgdp5baim9b3rjolgco.apps.googleusercontent.com" data-callback="onLogin"></div>
         <div class="g_id_signin" data-type="standard"></div>
     </div>
+    
+    <button id="logout-btn" onclick="logout()">Log Out</button>
 
     <div id="main-ui" style="display:none;">
         <div class="premium-box">
@@ -89,11 +94,17 @@
         const d = JSON.parse(atob(res.credential.split('.')[1]));
         email = d.email;
         
-        // 1. लॉगिन बॉक्स छुपाएं
+        // 1. लॉगिन बॉक्स छुपाएं और लॉगआउट दिखाएं
         document.getElementById("login-box").style.display = "none";
+        document.getElementById("logout-btn").style.display = "inline-block";
         
         // 2. विज्ञापन दिखाएं और टाइमर शुरू करें
         showLoginAd();
+    }
+
+    function logout() {
+        google.accounts.id.disableAutoSelect();
+        location.reload();
     }
 
     function showLoginAd() {
@@ -158,3 +169,4 @@
 </script>
 </body>
 </html>
+
