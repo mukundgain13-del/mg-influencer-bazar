@@ -15,12 +15,11 @@
         .footer { background: white; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
         input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; font-size: 16px; }
         .btn { background: #3b82f6; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .error { color: #d93025; background: #fce8e6; border: 1px solid #f5c2c7; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<header>🤖 Mg AI Updates Assistant</header>
+<header>🤖 Mg AI Assistant</header>
 
 <div id="chat-box">
     <div class="msg ai">नमस्ते मुकुंद! मैं एक्टिवेट हो गया हूँ। अब आप मुझसे कुछ भी पूछ सकते हैं।</div>
@@ -33,8 +32,11 @@
 </div>
 
 <script>
-    // यह आपकी फाइनल API Key है
-    const API_KEY = "AIzaSyCSsr_VjHXkGQGCF3z4uyOZrJrn8FI34bI"; 
+    // आपकी एन्कोडेड चाबी जिसे आपने जेनरेट किया है
+    const encodedKey = "QUl6YVN5QUZxa3VLQW8wMkVYQTVNSWE1Y2l0ODRJQkdJT3drSFIw"; 
+
+    // डिकोडिंग फंक्शन
+    const getSecretKey = () => atob(encodedKey);
 
     function speak(text) {
         window.speechSynthesis.cancel();
@@ -45,7 +47,10 @@
 
     function startVoice() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) return alert("Browser supports issue");
+        if (!SpeechRecognition) {
+            alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।");
+            return;
+        }
         const rec = new SpeechRecognition();
         rec.lang = 'hi-IN';
         rec.onresult = (e) => {
@@ -59,6 +64,7 @@
         const input = document.getElementById('userInput');
         const box = document.getElementById('chat-box');
         const text = input.value.trim();
+        
         if (!text) return;
 
         box.innerHTML += `<div class="msg user">${text}</div>`;
@@ -66,7 +72,7 @@
         box.scrollTop = box.scrollHeight;
 
         try {
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${getSecretKey()}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
@@ -79,14 +85,14 @@
                 box.innerHTML += `<div class="msg ai">${reply}</div>`;
                 speak(reply);
             } else {
-                // अगर API Key में दिक्कत है तो यहाँ पता चलेगा
-                box.innerHTML += `<div class="msg ai error">API Key Error: कृपया अपनी Google AI Studio की सेटिंग्स चेक करें।</div>`;
+                box.innerHTML += `<div class="msg ai" style="color:red;">मुकुंद, गूगल की तरफ से कोई जवाब नहीं मिला।</div>`;
             }
         } catch (e) {
-            box.innerHTML += `<div class="msg ai error">सर्वर कनेक्ट नहीं हो पा रहा है।</div>`;
+            box.innerHTML += `<div class="msg ai" style="color:red;">कनेक्शन फेल। कृपया इंटरनेट चेक करें।</div>`;
         }
         box.scrollTop = box.scrollHeight;
     }
 </script>
+
 </body>
 </html>
