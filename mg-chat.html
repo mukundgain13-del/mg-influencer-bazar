@@ -1,60 +1,56 @@
-<script>
-    // आपकी ताज़ा नई चाबी का Base64 कोड
-    const encodedKey = "QUl6YVN5QUZxa3VLQW8wMkVYQTVNSWE1Y2l0ODRJQkdJT3drSFIw"; 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG AI Assistant</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; margin: 0; padding: 20px; text-align: center; }
+        #chat-window { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
 
-    const getSecretKey = () => {
-        try {
-            return atob(encodedKey.trim());
-        } catch(e) {
-            return "ERROR";
-        }
-    };
+<div id="chat-window">
+    <h3>MG AI Assistant</h3>
+    <input type="text" id="userInput" placeholder="मुकुंद, यहाँ पूछें...">
+    <button onclick="askAI()">पूछें</button>
+    <p id="response" style="margin-top:20px; color:#333;"></p>
+</div>
+
+<script>
+    const encodedKey = "QUl6YVN5QUZxa3VLQW8wMkVYQTVNSWE1Y2l0ODRJQkdJT3drSFIw";
 
     async function askAI() {
-        const input = document.getElementById('userInput');
-        const box = document.getElementById('chat-box');
-        const text = input.value.trim();
-        if (!text) return;
-
-        box.innerHTML += `<div class="msg user">${text}</div>`;
-        input.value = "";
-        box.scrollTop = box.scrollHeight;
-
-        const apiKey = getSecretKey();
-        if(apiKey === "ERROR") {
-            box.innerHTML += `<div class="msg ai" style="color:red;">Error: Base64 कोड सही नहीं है।</div>`;
-            return;
-        }
+        const input = document.getElementById('userInput').value;
+        const resp = document.getElementById('response');
+        resp.innerText = "सोच रहा हूँ...";
 
         try {
+            const apiKey = atob(encodedKey);
             const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
+                body: JSON.stringify({ contents: [{ parts: [{ text: input }] }] })
             });
 
             const data = await res.json();
-            
-            if (data.error) {
-                // यह बताएगा कि असली दिक्कत क्या है (जैसे: API Key Invalid या Blocked)
-                box.innerHTML += `<div class="msg ai" style="color:red;">Google Error: ${data.error.message}</div>`;
-            } else if (data.candidates && data.candidates[0].content) {
-                const reply = data.candidates[0].content.parts[0].text;
-                box.innerHTML += `<div class="msg ai">${reply}</div>`;
-                speak(reply);
+            if (data.candidates) {
+                const text = data.candidates[0].content.parts[0].text;
+                resp.innerText = text;
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.lang = 'hi-IN';
+                window.speechSynthesis.speak(speech);
             } else {
-                box.innerHTML += `<div class="msg ai" style="color:red;">कोई जवाब नहीं मिला।</div>`;
+                resp.innerText = "गलती: गूगल ने जवाब नहीं दिया।";
             }
         } catch (e) {
-            box.innerHTML += `<div class="msg ai" style="color:red;">कनेक्शन फेल। इंटरनेट चेक करें।</div>`;
+            resp.innerText = "कनेक्शन में दिक्कत है।";
         }
-        box.scrollTop = box.scrollHeight;
-    }
-    
-    function speak(text) {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'hi-IN';
-        window.speechSynthesis.speak(utter);
     }
 </script>
+
+</body>
+</html>
