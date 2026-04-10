@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG AI जादुई चैट</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #1a1a1a; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: Arial, sans-serif; text-align: center; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid red; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { margin: 0; padding: 0; background-color: #1a1a1a; font-family: Arial, sans-serif; color: white; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100vh; }
+        .loading-text { color: red; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div>
-        <div class="loader"></div>
-        <h2>MG AI जादू शुरू हो रहा है...</h2>
-        <p>मुकुंद भाई का AI आपका स्वागत करता है</p>
+    <div id="status">
+        <h2 class="loading-text">MG AI जादू चालू है...</h2>
+        <p>नीचे दिए लाल गोले पर क्लिक करके चैट शुरू करें</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
@@ -25,8 +23,13 @@
             mainColor: '#ff0000',
             bubbleBackground: '#ff0000',
             aboutText: 'मुकुंद गेन स्पेशल',
-            introMessage: "नमस्ते मुकुंद भाई के दोस्त! मैं तैयार हूँ। आपको कौन से सीरियल की स्क्रिप्ट चाहिए? (नागिन, पति ब्रह्मचारी या कुछ और?)"
+            introMessage: "नमस्ते! मैं मुकुंद भाई का AI हूँ। ✨\n\n🎁 **ऑफर:** आप 2 दिन तक मुझसे फ्री में नागिन या किसी भी सीरियल की स्क्रिप्ट लिखवा सकते हैं!\n\nक्या आप स्क्रिप्ट लिखना चाहते हैं या हमारे प्रीमियम प्लान (₹69 से शुरू) के बारे में जानना चाहते हैं?"
         };
+
+        // जब यूजर 'प्रीमियम' या 'पैसे' की बात करे, तो यह मैसेज दिखेगा
+        window.addEventListener('message', function(event) {
+            // नोट: यह हिस्सा पीछे सर्वर से मैनेज होगा, यहाँ बस सेटअप है
+        });
     </script>
 
 </body>
