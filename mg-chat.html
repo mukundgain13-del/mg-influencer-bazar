@@ -3,54 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG AI Assistant</title>
+    <title>MG AI जादुई चैट</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; margin: 0; padding: 20px; text-align: center; }
-        #chat-window { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #1a1a1a; /* डार्क बैकग्राउंड */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .loading { text-align: center; }
     </style>
 </head>
 <body>
 
-<div id="chat-window">
-    <h3>MG AI Assistant</h3>
-    <input type="text" id="userInput" placeholder="मुकुंद, यहाँ पूछें...">
-    <button onclick="askAI()">पूछें</button>
-    <p id="response" style="margin-top:20px; color:#333;"></p>
-</div>
+    <div class="loading">
+        <h2>MG AI जादू शुरू हो रहा है...</h2>
+        <p>कृपया एक सेकंड रुकें</p>
+    </div>
 
-<script>
-    const encodedKey = "QUl6YVN5QUZxa3VLQW8wMkVYQTVNSWE1Y2l0ODRJQkdJT3drSFIw";
+    <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/a86f1e6b-6789-4d6d-92d5-456789abcdef/webchat/config.js"></script>
 
-    async function askAI() {
-        const input = document.getElementById('userInput').value;
-        const resp = document.getElementById('response');
-        resp.innerText = "सोच रहा हूँ...";
-
-        try {
-            const apiKey = atob(encodedKey);
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: input }] }] })
-            });
-
-            const data = await res.json();
-            if (data.candidates) {
-                const text = data.candidates[0].content.parts[0].text;
-                resp.innerText = text;
-                const speech = new SpeechSynthesisUtterance(text);
-                speech.lang = 'hi-IN';
-                window.speechSynthesis.speak(speech);
-            } else {
-                resp.innerText = "गलती: गूगल ने जवाब नहीं दिया।";
-            }
-        } catch (e) {
-            resp.innerText = "कनेक्शन में दिक्कत है।";
-        }
-    }
-</script>
+    <script>
+        // यह पेज खुलते ही चैट बॉक्स को अपने आप बड़ा (Open) कर देगा
+        window.botpressWebChat.onEvent(function () {
+            window.botpressWebChat.sendEvent({ type: 'show' });
+            window.botpressWebChat.sendEvent({ type: 'open' });
+        }, ['LIFECYCLE.LOADED']);
+    </script>
 
 </body>
 </html>
