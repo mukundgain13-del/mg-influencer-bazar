@@ -5,36 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG AI जादुई चैट</title>
     <style>
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background-color: #1a1a1a; /* डार्क बैकग्राउंड */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        .loading { text-align: center; }
+        body { margin: 0; padding: 0; background-color: #1a1a1a; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: Arial, sans-serif; text-align: center; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid red; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="loading">
+    <div>
+        <div class="loader"></div>
         <h2>MG AI जादू शुरू हो रहा है...</h2>
-        <p>कृपया एक सेकंड रुकें</p>
+        <p>मुकुंद भाई का AI आपका स्वागत करता है</p>
     </div>
 
-    <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
-    <script src="https://mediafiles.botpress.cloud/a86f1e6b-6789-4d6d-92d5-456789abcdef/webchat/config.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
     <script>
-        // यह पेज खुलते ही चैट बॉक्स को अपने आप बड़ा (Open) कर देगा
-        window.botpressWebChat.onEvent(function () {
-            window.botpressWebChat.sendEvent({ type: 'show' });
-            window.botpressWebChat.sendEvent({ type: 'open' });
-        }, ['LIFECYCLE.LOADED']);
+        var botmanWidget = {
+            title: 'MG AI असिस्टेंट',
+            mainColor: '#ff0000',
+            bubbleBackground: '#ff0000',
+            aboutText: 'मुकुंद गेन स्पेशल',
+            introMessage: "नमस्ते मुकुंद भाई के दोस्त! मैं तैयार हूँ। आपको कौन से सीरियल की स्क्रिप्ट चाहिए? (नागिन, पति ब्रह्मचारी या कुछ और?)"
+        };
     </script>
 
 </body>
