@@ -5,32 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG AI जादुई चैट</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #1a1a1a; font-family: Arial, sans-serif; color: white; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100vh; }
-        .loading-text { color: red; font-weight: bold; }
+        body { margin: 0; padding: 0; background-color: #1a1a1a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: white; display: flex; flex-direction: column; height: 100vh; }
+        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .message { max-width: 80%; padding: 10px 15px; border-radius: 15px; margin-bottom: 5px; line-height: 1.4; }
+        .user-message { align-self: flex-end; background-color: #ff0000; color: white; }
+        .ai-message { align-self: flex-start; background-color: #333; color: white; border: 1px solid #444; }
+        #input-area { padding: 15px; background: #222; display: flex; gap: 10px; border-top: 2px solid red; }
+        input { flex: 1; padding: 12px; border-radius: 25px; border: none; outline: none; font-size: 16px; }
+        button { background: red; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        .header { background: red; padding: 15px; text-align: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
-    <div id="status">
-        <h2 class="loading-text">MG AI जादू चालू है...</h2>
-        <p>नीचे दिए लाल गोले पर क्लिक करके चैट शुरू करें</p>
-    </div>
+<div class="header">🪄 MG AI जादुई असिस्टेंट</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
-    <script>
-        var botmanWidget = {
-            title: 'MG AI असिस्टेंट',
-            mainColor: '#ff0000',
-            bubbleBackground: '#ff0000',
-            aboutText: 'मुकुंद गेन स्पेशल',
-            introMessage: "नमस्ते! मैं मुकुंद भाई का AI हूँ। ✨\n\n🎁 **ऑफर:** आप 2 दिन तक मुझसे फ्री में नागिन या किसी भी सीरियल की स्क्रिप्ट लिखवा सकते हैं!\n\nक्या आप स्क्रिप्ट लिखना चाहते हैं या हमारे प्रीमियम प्लान (₹69 से शुरू) के बारे में जानना चाहते हैं?"
-        };
+<div id="chat-container">
+    <div class="message ai-message">नमस्ते मुकुंद भाई के दोस्त! मैं तैयार हूँ। ✨<br><br>🎁 2 दिन फ्री ट्रायल चालू है! नागिन या किसी भी सीरियल की स्क्रिप्ट के लिए लिखें।<br><br>प्रीमियम प्लान के लिए <b>'Plan'</b> लिखें।</div>
+</div>
 
-        // जब यूजर 'प्रीमियम' या 'पैसे' की बात करे, तो यह मैसेज दिखेगा
-        window.addEventListener('message', function(event) {
-            // नोट: यह हिस्सा पीछे सर्वर से मैनेज होगा, यहाँ बस सेटअप है
-        });
-    </script>
+<div id="input-area">
+    <input type="text" id="user-input" placeholder="यहाँ लिखें (जैसे: नागिन स्क्रिप्ट)...">
+    <button onclick="sendMessage()">भेजें</button>
+</div>
+
+<script>
+    const apiKey = "AIzaSyAFqkuKAo02EXA5MIa5cit84IBGIOwkHR0"; // आपकी जादुई चाबी
+
+    async function sendMessage() {
+        const inputField = document.getElementById('user-input');
+        const chatContainer = document.getElementById('chat-container');
+        const userText = inputField.value.trim();
+
+        if (!userText) return;
+
+        // यूजर का मैसेज दिखाएं
+        appendMessage(userText, 'user-message');
+        inputField.value = '';
+
+        if (userText.toLowerCase().includes('plan') || userText.toLowerCase().includes('premium')) {
+            appendMessage("💎 **MG AI प्रीमियम प्लान:**\n\n🪄 ₹69 - 7 दिन का जादू\n🚀 ₹199 - 1 महीना सुपरहिट\n👑 ₹499 - पूरे साल की बादशाहत\n\n✅ **पेमेंट यहाँ करें:** 9897414148@ptaxis\nपेमेंट के बाद स्क्रीनशॉट भेजें!", 'ai-message');
+            return;
+        }
+
+        // AI से जवाब मांगें
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: "तुम मुकुंद गेन (Mukund Gain) के AI असिस्टेंट हो। यूजर को हिंदी में सीरियल की स्क्रिप्ट और AI वीडियो प्रॉम्प्ट बनाने में मदद करो। यूजर ने पूछा है: " + userText }] }] })
+            });
+
+            const data = await response.json();
+            const aiResponse = data.candidates[0].content.parts[0].text;
+            appendMessage(aiResponse, 'ai-message');
+        } catch (error) {
+            appendMessage("क्षमा करें मुकुंद भाई, अभी जादू काम नहीं कर रहा। कृपया इंटरनेट चेक करें।", 'ai-message');
+        }
+    }
+
+    function appendMessage(text, className) {
+        const chatContainer = document.getElementById('chat-container');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${className}`;
+        msgDiv.innerText = text;
+        chatContainer.appendChild(msgDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+</script>
 
 </body>
 </html>
