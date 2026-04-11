@@ -32,7 +32,7 @@
     <div class="header">🪄 MG AI स्टूडियो (Premium)</div>
 
     <div id="chat">
-        <div class="msg ai">नमस्ते मुकुंद भाई! अब सब ठीक है। कुछ लिखकर चेक करें।</div>
+        <div class="msg ai">नमस्ते मुकुंद भाई! अब आपका अपना MG AI स्टूडियो तैयार है। कुछ लिखकर चेक करें।</div>
     </div>
 
     <div id="input-area">
@@ -73,16 +73,23 @@
         box.scrollTop = box.scrollHeight;
 
         try {
-            const res = await fetch('https://mg-ai-engine.mukundgain.workers.dev', {
+            // हमने यहाँ लिंक बदल दिया है ताकि यह आपकी नई chat.js फाइल को इस्तेमाल करे
+            const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text })
             });
+            
             const data = await res.json();
-            const reply = data.candidates[0].content.parts[0].text;
-            box.innerHTML += `<div class="msg ai">${reply}</div>`;
+            
+            if (data && data.candidates) {
+                const reply = data.candidates[0].content.parts[0].text;
+                box.innerHTML += `<div class="msg ai">${reply}</div>`;
+            } else {
+                box.innerHTML += `<div class="msg ai">गूगल से जवाब नहीं मिला। एक बार अपनी API Key चेक करें।</div>`;
+            }
         } catch (e) {
-            box.innerHTML += `<div class="msg ai">नेटवर्क एरर! रिफ्रेश करें।</div>`;
+            box.innerHTML += `<div class="msg ai">सर्वर से संपर्क नहीं हो पाया। कृपया रिफ्रेश करें।</div>`;
         }
         box.scrollTop = box.scrollHeight;
     }
