@@ -1,32 +1,28 @@
-async function sendMsg() {
-    const input = document.getElementById('msg-input');
-    const box = document.getElementById('chat');
-    const text = input.value.trim();
-    if(!text) return;
+export default async function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    box.innerHTML += `<div class="msg user">${text}</div>`;
-    input.value = "";
-    box.scrollTop = box.scrollHeight;
+    if (req.method === 'OPTIONS') return res.status(200).end();
 
-    try {
-        // यहाँ ध्यान दें: अब हम सीधा अपने बनाए हुए 'chat.js' वाले रास्ते पर जा रहे हैं
-        const res = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text })
-        });
-        
-        const data = await res.json();
-        
-        if(data && data.candidates) {
-            const reply = data.candidates[0].content.parts[0].text;
-            box.innerHTML += `<div class="msg ai">${reply}</div>`;
-        } else {
-            box.innerHTML += `<div class="msg ai">मुकुंद भाई, गूगल की तरफ से कोई जवाब नहीं आया।</div>`;
+    if (req.method === 'POST') {
+        try {
+            const { message } = req.body;
+            // यह आपके Vercel से चाबी उठाएगा
+            const apiKey = process.env.GEMINI_API_KEY; 
+
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: "You are MG AI Studio, help with YouTube: " + message }] }]
+                })
+            });
+
+            const data = await response.json();
+            return res.status(200).json(data);
+        } catch (error) {
+            return res.status(500).json({ error: "Server Error" });
         }
-    } catch (e) {
-        // अगर यहाँ एरर आता है, तो मतलब सर्वर फाइल तक नहीं पहुँच पा रहा
-        box.innerHTML += `<div class="msg ai">सर्वर से संपर्क नहीं हो पा रहा है।</div>`;
     }
-    box.scrollTop = box.scrollHeight;
 }
