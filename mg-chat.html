@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG AI स्टूडियो</title>
+    <title>MG AI Studio</title>
     <style>
         body { margin: 0; background: #121212; color: white; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; }
         .header { background: #ff0000; padding: 15px; text-align: center; font-weight: bold; border-bottom: 2px solid gold; }
@@ -20,24 +20,24 @@
 <body>
 
     <div id="lock-screen">
-        <h2 style="color: gold;">⌛ ट्रायल खत्म!</h2>
-        <p>प्रीमियम एक्सेस के लिए ₹199 पे करें</p>
+        <h2 style="color: gold;">Trial Ended</h2>
+        <p>Pay ₹199 for Premium Access</p>
         <p><b>UPI:</b> 9897414148@ptaxis</p>
-        <a href="https://wa.me/919897414148" style="color: #25d366; text-decoration: none; font-weight: bold;">व्हाट्सएप करें</a>
+        <a href="https://wa.me/919897414148" style="color: #25d366; text-decoration: none; font-weight: bold;">WhatsApp Us</a>
         <br><br>
-        <input type="text" id="pass-input" placeholder="पासवर्ड डालें" style="width: 150px;">
-        <button onclick="unlock()">अनलॉक</button>
+        <input type="text" id="pass-input" placeholder="Password">
+        <button onclick="unlock()">Unlock</button>
     </div>
 
-    <div class="header">🪄 MG AI स्टूडियो (Premium)</div>
+    <div class="header">🪄 MG AI Studio (Premium)</div>
 
     <div id="chat">
-        <div class="msg ai">नमस्ते मुकुंद भाई! आपका अपना AI स्टूडियो अब पूरी तरह सुरक्षित और तैयार है। कुछ पूछिए!</div>
+        <div class="msg ai">Hello! MG AI Studio is ready. How can I help you?</div>
     </div>
 
     <div id="input-area">
-        <input type="text" id="msg-input" placeholder="यहाँ लिखें...">
-        <button onclick="sendMsg()">भेजें</button>
+        <input type="text" id="msg-input" placeholder="Type here...">
+        <button onclick="sendMsg()">Send</button>
     </div>
 
 <script>
@@ -59,7 +59,7 @@
         if (document.getElementById('pass-input').value === SECRET_PASS) {
             localStorage.setItem('mg_premium', 'true');
             location.reload();
-        } else { alert("गलत पासवर्ड!"); }
+        } else { alert("Wrong Password!"); }
     }
 
     async function sendMsg() {
@@ -73,7 +73,6 @@
         box.scrollTop = box.scrollHeight;
 
         try {
-            // हमने यहाँ सिर्फ '/api' रखा है क्योंकि आपकी फाइल api/index.js है
             const res = await fetch('/api', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -82,14 +81,14 @@
             
             const data = await res.json();
             
-            if (data && data.candidates) {
+            if (data && data.candidates && data.candidates[0].content) {
                 const reply = data.candidates[0].content.parts[0].text;
                 box.innerHTML += `<div class="msg ai">${reply}</div>`;
             } else {
-                box.innerHTML += `<div class="msg ai">मुकुंद भाई, चाबी (Key) में कोई दिक्कत लग रही है। एक बार Vercel Settings चेक करें।</div>`;
+                box.innerHTML += `<div class="msg ai">Error: Check API Settings in Vercel.</div>`;
             }
         } catch (e) {
-            box.innerHTML += `<div class="msg ai">सर्वर कनेक्ट नहीं हो पाया। कृपया 1 मिनट बाद ट्राई करें।</div>`;
+            box.innerHTML += `<div class="msg ai">Connection Error. Please try again.</div>`;
         }
         box.scrollTop = box.scrollHeight;
     }
