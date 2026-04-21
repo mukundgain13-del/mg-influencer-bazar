@@ -22,7 +22,7 @@
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         
-        .menu-btn { font-size: 26px; cursor: pointer; color: #000; flex: 1; display: flex; justify-content: flex-start; }
+        .menu-btn { font-size: 26px; cursor: pointer; color: #000; flex: 1; text-align: left; }
         
         .logo-section { flex: 2; display: flex; flex-direction: column; align-items: center; }
         .logo-circle {
@@ -31,20 +31,20 @@
             border: 2px solid #555; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .logo-text { color: #fff; font-size: 24px; font-weight: 900; }
-        .brand-subtext { font-size: 11px; font-weight: bold; color: #000; margin-top: 4px; letter-spacing: 0.5px; text-align: center; }
+        .brand-subtext { font-size: 11px; font-weight: bold; color: #000; margin-top: 4px; letter-spacing: 0.5px; }
         
+        /* शेयर बटन एकदम कोने में */
         .share-section { flex: 1; display: flex; justify-content: flex-end; }
         .share-btn { 
             background: none; border: none; cursor: pointer; color: #000;
-            display: flex; flex-direction: column; align-items: center; 
-            font-size: 10px; font-weight: 900;
+            display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold;
         }
-        .share-btn i { font-size: 24px; margin-bottom: 2px; }
+        .share-btn i { font-size: 24px; margin-bottom: 1px; }
 
         /* साइड मेन्यू */
         .side-menu {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-            background: #fff; z-index: 1002; transition: 0.3s; 
+            background: #fff; z-index: 1002; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             padding: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.3);
             overflow-y: auto;
         }
@@ -52,9 +52,10 @@
         .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; z-index: 1001; }
         
         .side-menu h3 { margin-top: 25px; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; font-size: 16px; color: #666; text-transform: uppercase; }
-        .side-menu a {
+        .side-menu a, .menu-link {
             display: flex; align-items: center; gap: 15px; padding: 12px;
             text-decoration: none; color: #444; font-weight: bold; border-radius: 10px; margin-bottom: 5px;
+            cursor: pointer; font-size: 15px;
         }
 
         /* ग्रिड */
@@ -67,6 +68,11 @@
         }
         .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: contain; padding: 12px; }
         .offer-tag { padding: 10px; font-size: 14px; font-weight: 900; color: #d32f2f; border-top: 1px solid #f5f5f5; text-align: center; }
+
+        /* मॉडल्स (Terms & Conditions Popup) */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+        .modal-content { background: #fff; margin: 15% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 500px; max-height: 70vh; overflow-y: auto; }
+        .close-modal { margin-top: 20px; width: 100%; padding: 12px; background: #000; color: #fff; border: none; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -92,20 +98,32 @@
         <a href="https://ajiio.in/9mZJ8qW" target="_blank"><i class="fas fa-tag" style="color:#002e62;"></i> Ajio</a>
         <a href="https://myntr.it/Dsj3Mb7" target="_blank"><i class="fas fa-tshirt" style="color:#ff3f6c;"></i> Myntra</a>
         
-        <h3>Social Channels</h3>
+        <h3>Channels</h3>
         <a href="https://www.youtube.com/@INDO148MG0.2" target="_blank"><i class="fab fa-youtube" style="color:#ff0000;"></i> YouTube</a>
         <a href="https://t.me/Indo148mg" target="_blank"><i class="fab fa-telegram-plane" style="color:#3399ff;"></i> Telegram</a>
+
+        <h3>Legal & Info</h3>
+        <div class="menu-link" onclick="openModal('terms')"><i class="fas fa-file-contract"></i> Terms & Conditions</div>
+        <div class="menu-link" onclick="openModal('privacy')"><i class="fas fa-shield-alt"></i> Privacy Policy</div>
+    </div>
+
+    <div id="legalModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="margin-top:0;"></h2>
+            <div id="modalBody" style="font-size:14px; line-height:1.6; color:#333;"></div>
+            <button class="close-modal" onclick="closeModal()">CLOSE</button>
+        </div>
     </div>
 
     <div class="main-content">
         <div id="content-area" class="product-grid">
-            <p style="text-align:center; width:100%;">ऑफर लोड हो रहे हैं...</p>
+            <p style="text-align:center; width:100%;">लोड हो रहा है...</p>
         </div>
         <p style="margin: 50px 0; font-size: 12px; opacity: 0.7; text-align: center;">© 2026 Managed by Mukund Gain</p>
     </div>
 
     <script>
-        const sheetURL = 'https://docs.google.com/spreadsheets/d/1xamm8tQ3mGRauAOPsTh5RhMheT6srYHD4wcmXfaQ_-A/gviz/tq?tqx=out:csv&sheet=Sheet2';
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSX5ObOqgMDaUBEx8OkAkUr-SmpA5ahW08c-Vjtcp6Rc7DN5pi-Zp0lb11jdMdvkGZAE8jUUpyu01sc/pub?gid=0&single=true&output=csv';
 
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
@@ -120,26 +138,41 @@
                 const data = await response.text();
                 const rows = data.split('\n').slice(1);
                 let html = '';
-                
                 rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if(cols.length >= 3) {
                         const img = cols[1].replace(/"/g, '').trim();
                         const offer = cols[2].replace(/"/g, '').trim();
                         const link = (cols[3] && cols[3].replace(/"/g, '').trim().length > 10) ? cols[3].replace(/"/g, '').trim() : '#';
-                        
                         if(img.startsWith('http')) {
                             html += `<a href="${link}" target="_blank" class="product-card"><img src="${img}"><div class="offer-tag">${offer}</div></a>`;
                         }
                     }
                 });
-                document.getElementById('content-area').innerHTML = html || '<p style="text-align:center; width:100%;">अभी कोई लाइव ऑफर नहीं है।</p>';
-            } catch (e) { 
-                document.getElementById('content-area').innerHTML = '<p style="text-align:center; width:100%;">नेटवर्क समस्या! कृपया रिफ्रेश करें।</p>';
-            }
+                document.getElementById('content-area').innerHTML = html || '<p style="text-align:center; width:100%;">शीट में डाटा चेक करें!</p>';
+            } catch (e) { document.getElementById('content-area').innerHTML = 'डाटा एरर!'; }
         }
 
+        const modalData = {
+            terms: {
+                title: "Terms & Conditions",
+                body: "<b>1. Affiliate Disclosure:</b> हम Amazon, Flipkart और अन्य स्टोर्स के पार्टनर हैं। लिंक से खरीदारी पर हमें कमीशन मिल सकता है।<br><br><b>2. Responsibility:</b> हम सामान नहीं बेचते। प्रोडक्ट की क्वालिटी और डिलीवरी की जिम्मेदारी स्टोर की होगी।"
+            },
+            privacy: {
+                title: "Privacy Policy",
+                body: "हम आपका कोई भी पर्सनल डाटा सेव नहीं करते। यह वेबसाइट पूरी तरह सुरक्षित है और केवल शॉपिंग डील्स दिखाने के लिए बनाई गई है।"
+            }
+        };
+
+        function openModal(type) {
+            document.getElementById('modalTitle').innerText = modalData[type].title;
+            document.getElementById('modalBody').innerHTML = modalData[type].body;
+            document.getElementById('legalModal').style.display = "block";
+            toggleMenu(); 
+        }
+        function closeModal() { document.getElementById('legalModal').style.display = "none"; }
         function webShare() { if (navigator.share) { navigator.share({ title: 'MG AI Updates', url: window.location.href }); } }
+
         loadDeals();
     </script>
 </body>
