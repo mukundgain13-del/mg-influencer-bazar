@@ -17,13 +17,15 @@
         /* टॉप हेडर */
         .top-nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 15px; background: rgba(255,255,255,0.2);
+            padding: 10px 10px; background: rgba(255,255,255,0.2);
             position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         
-        .menu-btn { font-size: 26px; cursor: pointer; color: #000; flex: 1; text-align: left; }
+        /* लेफ्ट साइड मेन्यू बटन */
+        .menu-btn { font-size: 26px; cursor: pointer; color: #000; flex: 1; display: flex; justify-content: flex-start; }
         
+        /* सेंटर लोगो */
         .logo-section { flex: 2; display: flex; flex-direction: column; align-items: center; }
         .logo-circle {
             width: 55px; height: 55px; background: #000; border-radius: 50%;
@@ -31,14 +33,16 @@
             border: 2px solid #555; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .logo-text { color: #fff; font-size: 24px; font-weight: 900; }
-        .brand-subtext { font-size: 11px; font-weight: bold; color: #000; margin-top: 4px; letter-spacing: 0.5px; }
+        .brand-subtext { font-size: 11px; font-weight: bold; color: #000; margin-top: 4px; letter-spacing: 0.5px; text-align: center; }
         
-        .share-section { flex: 1; text-align: right; }
+        /* राइट साइड शेयर बटन - बिल्कुल कोने में */
+        .share-section { flex: 1; display: flex; justify-content: flex-end; }
         .share-btn { 
             background: none; border: none; cursor: pointer; color: #000;
-            display: flex; flex-direction: column; align-items: flex-end; font-size: 11px; font-weight: bold;
+            display: flex; flex-direction: column; align-items: center; 
+            font-size: 10px; font-weight: 900; padding: 0; margin: 0;
         }
-        .share-btn i { font-size: 22px; margin-bottom: 2px; }
+        .share-btn i { font-size: 24px; margin-bottom: 2px; }
 
         /* साइड मेन्यू */
         .side-menu {
@@ -56,7 +60,6 @@
             text-decoration: none; color: #444; font-weight: bold; border-radius: 10px; margin-bottom: 5px;
             cursor: pointer; font-size: 15px;
         }
-        .side-menu a:active, .menu-link:active { background: #f0f0f0; }
 
         /* ग्रिड */
         .main-content { padding: 15px; max-width: 600px; margin: 0 auto; }
@@ -64,14 +67,14 @@
         .product-card {
             background: #fff; border-radius: 15px; overflow: hidden;
             text-decoration: none; color: #000; box-shadow: 0 5px 12px rgba(0,0,0,0.15);
-            display: flex; flex-direction: column; transition: 0.2s;
+            display: flex; flex-direction: column;
         }
         .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: contain; padding: 12px; }
         .offer-tag { padding: 10px; font-size: 14px; font-weight: 900; color: #d32f2f; border-top: 1px solid #f5f5f5; text-align: center; }
 
         /* मॉडल्स */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: #fff; margin: 15% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 500px; max-height: 70vh; overflow-y: auto; text-align: left; }
+        .modal-content { background: #fff; margin: 15% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 500px; }
     </style>
 </head>
 <body>
@@ -83,7 +86,7 @@
             <div class="brand-subtext">MG AI UPDATES</div>
         </div>
         <div class="share-section">
-            <button class="share-btn" onclick="webShare()"><i class="fas fa-share-alt"></i><span>SHARE SITE</span></button>
+            <button class="share-btn" onclick="webShare()"><i class="fas fa-share-alt"></i><span>SHARE</span></button>
         </div>
     </div>
 
@@ -94,16 +97,20 @@
         <h3>Shopping Stores</h3>
         <a href="https://www.amazon.in/?&tag=mukund148-21" target="_blank"><i class="fab fa-amazon" style="color:#ff9900;"></i> Amazon</a>
         <a href="https://fktr.in/8obn5pq" target="_blank"><i class="fas fa-shopping-cart" style="color:#2874f0;"></i> Flipkart</a>
-        <a href="https://ajiio.in/9mZJ8qW" target="_blank"><i class="fas fa-tag" style="color:#002e62;"></i> Ajio</a>
-        <a href="https://myntr.it/Dsj3Mb7" target="_blank"><i class="fas fa-tshirt" style="color:#ff3f6c;"></i> Myntra</a>
         
         <h3>Social Channels</h3>
         <a href="https://www.youtube.com/@INDO148MG0.2" target="_blank"><i class="fab fa-youtube" style="color:#ff0000;"></i> YouTube</a>
         <a href="https://t.me/Indo148mg" target="_blank"><i class="fab fa-telegram-plane" style="color:#3399ff;"></i> Telegram</a>
 
         <h3>Legal & Help</h3>
-        <div class="menu-link" onclick="openModal('terms')"><i class="fas fa-file-contract"></i> Terms & Conditions</div>
-        <div class="menu-link" onclick="openModal('privacy')"><i class="fas fa-shield-alt"></i> Privacy Policy</div>
+        <div class="menu-link" onclick="openModal('terms')"><i class="fas fa-file-contract"></i> Terms</div>
+        <div class="menu-link" onclick="openModal('privacy')"><i class="fas fa-shield-alt"></i> Privacy</div>
+    </div>
+
+    <div class="main-content">
+        <div id="content-area" class="product-grid">
+            </div>
+        <p style="margin: 50px 0; font-size: 12px; opacity: 0.7; text-align: center;">© 2026 Managed by Mukund Gain</p>
     </div>
 
     <div id="legalModal" class="modal">
@@ -114,15 +121,8 @@
         </div>
     </div>
 
-    <div class="main-content">
-        <div id="content-area" class="product-grid"></div>
-        <p style="margin: 50px 0; font-size: 12px; opacity: 0.7; text-align: center;">© 2026 Managed by Mukund Gain</p>
-    </div>
-
     <script>
-        // आपकी शीट का CSV लिंक यहाँ सेट कर दिया है
         const sheetURL = 'https://docs.google.com/spreadsheets/d/1xamm8tQ3mGRauAOPsTh5RhMheT6srYHD4wcmXfaQ_-A/gviz/tq?tqx=out:csv&sheet=Sheet2';
-        const defaultLinks = { 'AMAZON': 'https://www.amazon.in/?&tag=mukund148-21', 'FLIPKART': 'https://fktr.in/8obn5pq', 'AJIO': 'https://ajiio.in/9mZJ8qW', 'MYNTRA': 'https://myntr.it/Dsj3Mb7' };
 
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
@@ -135,34 +135,30 @@
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
-                // CSV को पंक्तियों में तोड़ना और पहली पंक्ति (Header) को हटाना
                 const rows = data.split('\n').slice(1);
                 let html = '';
                 
                 rows.forEach(row => {
-                    // CSV को कॉलम में बांटना
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if(cols.length >= 3) {
-                        const brand = cols[0].replace(/"/g, '').trim().toUpperCase();
                         const img = cols[1].replace(/"/g, '').trim();
                         const offer = cols[2].replace(/"/g, '').trim();
-                        const link = (cols[3] && cols[3].replace(/"/g, '').trim().length > 10) ? cols[3].replace(/"/g, '').trim() : (defaultLinks[brand] || '#');
+                        const link = (cols[3] && cols[3].replace(/"/g, '').trim().length > 10) ? cols[3].replace(/"/g, '').trim() : '#';
                         
                         if(img.length > 5) {
                             html += `<a href="${link}" target="_blank" class="product-card"><img src="${img}"><div class="offer-tag">${offer}</div></a>`;
                         }
                     }
                 });
-                document.getElementById('content-area').innerHTML = html || '<p style="text-align:center; width:100%;">अभी कोई ऑफर उपलब्ध नहीं है।</p>';
+                document.getElementById('content-area').innerHTML = html || '<p style="text-align:center; width:100%;">लोड हो रहा है... कृपया शीट में इमेज लिंक चेक करें।</p>';
             } catch (e) { 
-                console.error(e); 
-                document.getElementById('content-area').innerHTML = '<p style="text-align:center; width:100%;">डाटा लोड करने में समस्या आ रही है।</p>';
+                document.getElementById('content-area').innerHTML = '<p style="text-align:center; width:100%;">डाटा लोड करने में समस्या।</p>';
             }
         }
 
         const modalData = {
-            terms: { title: "Terms & Conditions", body: "<b>1. Affiliate Disclaimer:</b> हम Amazon/Flipkart के पार्टनर हैं। लिंक पर क्लिक करने से हमें छोटा कमीशन मिल सकता है।<br><b>2. Products:</b> हम सामान नहीं बेचते, केवल ऑफर दिखाते हैं। खरीदारी की जिम्मेदारी स्टोर की होगी।" },
-            privacy: { title: "Privacy Policy", body: "<b>1. Data:</b> हम आपका कोई पर्सनल डेटा स्टोर नहीं करते।<br><b>2. Safety:</b> हमारी वेबसाइट पूरी तरह सुरक्षित है और केवल विश्वसनीय स्टोर के लिंक देती है।" }
+            terms: { title: "Terms & Conditions", body: "हम Amazon/Flipkart के पार्टनर हैं। लिंक पर क्लिक करने से हमें कमीशन मिल सकता है।" },
+            privacy: { title: "Privacy Policy", body: "हम आपका कोई पर्सनल डेटा स्टोर नहीं करते। वेबसाइट सुरक्षित है।" }
         };
 
         function openModal(type) {
