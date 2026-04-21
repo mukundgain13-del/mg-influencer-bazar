@@ -3,85 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MG AI Updates</title>
+    <title>MG AI Updates - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; padding: 0; background: linear-gradient(to bottom, #ffcc33 0%, #33cccc 100%); font-family: 'Arial', sans-serif; min-height: 100vh; }
+        
+        /* टॉप हेडर */
         .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 10px; background: rgba(255,255,255,0.2); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .menu-btn { font-size: 26px; cursor: pointer; color: #000; flex: 1; text-align: left; }
+        .menu-btn { font-size: 26px; cursor: pointer; color: #000; flex: 1; }
         .logo-section { flex: 2; display: flex; flex-direction: column; align-items: center; }
-        .logo-circle { width: 55px; height: 55px; background: #000; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid #555; }
-        .logo-text { color: #fff; font-size: 24px; font-weight: 900; }
-        .brand-subtext { font-size: 11px; font-weight: bold; color: #000; margin-top: 4px; }
-        .share-section { flex: 1; display: flex; justify-content: flex-end; }
-        .share-btn { background: none; border: none; cursor: pointer; color: #000; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; }
-        .share-btn i { font-size: 24px; }
-        .side-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #fff; z-index: 1002; transition: 0.3s; padding: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.3); overflow-y: auto; }
+        .logo-circle { width: 50px; height: 50px; background: #000; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid #555; }
+        .logo-text { color: #fff; font-size: 20px; font-weight: 900; }
+        .brand-subtext { font-size: 10px; font-weight: bold; color: #000; margin-top: 4px; }
+        .share-btn { background: none; border: none; cursor: pointer; color: #000; flex: 1; text-align: right; font-size: 22px; }
+
+        /* डैशबोर्ड ग्रिड */
+        .main-content { padding: 15px; max-width: 500px; margin: 0 auto; text-align: center; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        
+        .store-card { 
+            background: #fff; border-radius: 20px; padding: 20px 10px; 
+            text-decoration: none; color: #000; box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; align-items: center; transition: 0.3s;
+        }
+        .store-card:active { transform: scale(0.95); }
+        .store-card i { font-size: 40px; margin-bottom: 10px; }
+        .store-name { font-weight: 900; font-size: 16px; margin-bottom: 5px; }
+        .store-offer { font-size: 12px; font-weight: bold; color: #d32f2f; background: #ffebee; padding: 2px 8px; border-radius: 10px; }
+
+        /* सोशल बटन */
+        .social-section { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .social-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 15px; border-radius: 15px; text-decoration: none; color: #fff; font-weight: bold; font-size: 18px; box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .yt-btn { background: #ff0000; }
+        .tg-btn { background: #0088cc; }
+
+        /* साइड मेन्यू */
+        .side-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #fff; z-index: 1002; transition: 0.3s; padding: 20px; }
         .side-menu.active { left: 0; }
         .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; z-index: 1001; }
-        .side-menu a, .menu-link { display: flex; align-items: center; gap: 15px; padding: 12px; text-decoration: none; color: #444; font-weight: bold; border-radius: 10px; cursor: pointer; }
-        .main-content { padding: 15px; max-width: 600px; margin: 0 auto; }
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .product-card { background: #fff; border-radius: 15px; overflow: hidden; text-decoration: none; color: #000; box-shadow: 0 5px 12px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
-        .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: contain; padding: 12px; }
-        .offer-tag { padding: 10px; font-size: 14px; font-weight: 900; color: #d32f2f; border-top: 1px solid #f5f5f5; text-align: center; }
+        .menu-link { display: flex; align-items: center; gap: 15px; padding: 15px; text-decoration: none; color: #444; font-weight: bold; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+
+        /* पॉपअप */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: #fff; margin: 15% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 500px; }
-        .close-modal { margin-top: 20px; width: 100%; padding: 12px; background: #000; color: #fff; border: none; border-radius: 8px; }
+        .modal-content { background: #fff; margin: 20% auto; padding: 20px; border-radius: 15px; width: 85%; max-width: 400px; text-align: center; }
     </style>
 </head>
 <body>
+
     <div class="top-nav">
         <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div class="logo-section"><div class="logo-circle"><div class="logo-text">MG</div></div><div class="brand-subtext">MG AI UPDATES</div></div>
-        <div class="share-section"><button class="share-btn" onclick="webShare()"><i class="fas fa-share-alt"></i><span>SHARE</span></button></div>
+        <div class="logo-section">
+            <div class="logo-circle"><div class="logo-text">MG</div></div>
+            <div class="brand-subtext">MG AI UPDATES</div>
+        </div>
+        <button class="share-btn" onclick="webShare()"><i class="fas fa-share-alt"></i></button>
     </div>
+
     <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
     <div class="side-menu" id="sideMenu">
-        <div style="text-align:right; font-size:24px; cursor:pointer;" onclick="toggleMenu()">&times;</div>
-        <h3>Shopping Stores</h3>
-        <a href="https://www.amazon.in/?&tag=mukund148-21" target="_blank"><i class="fab fa-amazon" style="color:#ff9900;"></i> Amazon</a>
-        <a href="https://fktr.in/8obn5pq" target="_blank"><i class="fas fa-shopping-cart" style="color:#2874f0;"></i> Flipkart</a>
-        <a href="https://ajiio.in/9mZJ8qW" target="_blank"><i class="fas fa-tag" style="color:#002e62;"></i> Ajio</a>
-        <a href="https://myntr.it/Dsj3Mb7" target="_blank"><i class="fas fa-tshirt" style="color:#ff3f6c;"></i> Myntra</a>
-        <h3>Legal & Info</h3>
-        <div class="menu-link" onclick="openModal('terms')"><i class="fas fa-file-contract"></i> Terms & Conditions</div>
-        <div class="menu-link" onclick="openModal('privacy')"><i class="fas fa-shield-alt"></i> Privacy Policy</div>
+        <div style="text-align:right; font-size:24px;" onclick="toggleMenu()">&times;</div>
+        <div class="menu-link" onclick="openModal()"><i class="fas fa-file-contract"></i> Terms & Conditions</div>
+        <a href="https://www.youtube.com/@INDO148MG0.2" class="menu-link"><i class="fab fa-youtube"></i> My YouTube</a>
     </div>
-    <div id="legalModal" class="modal"><div class="modal-content"><h2 id="modalTitle"></h2><div id="modalBody"></div><button class="close-modal" onclick="closeModal()">CLOSE</button></div></div>
-    <div class="main-content"><div id="content-area" class="product-grid"><p style="text-align:center; width:100%;">फोटो लोड हो रही है...</p></div></div>
+
+    <div class="main-content">
+        <h2 style="font-size: 18px; color: #000; margin-bottom: 15px;">Shop by Category & Store</h2>
+        
+        <div class="dashboard-grid">
+            <a href="https://www.amazon.in/?&tag=mukund148-21" class="store-card">
+                <i class="fab fa-amazon" style="color: #ff9900;"></i>
+                <div class="store-name">Amazon</div>
+                <div class="store-offer">Up to 80% OFF</div>
+            </a>
+            <a href="https://fktr.in/8obn5pq" class="store-card">
+                <i class="fas fa-shopping-bag" style="color: #2874f0;"></i>
+                <div class="store-name">Flipkart</div>
+                <div class="store-offer">Big Loot Deals</div>
+            </a>
+            <a href="https://ajiio.in/9mZJ8qW" class="store-card">
+                <i class="fas fa-tags" style="color: #002e62;"></i>
+                <div class="store-name">Ajio</div>
+                <div class="store-offer">Fashion Deals</div>
+            </a>
+            <a href="https://myntr.it/Dsj3Mb7" class="store-card">
+                <i class="fas fa-tshirt" style="color: #ff3f6c;"></i>
+                <div class="store-name">Myntra</div>
+                <div class="store-offer">Brand Offers</div>
+            </a>
+        </div>
+
+        <div class="social-section">
+            <a href="https://www.youtube.com/@INDO148MG0.2" class="social-btn yt-btn">
+                <i class="fab fa-youtube"></i> Subscribe YouTube
+            </a>
+            <a href="https://t.me/Indo148mg" class="social-btn tg-btn">
+                <i class="fab fa-telegram-plane"></i> Join Telegram
+            </a>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 11px; color: #000; font-weight: bold; opacity: 0.8;">
+            © 2026 Managed by Mukund Gain
+        </p>
+    </div>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <h3>Terms & Conditions</h3>
+            <p style="font-size: 13px; color: #444; line-height: 1.5;">हम अमेजॉन और फ्लिपकार्ट के एफिलिएट पार्टनर हैं। यहाँ दिए गए लिंक से खरीदारी करने पर हमें कुछ कमीशन मिल सकता है। प्रोडक्ट की क्वालिटी के लिए संबंधित स्टोर जिम्मेदार है।</p>
+            <button onclick="closeModal()" style="width:100%; padding:10px; background:#000; color:#fff; border:none; border-radius:8px; margin-top:10px;">OK, UNDERSTOOD</button>
+        </div>
+    </div>
 
     <script>
-        // यहाँ मैंने आपका पब्लिश लिंक पूरा डाल दिया है
-        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSX5ObOqgMDaUBEx8OkAkUr-SmpA5ahW08c-Vjtcp6Rc7DN5pi-Zp0lb11jdMdvkGZAE8jUUpyu01sc/pub?gid=0&single=true&output=csv';
-
-        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); document.getElementById('overlay').style.display = document.getElementById('sideMenu').classList.contains('active') ? 'block' : 'none'; }
-        async function loadDeals() {
-            try {
-                const response = await fetch(sheetURL);
-                const data = await response.text();
-                const rows = data.split('\n').slice(1);
-                let html = '';
-                rows.forEach(row => {
-                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if(cols.length >= 3) {
-                        const img = cols[1].replace(/"/g, '').trim();
-                        const offer = cols[2].replace(/"/g, '').trim();
-                        const link = (cols[3] && cols[3].length > 10) ? cols[3].replace(/"/g, '').trim() : '#';
-                        if(img.startsWith('http')) {
-                            html += `<a href="${link}" target="_blank" class="product-card"><img src="${img}"><div class="offer-tag">${offer}</div></a>`;
-                        }
-                    }
-                });
-                document.getElementById('content-area').innerHTML = html || 'शीट खाली है!';
-            } catch (e) { document.getElementById('content-area').innerHTML = 'लोडिंग एरर!'; }
+        function toggleMenu() { 
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('overlay');
+            menu.classList.toggle('active');
+            overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
         }
-        const modalData = { terms: { title: "Terms & Conditions", body: "हम अमेजॉन और फ्लिपकार्ट के पार्टनर हैं। लिंक से खरीदारी पर हमें कमीशन मिल सकता है।" }, privacy: { title: "Privacy Policy", body: "हम आपका कोई डेटा सेव नहीं करते।" } };
-        function openModal(t) { document.getElementById('modalTitle').innerText = modalData[t].title; document.getElementById('modalBody').innerHTML = modalData[t].body; document.getElementById('legalModal').style.display="block"; toggleMenu(); }
-        function closeModal() { document.getElementById('legalModal').style.display="none"; }
-        function webShare() { if (navigator.share) navigator.share({ title: 'MG AI Updates', url: window.location.href }); }
-        loadDeals();
+        function openModal() { document.getElementById('termsModal').style.display = "block"; toggleMenu(); }
+        function closeModal() { document.getElementById('termsModal').style.display = "none"; }
+        function webShare() { if (navigator.share) { navigator.share({ title: 'MG AI Updates', url: window.location.href }); } }
     </script>
 </body>
 </html>
